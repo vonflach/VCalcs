@@ -51,16 +51,16 @@ body {
 .cabecalho-conteudo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .cabecalho-conteudo .logo {
-  height: 32px;
-  width: 32px;
+  height: 60px;
+  width: 60px;
 }
 
 .cabecalho-conteudo h1 {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   font-weight: 600;
   letter-spacing: 0.3px;
 }
