@@ -1,0 +1,292 @@
+/* style.css
+   Visual "Sleek Interface": header grafite escuro, destaques em cyan,
+   cards brancos com borda superior cyan. */
+
+/* ---------- Reset básico ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --cor-grafite: #0d1117;
+  --cor-cyan: #0e7490;
+  --cor-cyan-claro: #22b8cf;
+  --cor-fundo: #f4f6f8;
+  --cor-card: #ffffff;
+  --cor-texto: #1a1a1a;
+  --cor-texto-secundario: #5a6470;
+  --sombra-card: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --sombra-card-hover: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Utilitário ---------- */
+.escondido {
+  display: none !important;
+}
+
+/* ---------- Header ---------- */
+.cabecalho {
+  background-color: var(--cor-grafite);
+  color: #ffffff;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.cabecalho-conteudo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cabecalho-conteudo .logo {
+  height: 32px;
+  width: 32px;
+}
+
+.cabecalho-conteudo h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.cabecalho-acoes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-info {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-info:hover {
+  background-color: #ffffff;
+  color: var(--cor-grafite);
+}
+
+.btn-voltar {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-voltar:hover {
+  background-color: #ffffff;
+  color: var(--cor-grafite);
+}
+
+/* ---------- Main / Layout geral ---------- */
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+/* ---------- Barra de busca ---------- */
+.area-busca {
+  margin-bottom: 24px;
+}
+
+#campo-busca {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 1rem;
+  border: 1px solid #d0d5db;
+  border-radius: 10px;
+  background-color: var(--cor-card);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#campo-busca:focus {
+  outline: none;
+  border-color: var(--cor-cyan);
+  box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.15);
+}
+
+/* ---------- Lista / Grid de calculadoras ---------- */
+.lista-calculadoras {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.card-calculadora {
+  background-color: var(--cor-card);
+  border-top: 3px solid var(--cor-cyan);
+  border-radius: 10px;
+  padding: 18px 20px;
+  box-shadow: var(--sombra-card);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-calculadora:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-card-hover);
+}
+
+.card-calculadora h3 {
+  font-size: 1.05rem;
+  color: var(--cor-texto);
+  margin-bottom: 6px;
+}
+
+.card-calculadora p {
+  font-size: 0.9rem;
+  color: var(--cor-texto-secundario);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.card-area {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cor-cyan);
+  background-color: rgba(14, 116, 144, 0.1);
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.mensagem-vazia {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--cor-texto-secundario);
+  padding: 40px 0;
+  font-size: 0.95rem;
+}
+
+.mensagem-erro {
+  text-align: center;
+  color: #b42318;
+  padding: 24px 0;
+}
+
+/* ---------- Área da calculadora carregada ---------- */
+.area-calculadora {
+  background-color: var(--cor-card);
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: var(--sombra-card);
+}
+
+/* ---------- Modal de disclaimer ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(13, 17, 23, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+
+.modal-conteudo {
+  position: relative;
+  background-color: var(--cor-card);
+  border-radius: 12px;
+  max-width: 480px;
+  width: 100%;
+  padding: 32px 28px 28px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.modal-conteudo h2 {
+  color: var(--cor-grafite);
+  font-size: 1.2rem;
+  margin-bottom: 14px;
+}
+
+.modal-conteudo p {
+  color: var(--cor-texto-secundario);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.modal-conteudo p.disclaimer-espacado {
+  margin-bottom: 36px;
+}
+
+.modal-conteudo p:last-child {
+  margin-bottom: 0;
+}
+
+.btn-fechar-modal {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--cor-texto-secundario);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.15s ease;
+}
+
+.btn-fechar-modal:hover {
+  background-color: var(--cor-fundo);
+}
+
+/* ---------- Rodapé ---------- */
+.rodape {
+  text-align: center;
+  padding: 18px;
+  font-size: 0.8rem;
+  color: var(--cor-texto-secundario);
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 480px) {
+  .cabecalho-conteudo h1 {
+    font-size: 1.15rem;
+  }
+
+  .lista-calculadoras {
+    grid-template-columns: 1fr;
+  }
+}

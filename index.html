@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VCalcs</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="cabecalho">
+    <div class="cabecalho-conteudo">
+      <img src="assets/img/logo.svg" alt="VCalcs" class="logo">
+      <h1>VCalcs</h1>
+    </div>
+    <div class="cabecalho-acoes">
+      <button id="btn-voltar" class="btn-voltar escondido">&larr; Voltar</button>
+      <button id="btn-info" class="btn-info" aria-label="Informações e disclaimer" title="Informações">i</button>
+    </div>
+  </header>
+
+  <!-- MODAL: disclaimer / informações -->
+  <div id="modal-overlay" class="modal-overlay escondido">
+    <div class="modal-conteudo">
+      <button id="btn-fechar-modal" class="btn-fechar-modal" aria-label="Fechar">&times;</button>
+      <h2>Sobre o VCalcs</h2>
+      <p>
+        O VCalcs reúne calculadoras médicas de apoio à prática clínica. Os resultados e
+        interpretações apresentados aqui são ferramentas de auxílio e <strong>NÃO SUBSTITUEM</strong>
+        o julgamento clínico, a avaliação individualizada do paciente ou a consulta
+        a diretrizes atualizadas.
+      </p>
+      <p>
+        Sempre confirme os resultados obtidos e não siga cegamente o programa. Os colaboradores 
+        da presente aplicação não se responsabilizam por decisões clínicas tomadas com base nos 
+        resultados aqui encontrados &mdash; O raciocínio clínico é soberano e deve prevalecer <strong>SEMPRE</strong>.
+      </p>
+      <p class="disclaimer-espacado">
+        Aviso de transparência: o código deste aplicativo foi desenvolvido com apoio
+        de ferramentas de inteligência artificial. <strong>As fórmulas e faixas de
+        interpretação clínica foram definidas e revisadas pelo autor.</strong>
+      </p>
+      <p>
+        Gabriel von Flach Sarmento, 2026
+      </p>
+      <p>
+        <a href="https://github.com/vonflach" target="_blank" rel="noopener noreferrer">GitHub do projeto</a>.
+      </p>
+      <p>
+        Versão 1.0.0 
+      </p>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ÁREA DA HOME: busca + lista de calculadoras -->
+    <div id="home">
+      <div class="area-busca">
+        <input
+          type="text"
+          id="campo-busca"
+          placeholder="Buscar calculadora por nome, área ou palavra-chave..."
+          autocomplete="off"
+        >
+      </div>
+
+      <div id="lista-calculadoras" class="lista-calculadoras">
+        <!-- Cards são renderizados aqui dinamicamente pelo app.js -->
+      </div>
+    </div>
+
+    <!-- ÁREA DA CALCULADORA: recebe o HTML da calc carregada via fetch -->
+    <div id="area-calculadora" class="area-calculadora escondido">
+      <!-- Conteúdo da calculadora injetado aqui pelo app.js -->
+    </div>
+
+  </main>
+
+  <footer class="rodape">
+    <p>VCalcs &mdash; Calculadoras Médicas</p>
+  </footer>
+
+  <!-- Ordem importa: registro.js antes de app.js -->
+  <script src="registro.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

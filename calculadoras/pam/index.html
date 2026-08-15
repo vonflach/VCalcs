@@ -1,0 +1,246 @@
+<div class="calc-pam">
+  <h2>Pressão Arterial Média (PAM)</h2>
+  <p class="calc-formula">PAM = (PAS + 2 &times; PAD) / 3</p>
+
+  <div class="calc-campo">
+    <label for="pam-pas">Pressão Arterial Sistólica (PAS) &mdash; mmHg</label>
+    <input type="number" id="pam-pas" inputmode="decimal" placeholder="Ex: 120" min="0">
+  </div>
+
+  <div class="calc-campo">
+    <label for="pam-pad">Pressão Arterial Diastólica (PAD) &mdash; mmHg</label>
+    <input type="number" id="pam-pad" inputmode="decimal" placeholder="Ex: 80" min="0">
+  </div>
+
+  <button id="pam-btn-calcular" class="calc-btn">Calcular</button>
+
+  <div id="pam-resultado" class="calc-resultado escondido">
+    <p class="calc-resultado-valor" id="pam-valor"></p>
+    <p class="calc-resultado-tag" id="pam-tag"></p>
+    <p class="calc-resultado-interpretacao" id="pam-interpretacao"></p>
+  </div>
+
+  <p id="pam-erro" class="calc-erro escondido">
+    Preencha PAS e PAD com valores numéricos válidos.
+  </p>
+</div>
+
+<style>
+  .calc-pam {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .calc-pam h2 {
+    color: var(--cor-grafite);
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+
+  .calc-formula {
+    color: var(--cor-texto-secundario);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .calc-campo {
+    margin-bottom: 18px;
+  }
+
+  .calc-campo label {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--cor-texto);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .calc-campo input {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border: 1px solid #d0d5db;
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .calc-campo input:focus {
+    outline: none;
+    border-color: var(--cor-cyan);
+    box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.15);
+  }
+
+  .calc-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--cor-cyan);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .calc-btn:hover {
+    background-color: var(--cor-grafite);
+  }
+
+  .calc-erro {
+    color: #b42318;
+    font-size: 0.88rem;
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  .calc-resultado {
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid transparent;
+  }
+
+  .calc-resultado-valor {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .calc-resultado-tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .calc-resultado-interpretacao {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* Faixas de interpretação */
+  .calc-resultado.risco-baixo {
+    background-color: rgba(220, 38, 38, 0.08);
+    border-color: #dc2626;
+  }
+  .calc-resultado.risco-baixo .calc-resultado-valor,
+  .calc-resultado.risco-baixo .calc-resultado-tag {
+    color: #dc2626;
+  }
+
+  .calc-resultado.atencao {
+    background-color: rgba(217, 158, 10, 0.1);
+    border-color: #d99e0a;
+  }
+  .calc-resultado.atencao .calc-resultado-valor,
+  .calc-resultado.atencao .calc-resultado-tag {
+    color: #a16207;
+  }
+
+  .calc-resultado.adequada {
+    background-color: rgba(22, 163, 74, 0.08);
+    border-color: #16a34a;
+  }
+  .calc-resultado.adequada .calc-resultado-valor,
+  .calc-resultado.adequada .calc-resultado-tag {
+    color: #16a34a;
+  }
+
+  .calc-resultado.risco-alto {
+    background-color: rgba(220, 38, 38, 0.08);
+    border-color: #dc2626;
+  }
+  .calc-resultado.risco-alto .calc-resultado-valor,
+  .calc-resultado.risco-alto .calc-resultado-tag {
+    color: #dc2626;
+  }
+</style>
+
+<script>
+  (function () {
+    const inputPAS = document.getElementById("pam-pas");
+    const inputPAD = document.getElementById("pam-pad");
+    const btnCalcular = document.getElementById("pam-btn-calcular");
+    const resultadoEl = document.getElementById("pam-resultado");
+    const valorEl = document.getElementById("pam-valor");
+    const tagEl = document.getElementById("pam-tag");
+    const interpretacaoEl = document.getElementById("pam-interpretacao");
+    const erroEl = document.getElementById("pam-erro");
+
+    function classificarPAM(pam) {
+      if (pam < 60) {
+        return {
+          classe: "risco-baixo",
+          tag: "Risco — PAM baixa",
+          texto: "Risco de hipoperfusão de órgãos-alvo. Avaliar sinais de choque e necessidade de intervenção."
+        };
+      }
+      if (pam < 70) {
+        return {
+          classe: "atencao",
+          tag: "Atenção — limite inferior",
+          texto: "PAM próxima ao limite inferior de perfusão adequada. Monitorar tendência e contexto clínico."
+        };
+      }
+      if (pam <= 100) {
+        return {
+          classe: "adequada",
+          tag: "Adequada",
+          texto: "PAM dentro da faixa considerada adequada para perfusão de órgãos-alvo na maioria dos contextos clínicos."
+        };
+      }
+      if (pam <= 110) {
+        return {
+          classe: "atencao",
+          tag: "Atenção — PAM elevada",
+          texto: "PAM acima do intervalo habitual. Avaliar causa e risco de lesão de órgão-alvo conforme contexto."
+        };
+      }
+      return {
+        classe: "risco-alto",
+        tag: "Risco — PAM elevada",
+        texto: "Risco elevado de lesão de órgão-alvo. Avaliar necessidade de conduta ativa conforme quadro clínico."
+      };
+    }
+
+    function calcularPAM() {
+      const pas = parseFloat(inputPAS.value);
+      const pad = parseFloat(inputPAD.value);
+
+      const valido =
+        !isNaN(pas) && !isNaN(pad) && pas >= 0 && pad >= 0 && pas >= pad;
+
+      if (!valido) {
+        erroEl.classList.remove("escondido");
+        resultadoEl.classList.add("escondido");
+        return;
+      }
+
+      erroEl.classList.add("escondido");
+
+      const pam = (pas + 2 * pad) / 3;
+      const pamArredondada = Math.round(pam * 10) / 10;
+      const classificacao = classificarPAM(pamArredondada);
+
+      valorEl.textContent = `PAM: ${pamArredondada} mmHg`;
+      tagEl.textContent = classificacao.tag;
+      interpretacaoEl.textContent = classificacao.texto;
+
+      resultadoEl.className = "calc-resultado " + classificacao.classe;
+      resultadoEl.classList.remove("escondido");
+    }
+
+    btnCalcular.addEventListener("click", calcularPAM);
+
+    // Permite calcular pressionando Enter em qualquer um dos campos
+    [inputPAS, inputPAD].forEach((campo) => {
+      campo.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") calcularPAM();
+      });
+    });
+  })();
+</script>
