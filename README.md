@@ -18,7 +18,7 @@ O projeto é construído com **HTML, CSS e JavaScript puros** (sem frameworks ou
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/vonflach/vcalcs.git
+   git clone https://github.com/vonflach/VCalcs.git
    ```
 2. Abra a pasta no VS Code
 3. Use a extensão **Live Server** (ou similar) para servir o `index.html`
