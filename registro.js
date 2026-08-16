@@ -22,5 +22,13 @@ const registroCalculadoras = [
     area: "Nefrologia",
     tags: ["albuminúria", "RAC", "KDIGO", "função renal", "nefropatia", "nefrologia"],
     caminho: "calculadoras/rac/index.html"
+  },
+  {
+    id: "osm",
+    nome: "Osmolaridade Plasmática",
+    descricao: "Calcule a osmolaridade plásmatica a partir dos eletrólitos e compare com a osmolaridade sérica encontrada.",
+    area: "Nefrologia",
+    tags: ["osmolaridade", "plasma", "eletrólitos", "função renal", "nefrologia", "sódio", "potássio", "glicose", "ureia"],
+    caminho: "calculadoras/osm/index.html"
   }
 ];
