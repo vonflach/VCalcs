@@ -12,7 +12,7 @@ O projeto é construído com **HTML, CSS e JavaScript puros** (sem frameworks ou
 - 🔓 Sem conta, login ou dados pessoais — cada acesso é independente
 - 🧩 Arquitetura modular — cada calculadora vive isolada em sua própria pasta
 - 🔍 Busca funcional na tela inicial, com listagem em ordem alfabética
-- 🎨 Interpretação visual dos resultados (verde/amarelo/vermelho conforme o risco)
+- 🎨 Interpretação visual dos resultados (verde/amarelo/vermelho conforme o valor encontrado)
 
 ## Como rodar localmente
 
