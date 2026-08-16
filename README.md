@@ -71,8 +71,9 @@ O sistema foi desenhado para que adicionar uma calculadora nova exija o mínimo 
 
 Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, já pesquisável pela busca. Nenhum outro arquivo precisa ser alterado.
 
-## Calculadoras adicionadas até o momento
+## Calculadoras adicionadas &mdash; Mais recente para mais antigo
 
+- Relação Albumina-Creatinina (RAC)
 - Pressão Arterial Média (PAM)
 
 ## Calculadoras futuras

@@ -232,6 +232,7 @@
 
       resultadoEl.className = "calc-resultado " + classificacao.classe;
       resultadoEl.classList.remove("escondido");
+      resultadoEl.scrollIntoView({ behavior: "smooth", block: "end" });
     }
 
     btnCalcular.addEventListener("click", calcularPAM);
