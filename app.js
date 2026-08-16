@@ -80,6 +80,15 @@ document.addEventListener("DOMContentLoaded", () => {
         scriptNovo.textContent = scriptAntigo.textContent;
         scriptAntigo.replaceWith(scriptNovo);
       });
+      // Renderiza fórmulas KaTeX injetadas via fetch
+      if (typeof renderMathInElement !== "undefined") {
+       renderMathInElement(areaCalculadora, {
+        delimiters: [
+          { left: "\\(", right: "\\)", display: false },
+          { left: "$$", right: "$$", display: true }
+         ]
+      });
+    }
 
       mostrarCalculadora();
       window.scrollTo({ top: 0, behavior: "smooth" });
