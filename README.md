@@ -71,18 +71,18 @@ O sistema foi desenhado para que adicionar uma calculadora nova exija o mínimo 
 
 Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, já pesquisável pela busca. Nenhum outro arquivo precisa ser alterado.
 
-## Calculadoras adicionadas &mdash; Mais recente para mais antigo
+## Calculadoras adicionadas
 
 - Relação Albumina-Creatinina (RAC)
 - Pressão Arterial Média (PAM)
 
 ## Calculadoras futuras
 
-- Relação Albumina-Creatinina (RAC) - Em desenvolvimento...
+- Osmolaridade Sérica &mdash; Em desenvolvimento...
 
 ## Disclaimer
 
-As calculadoras disponibilizadas neste aplicativo são ferramentas de **apoio** à prática clínica e **não substituem o julgamento clínico**, a avaliação individualizada do paciente ou a consulta a diretrizes atualizadas. O raciocínio clínico é soberano e deve sempre prevalecer sobre qualquer resultado apresentado aqui.
+As calculadoras disponibilizadas neste aplicativo são ferramentas de **APOIO** à prática clínica e **NÃO substituem o julgamento clínico**, a avaliação individualizada do paciente ou a consulta a diretrizes atualizadas. O raciocínio clínico é soberano e deve sempre prevalecer sobre qualquer resultado apresentado aqui.
 
 ## Licença
 
