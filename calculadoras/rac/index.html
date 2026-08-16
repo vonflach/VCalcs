@@ -1,14 +1,26 @@
+<!-- calculadoras/rac/index.html -->
+
 <div class="calc-rac">
   <h2>Relação Albumina-Creatinina (RAC)</h2>
   <p class="calc-formula">RAC = Albumina Urinária / Creatinina Urinária</p>
 
+  <!-- Albumina -->
   <div class="calc-campo">
-    <label for="rac-albumina">Albumina Urinária &mdash; mg/L</label>
-    <input type="number" id="rac-albumina" inputmode="decimal" placeholder="Ex: 10" min="0">
+    <label>Albumina Urinária</label>
+    <div class="radio-group">
+      <label><input type="radio" name="unidade-alb" value="mgl" checked> mg/L</label>
+      <label><input type="radio" name="unidade-alb" value="mgdl"> mg/dL</label>
+    </div>
+    <input type="number" id="rac-albumina" inputmode="decimal" placeholder="Ex: 30" min="0">
   </div>
 
+  <!-- Creatinina -->
   <div class="calc-campo">
-    <label for="rac-creatinina">Creatinina Urinária &mdash; mg/dL</label>
+    <label>Creatinina Urinária</label>
+    <div class="radio-group">
+      <label><input type="radio" name="unidade-creat" value="mgdl" checked> mg/dL</label>
+      <label><input type="radio" name="unidade-creat" value="gl"> g/L</label>
+    </div>
     <input type="number" id="rac-creatinina" inputmode="decimal" placeholder="Ex: 100" min="0">
   </div>
 
@@ -21,7 +33,7 @@
   </div>
 
   <p id="rac-erro" class="calc-erro escondido">
-    Preencha Albumina Urinária e Creatinina Urinária com valores numéricos válidos.
+    Preencha Albumina e Creatinina com valores numéricos válidos.
   </p>
 </div>
 
@@ -56,7 +68,23 @@
     font-weight: 600;
   }
 
-  .calc-campo input {
+  .radio-group {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #374151;
+    cursor: pointer;
+  }
+
+  .calc-campo input[type="number"] {
     width: 100%;
     padding: 12px 14px;
     font-size: 1rem;
@@ -65,7 +93,7 @@
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .calc-campo input:focus {
+  .calc-campo input[type="number"]:focus {
     outline: none;
     border-color: var(--cor-cyan);
     box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.15);
@@ -82,6 +110,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    font-family: inherit;
   }
 
   .calc-btn:hover {
@@ -122,103 +151,97 @@
     line-height: 1.5;
   }
 
-  /* Faixas de interpretação */
-  .calc-resultado.atencao {
-    background-color: rgba(217, 158, 10, 0.1);
-    border-color: #d99e0a;
-  }
-  .calc-resultado.atencao .calc-resultado-valor,
-  .calc-resultado.atencao .calc-resultado-tag {
-    color: #a16207;
-  }
-
   .calc-resultado.adequada {
     background-color: rgba(22, 163, 74, 0.08);
     border-color: #16a34a;
   }
   .calc-resultado.adequada .calc-resultado-valor,
-  .calc-resultado.adequada .calc-resultado-tag {
-    color: #16a34a;
+  .calc-resultado.adequada .calc-resultado-tag { color: #16a34a; }
+
+  .calc-resultado.atencao {
+    background-color: rgba(217, 158, 10, 0.1);
+    border-color: #d99e0a;
   }
+  .calc-resultado.atencao .calc-resultado-valor,
+  .calc-resultado.atencao .calc-resultado-tag { color: #a16207; }
 
   .calc-resultado.risco-alto {
     background-color: rgba(220, 38, 38, 0.08);
     border-color: #dc2626;
   }
   .calc-resultado.risco-alto .calc-resultado-valor,
-  .calc-resultado.risco-alto .calc-resultado-tag {
-    color: #dc2626;
-  }
+  .calc-resultado.risco-alto .calc-resultado-tag { color: #dc2626; }
 </style>
 
 <script>
-  (function () {
-    const inputAlbumina = document.getElementById("rac-albumina");
-    const inputCreatinina = document.getElementById("rac-creatinina");
-    const btnCalcular = document.getElementById("rac-btn-calcular");
-    const resultadoEl = document.getElementById("rac-resultado");
-    const valorEl = document.getElementById("rac-valor");
-    const tagEl = document.getElementById("rac-tag");
-    const interpretacaoEl = document.getElementById("rac-interpretacao");
-    const erroEl = document.getElementById("rac-erro");
+(function () {
+  const inputAlbumina   = document.getElementById("rac-albumina");
+  const inputCreatinina = document.getElementById("rac-creatinina");
+  const btnCalcular     = document.getElementById("rac-btn-calcular");
+  const resultadoEl     = document.getElementById("rac-resultado");
+  const valorEl         = document.getElementById("rac-valor");
+  const tagEl           = document.getElementById("rac-tag");
+  const interpretacaoEl = document.getElementById("rac-interpretacao");
+  const erroEl          = document.getElementById("rac-erro");
 
-    function classificarRAC(rac) {
-      if (rac < 30) {
-        return {
-          classe: "adequada",
-          tag: "Adequada - RAC Normal",
-          texto: "RAC normal ou discretamente elevada. Avaliar contexto clínico e monitorar conforme necessidade."
-        };
-      }
-      if (rac < 300) {
-        return {
-          classe: "atencao",
-          tag: "Atenção — RAC Elevada",
-          texto: "RAC moderadamente elevada. Monitorar tendência e contexto clínico."
-        };
-      }
-      return {
-        classe: "risco-alto",
-        tag: "Risco — RAC Muito Elevada",
-        texto: "RAC severamente elevada. Avaliar necessidade de intervenção conforme contexto clínico."
-      };
+  function classificarRAC(rac) {
+    if (rac < 30) return {
+      classe: "adequada",
+      tag: "Normal (A1)",
+      texto: "Albuminúria normal ou levemente aumentada. Monitorar conforme contexto clínico."
+    };
+    if (rac <= 300) return {
+      classe: "atencao",
+      tag: "Moderadamente aumentada (A2)",
+      texto: "Microalbuminúria. Monitorar tendência e avaliar fatores de risco associados."
+    };
+    return {
+      classe: "risco-alto",
+      tag: "Severamente aumentada (A3)",
+      texto: "Macroalbuminúria. Investigação e acompanhamento nefrológico indicados."
+    };
+  }
+
+  function calcularRAC() {
+    const alb  = parseFloat(inputAlbumina.value);
+    const creat = parseFloat(inputCreatinina.value);
+
+    if (isNaN(alb) || isNaN(creat) || alb < 0 || creat <= 0) {
+      erroEl.classList.remove("escondido");
+      resultadoEl.classList.add("escondido");
+      return;
     }
 
-    function calcularRAC() {
-      const alb = parseFloat(inputAlbumina.value);
-      const cre = parseFloat(inputCreatinina.value);
+    erroEl.classList.add("escondido");
 
-      const valido =
-        !isNaN(alb) && !isNaN(cre) && alb >= 0 && cre >= 0;
+    // Converte albumina para mg/L
+    const unidadeAlb  = document.querySelector('input[name="unidade-alb"]:checked').value;
+    const albMgl      = unidadeAlb === "mgdl" ? alb * 10 : alb;
 
-      if (!valido) {
-        erroEl.classList.remove("escondido");
-        resultadoEl.classList.add("escondido");
-        return;
-      }
+    // Converte creatinina para g/L
+    const unidadeCreat = document.querySelector('input[name="unidade-creat"]:checked').value;
+    const creatGl      = unidadeCreat === "mgdl" ? creat / 100 : creat;
 
-      erroEl.classList.add("escondido");
+    // RAC em mg/g
+    const rac             = albMgl / creatGl;
+    const racArredondada  = Math.round(rac * 10) / 10;
+    const classificacao   = classificarRAC(racArredondada);
 
-      const rac = (alb / cre) * 1000; // Convertendo para mg/g
-      const racArredondada = Math.round(rac * 10) / 10;
-      const classificacao = classificarRAC(racArredondada);
+    valorEl.textContent       = `RAC: ${racArredondada} mg/g`;
+    tagEl.textContent         = classificacao.tag;
+    interpretacaoEl.textContent = classificacao.texto;
 
-      valorEl.textContent = `RAC: ${racArredondada} mg/g`;
-      tagEl.textContent = classificacao.tag;
-      interpretacaoEl.textContent = classificacao.texto;
+    resultadoEl.className = "calc-resultado " + classificacao.classe;
+    resultadoEl.classList.remove("escondido");
+    resultadoEl.scrollIntoView({ behavior: "smooth", block: "end" });
+  }
 
-      resultadoEl.className = "calc-resultado " + classificacao.classe;
-      resultadoEl.classList.remove("escondido");
-      resultadoEl.scrollIntoView({ behavior: "smooth", block: "end" });
-    }
+  btnCalcular.addEventListener("click", calcularRAC);
 
-    btnCalcular.addEventListener("click", calcularRAC);
-
-    // Permite calcular pressionando Enter em qualquer um dos campos
-    [inputAlbumina, inputCreatinina].forEach((campo) => {
-      campo.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") calcularRAC();
-      });
+  [inputAlbumina, inputCreatinina].forEach(campo => {
+    campo.addEventListener("keydown", e => {
+      if (e.key === "Enter") calcularRAC();
     });
-  })();
+  });
+})();
 </script>
