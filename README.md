@@ -73,6 +73,7 @@ Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, 
 
 ## Calculadoras adicionadas
 
+- Hidratação Venosa via Holliday-Segar e eletrólitos
 - Vazão e Dose de Medicamentos em Infusão Contínua
 - Taxa de Filtração Glomerular estimada (TFGe) &mdash; Cockcroft-Gault, MDRD e CKD-EPI 2021
 - Fração de Excreção de Sódio (FENa)
@@ -84,7 +85,6 @@ Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, 
 ## Calculadoras futuras
 
 - LDL Sérico &mdash; Em desenvolvimento...
-- Hidratação Venosa via Holliday-Segar &mdash; Em desenvolvimento...
 
 ## Disclaimer
 
