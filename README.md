@@ -73,13 +73,13 @@ Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, 
 
 ## Calculadoras adicionadas
 
+- Sódio corrigido pela Hiperglicemia
 - Osmolaridade Plasmática
 - Relação Albumina-Creatinina (RAC)
 - Pressão Arterial Média (PAM)
 
 ## Calculadoras futuras
 
-- Sódio corrigido para Glicemia &mdash; Em desenvolvimento...
 - Fração de Excreção de Sódio &mdash; Em desenvolvimento...
 - LDL sérico &mdash; Em desenvolvimento...
 - Dose e Velocidade de Infusão &mdash; Em desenvolvimento...

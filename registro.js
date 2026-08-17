@@ -30,5 +30,13 @@ const registroCalculadoras = [
     area: "Nefrologia",
     tags: ["osmolaridade", "plasma", "eletrólitos", "função renal", "nefrologia", "sódio", "potássio", "glicose", "ureia"],
     caminho: "calculadoras/osm/index.html"
+  },
+  {
+    id: "sodio-glicose",
+    nome: "Sódio corrigido pela Hiperglicemia",
+    descricao: "Corrija os níveis séricos de sódio pela hiperglicemia.",
+    area: "Nefrologia",
+    tags: ["correção", "plasma", "eletrólitos", "nefrologia", "sódio", "glicose", "hiperglicemia"],
+    caminho: "calculadoras/sodio-glicose/index.html"
   }
 ];

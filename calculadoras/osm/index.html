@@ -261,7 +261,7 @@ atualizarFormula();
     const osmArredondada  = Math.round(osm * 10) / 10;
     const classificacao   = classificarOsm(osmArredondada);
 
-    valorEl.textContent       = `OSM: ${osmArredondada} mOsm/kg`;
+    valorEl.textContent       = `Osm: ${osmArredondada} mOsm/kg`;
     tagEl.textContent         = classificacao.tag;
     interpretacaoEl.textContent = classificacao.texto;
 
