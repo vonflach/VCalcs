@@ -84,6 +84,7 @@ Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, 
 ## Calculadoras futuras
 
 - LDL Sérico &mdash; Em desenvolvimento...
+- Hidratação Venosa via Holliday-Segar &mdash; Em desenvolvimento...
 
 ## Disclaimer
 

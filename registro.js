@@ -62,5 +62,13 @@ const registroCalculadoras = [
   area:      "Medicina Intensiva",
   tags:      ["infusao", "bomba", "vazao", "dose", "continua", "droga", "farmaco"],
   caminho:   "calculadoras/infusao/index.html"
+  },
+  {
+  id:        "hvhs",
+  nome:      "Hidração Venosa via Holliday-Segar",
+  descricao: "Calcule a infusão de manutenção de líquidos em pediatria, com base no método Holliday-Segar",
+  area:      "Pediatria",
+  tags:      ["infusao", "bomba", "vazao", "dose", "continua", "eletrolito", "manutencao", "hidratacao", "holliday-segar", "pediatria"],
+  caminho:   "calculadoras/infusao/index.html"
   }
 ];
