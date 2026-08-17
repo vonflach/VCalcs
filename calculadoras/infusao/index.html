@@ -1,0 +1,440 @@
+<!-- calculadoras/infusao/index.html -->
+
+<div class="calc-infusao">
+  <h2>Infusão Contínua</h2>
+  <p class="calc-formula">\( \text{Concentração} = \frac{\text{Fármaco (mg)}}{\text{Volume (mL)}} \)</p>
+
+  <!-- Seleção de objetivo -->
+  <div class="calc-campo">
+    <label>O que deseja calcular?</label>
+    <div class="objetivo-btns">
+      <button class="objetivo-btn ativo" id="btn-dose" onclick="selecionarObjetivo('dose')">
+        Dose
+        <span>Informe a vazão em uso</span>
+      </button>
+      <button class="objetivo-btn" id="btn-vazao" onclick="selecionarObjetivo('vazao')">
+        Vazão
+        <span>Informe a dose desejada</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Campos comuns -->
+  <div class="calc-campo">
+    <label for="inf-farmaco">Fármaco na solução <span class="unidade-label">(mg)</span></label>
+    <input type="number" id="inf-farmaco" inputmode="decimal" placeholder="Ex: 50" min="0" step="any">
+  </div>
+
+  <div class="calc-campo">
+    <label for="inf-volume">Volume da solução <span class="unidade-label">(mL)</span></label>
+    <input type="number" id="inf-volume" inputmode="decimal" placeholder="Ex: 250" min="0" step="any">
+  </div>
+
+  <!-- BLOCO DOSE -->
+  <div id="bloco-dose">
+    <div class="calc-campo">
+      <label for="inf-vazao">Vazão</label>
+      <div class="input-com-radio">
+        <input type="number" id="inf-vazao" inputmode="decimal" placeholder="Ex: 10" min="0" step="any">
+        <div class="radio-group">
+          <label><input type="radio" name="unidade-vazao-dose" value="h" checked> mL/h</label>
+          <label><input type="radio" name="unidade-vazao-dose" value="min"> mL/min</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-campo">
+      <label>Unidade de massa do resultado</label>
+      <div class="radio-group">
+        <label><input type="radio" name="massa-dose" value="mg" checked> mg</label>
+        <label><input type="radio" name="massa-dose" value="mcg"> mcg</label>
+        <label><input type="radio" name="massa-dose" value="g"> g</label>
+      </div>
+    </div>
+
+    <div class="calc-campo">
+      <label>Unidade de tempo do resultado</label>
+      <div class="radio-group">
+        <label><input type="radio" name="tempo-dose" value="min" checked> /min</label>
+        <label><input type="radio" name="tempo-dose" value="h"> /h</label>
+      </div>
+    </div>
+
+    <div class="calc-campo">
+      <label>Considerar peso?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="usa-peso-dose" value="nao" checked onchange="togglePeso('dose')"> Não</label>
+        <label><input type="radio" name="usa-peso-dose" value="sim" onchange="togglePeso('dose')"> Sim</label>
+      </div>
+    </div>
+
+    <div class="calc-campo escondido" id="campo-peso-dose">
+      <label for="inf-peso-dose">Peso <span class="unidade-label">(kg)</span></label>
+      <input type="number" id="inf-peso-dose" inputmode="decimal" placeholder="Ex: 70" min="0" step="any">
+    </div>
+  </div>
+
+  <!-- BLOCO VAZÃO -->
+  <div id="bloco-vazao" class="escondido">
+    <div class="calc-campo">
+      <label for="inf-dose-desejada">Dose desejada</label>
+      <div class="input-com-radio">
+        <input type="number" id="inf-dose-desejada" inputmode="decimal" placeholder="Ex: 5" min="0" step="any">
+        <div class="radio-group">
+          <label><input type="radio" name="massa-vazao" value="mg" checked> mg</label>
+          <label><input type="radio" name="massa-vazao" value="mcg"> mcg</label>
+          <label><input type="radio" name="massa-vazao" value="g"> g</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-campo">
+      <label>Unidade de tempo da dose</label>
+      <div class="radio-group">
+        <label><input type="radio" name="tempo-vazao" value="min" checked> /min</label>
+        <label><input type="radio" name="tempo-vazao" value="h"> /h</label>
+      </div>
+    </div>
+
+    <div class="calc-campo">
+      <label>Considerar peso?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="usa-peso-vazao" value="nao" checked onchange="togglePeso('vazao')"> Não</label>
+        <label><input type="radio" name="usa-peso-vazao" value="sim" onchange="togglePeso('vazao')"> Sim</label>
+      </div>
+    </div>
+
+    <div class="calc-campo escondido" id="campo-peso-vazao">
+      <label for="inf-peso-vazao">Peso <span class="unidade-label">(kg)</span></label>
+      <input type="number" id="inf-peso-vazao" inputmode="decimal" placeholder="Ex: 70" min="0" step="any">
+    </div>
+  </div>
+
+  <button class="calc-btn" onclick="calcularInfusao()">Calcular</button>
+
+  <div id="inf-resultado" class="calc-resultado escondido">
+    <p class="calc-resultado-valor" id="inf-valor"></p>
+    <p class="calc-resultado-tag" id="inf-tag"></p>
+    <p class="calc-resultado-interpretacao" id="inf-interpretacao"></p>
+  </div>
+
+  <p id="inf-erro" class="calc-erro escondido">
+    Preencha todos os campos com valores válidos.
+  </p>
+</div>
+
+<style>
+  .calc-infusao {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .calc-infusao h2 {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    color: var(--cor-grafite);
+  }
+
+  .calc-formula {
+    font-size: 0.9rem;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .calc-campo {
+    margin-bottom: 18px;
+  }
+
+  .calc-campo label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--cor-texto);
+    margin-bottom: 6px;
+  }
+
+  .unidade-label {
+    font-weight: 400;
+    color: #9ca3af;
+  }
+
+  /* Botões de objetivo */
+  .objetivo-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .objetivo-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 16px 12px;
+    border: 2px solid #d0d5db;
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--cor-texto);
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .objetivo-btn span {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--cor-texto-secundario);
+  }
+
+  .objetivo-btn.ativo {
+    border-color: var(--cor-cyan);
+    background-color: rgba(14, 116, 144, 0.06);
+    color: var(--cor-cyan);
+  }
+
+  .objetivo-btn.ativo span {
+    color: var(--cor-cyan);
+  }
+
+  .objetivo-btn:hover:not(.ativo) {
+    border-color: #9ca3af;
+  }
+
+  /* Input + radio lado a lado */
+  .input-com-radio {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .radio-group {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: #374151;
+    cursor: pointer;
+  }
+
+  .calc-campo input[type="number"] {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid #d0d5db;
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .calc-campo input[type="number"]:focus {
+    outline: none;
+    border-color: var(--cor-cyan);
+    box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.15);
+  }
+
+  .calc-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--cor-cyan);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 4px;
+  }
+
+  .calc-btn:hover {
+    background-color: var(--cor-grafite);
+  }
+
+  .calc-erro {
+    color: #b42318;
+    font-size: 0.88rem;
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  .calc-resultado {
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid var(--cor-cyan);
+    background-color: rgba(14, 116, 144, 0.06);
+  }
+
+  .calc-resultado-valor {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--cor-cyan);
+    margin-bottom: 6px;
+    white-space: pre-line;
+  }
+
+  .calc-resultado-tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--cor-cyan);
+    margin-bottom: 8px;
+  }
+
+  .calc-resultado-interpretacao {
+    font-size: 0.88rem;
+    color: var(--cor-texto-secundario);
+    line-height: 1.5;
+  }
+</style>
+
+<script>
+(function () {
+
+  let objetivoAtual = "dose";
+
+  // --- Alterna objetivo ---
+  window.selecionarObjetivo = function(objetivo) {
+    objetivoAtual = objetivo;
+
+    document.getElementById("btn-dose").classList.toggle("ativo", objetivo === "dose");
+    document.getElementById("btn-vazao").classList.toggle("ativo", objetivo === "vazao");
+    document.getElementById("bloco-dose").classList.toggle("escondido", objetivo !== "dose");
+    document.getElementById("bloco-vazao").classList.toggle("escondido", objetivo !== "vazao");
+
+    // Limpa resultado
+    document.getElementById("inf-resultado").classList.add("escondido");
+    document.getElementById("inf-erro").classList.add("escondido");
+  };
+
+  // --- Mostra/esconde campo peso ---
+  window.togglePeso = function(bloco) {
+    const val   = document.querySelector(`input[name="usa-peso-${bloco}"]:checked`).value;
+    const campo = document.getElementById(`campo-peso-${bloco}`);
+    campo.classList.toggle("escondido", val !== "sim");
+  };
+
+  // --- Conversão de massa para mg ---
+  function paraMg(valor, unidade) {
+    if (unidade === "mcg") return valor / 1000;
+    if (unidade === "g")   return valor * 1000;
+    return valor; // mg
+  }
+
+  // --- Conversão de mg para unidade desejada ---
+  function deMg(valor, unidade) {
+    if (unidade === "mcg") return valor * 1000;
+    if (unidade === "g")   return valor / 1000;
+    return valor; // mg
+  }
+
+  // --- Label de unidade ---
+  function labelUnidade(massa, tempo, comPeso) {
+    return `${massa}/${comPeso ? "kg/" : ""}${tempo}`;
+  }
+
+  // --- Calcular ---
+  window.calcularInfusao = function() {
+    const farmaco = parseFloat(document.getElementById("inf-farmaco").value);
+    const volume  = parseFloat(document.getElementById("inf-volume").value);
+    const erroEl  = document.getElementById("inf-erro");
+    const resEl   = document.getElementById("inf-resultado");
+    const valorEl = document.getElementById("inf-valor");
+    const tagEl   = document.getElementById("inf-tag");
+    const interpEl= document.getElementById("inf-interpretacao");
+
+    if (isNaN(farmaco) || isNaN(volume) || farmaco <= 0 || volume <= 0) {
+      erroEl.classList.remove("escondido");
+      resEl.classList.add("escondido");
+      return;
+    }
+
+    // Concentração em mg/mL
+    const concMgMl = farmaco / volume;
+
+    if (objetivoAtual === "dose") {
+      const vazao      = parseFloat(document.getElementById("inf-vazao").value);
+      const unidVazao  = document.querySelector('input[name="unidade-vazao-dose"]:checked').value;
+      const unidMassa  = document.querySelector('input[name="massa-dose"]:checked').value;
+      const unidTempo  = document.querySelector('input[name="tempo-dose"]:checked').value;
+      const usaPeso    = document.querySelector('input[name="usa-peso-dose"]:checked').value === "sim";
+      const peso       = parseFloat(document.getElementById("inf-peso-dose").value);
+
+      if (isNaN(vazao) || vazao <= 0 || (usaPeso && (isNaN(peso) || peso <= 0))) {
+        erroEl.classList.remove("escondido");
+        resEl.classList.add("escondido");
+        return;
+      }
+
+      erroEl.classList.add("escondido");
+
+      // Vazão em mL/min
+      const vazaoMlMin = unidVazao === "h" ? vazao / 60 : vazao;
+
+      // Dose em mg/min
+      let doseMgMin = concMgMl * vazaoMlMin;
+
+      // Ajuste por peso
+      if (usaPeso) doseMgMin = doseMgMin / peso;
+
+      // Ajuste de tempo
+      let doseNoTempo = unidTempo === "h" ? doseMgMin * 60 : doseMgMin;
+
+      // Ajuste de massa
+      const doseConvertida = deMg(doseNoTempo, unidMassa);
+      const label = labelUnidade(unidMassa, unidTempo, usaPeso);
+
+      valorEl.textContent  = `${doseConvertida.toFixed(4).replace(/\.?0+$/, "")} ${label}`;
+      tagEl.textContent    = "Dose calculada";
+      interpEl.textContent = `Concentração da solução: ${concMgMl.toFixed(3)} mg/mL`;
+
+    } else {
+      const doseDesejada = parseFloat(document.getElementById("inf-dose-desejada").value);
+      const unidMassa    = document.querySelector('input[name="massa-vazao"]:checked').value;
+      const unidTempo    = document.querySelector('input[name="tempo-vazao"]:checked').value;
+      const usaPeso      = document.querySelector('input[name="usa-peso-vazao"]:checked').value === "sim";
+      const peso         = parseFloat(document.getElementById("inf-peso-vazao").value);
+
+      if (isNaN(doseDesejada) || doseDesejada <= 0 || (usaPeso && (isNaN(peso) || peso <= 0))) {
+        erroEl.classList.remove("escondido");
+        resEl.classList.add("escondido");
+        return;
+      }
+
+      erroEl.classList.add("escondido");
+
+      // Dose desejada em mg/min
+      let doseMgMin = paraMg(doseDesejada, unidMassa);
+      if (unidTempo === "h") doseMgMin = doseMgMin / 60;
+      if (usaPeso) doseMgMin = doseMgMin * peso;
+
+      // Vazão em mL/min e mL/h
+      const vazaoMlMin = doseMgMin / concMgMl;
+      const vazaoMlH   = vazaoMlMin * 60;
+
+      valorEl.textContent  = `${vazaoMlH.toFixed(2)} mL/h\n${vazaoMlMin.toFixed(4).replace(/\.?0+$/, "")} mL/min`;
+      tagEl.textContent    = "Vazão calculada";
+      interpEl.textContent = `Concentração da solução: ${concMgMl.toFixed(3)} mg/mL`;
+    }
+
+    resEl.classList.remove("escondido");
+    resEl.scrollIntoView({ behavior: "smooth", block: "end" });
+  };
+
+})();
+</script>

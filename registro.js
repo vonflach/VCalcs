@@ -12,7 +12,7 @@ const registroCalculadoras = [
     nome: "Pressão Arterial Média (PAM)",
     descricao: "Calcula a pressão arterial média a partir da PAS e PAD, com interpretação de perfusão.",
     area: "Cardiologia",
-    tags: ["pressão arterial", "PAM", "hemodinâmica", "perfusão", "cardiologia"],
+    tags: ["pressao arterial", "PAM", "hemodinamica", "perfusao", "cardiologia"],
     caminho: "calculadoras/pam/index.html"
   },
   {
@@ -20,7 +20,7 @@ const registroCalculadoras = [
     nome: "Relação Albumina-Creatinina (RAC)",
     descricao: "Calcula a RAC urinária e classifica o estágio de albuminúria conforme critérios KDIGO.",
     area: "Nefrologia",
-    tags: ["albuminúria", "RAC", "KDIGO", "função renal", "nefropatia", "nefrologia"],
+    tags: ["albuminuria", "RAC", "KDIGO", "funcao renal", "nefropatia", "nefrologia"],
     caminho: "calculadoras/rac/index.html"
   },
   {
@@ -28,7 +28,7 @@ const registroCalculadoras = [
     nome: "Osmolaridade Plasmática",
     descricao: "Calcule a osmolaridade plásmatica a partir dos eletrólitos e compare com a osmolaridade sérica encontrada.",
     area: "Nefrologia",
-    tags: ["osmolaridade", "plasma", "eletrólitos", "função renal", "nefrologia", "sódio", "potássio", "glicose", "ureia"],
+    tags: ["osmolaridade", "plasma", "eletrolitos", "funcao renal", "nefrologia", "sodio", "potassio", "glicose", "ureia"],
     caminho: "calculadoras/osm/index.html"
   },
   {
@@ -36,7 +36,7 @@ const registroCalculadoras = [
     nome: "Sódio corrigido pela Hiperglicemia",
     descricao: "Corrija os níveis séricos de sódio pela hiperglicemia.",
     area: "Nefrologia",
-    tags: ["correção", "plasma", "eletrólitos", "nefrologia", "sódio", "glicose", "hiperglicemia"],
+    tags: ["correcao", "plasma", "eletrolitos", "nefrologia", "sodio", "glicose", "hiperglicemia"],
     caminho: "calculadoras/sodio-glicose/index.html"
   },
   {
@@ -44,7 +44,7 @@ const registroCalculadoras = [
     nome: "Fração Excretada de Sódio (FENa)",
     descricao: "Calcula a fração excretada de sódio para avaliar a função renal.",
     area: "Nefrologia",
-    tags: ["fração excretada", "sódio", "função renal", "nefrologia", "creatinina"],
+    tags: ["fracao excretada", "sodio", "funcao renal", "nefrologia", "creatinina"],
     caminho: "calculadoras/fena/index.html"
   },
   {
@@ -54,5 +54,13 @@ const registroCalculadoras = [
   area:      "Nefrologia",
   tags:      ["tfg", "tfge", "ckd-epi", "mdrd", "cockcroft", "creatinina", "funcao renal"],
   caminho:   "calculadoras/tfg/index.html"
+  },
+  {
+  id:        "infusao",
+  nome:      "Infusão Contínua",
+  descricao: "Cálculo de dose ou vazão para medicações em infusão contínua",
+  area:      "Medicina Intensiva",
+  tags:      ["infusao", "bomba", "vazao", "dose", "continua", "droga", "farmaco"],
+  caminho:   "calculadoras/infusao/index.html"
   }
 ];
