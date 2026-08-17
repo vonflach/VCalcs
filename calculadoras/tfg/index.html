@@ -13,9 +13,6 @@
     </select>
   </div>
 
-  <!-- Fórmula KaTeX -->
-  <div id="tfg-formula-display" class="calc-formula"></div>
-
   <!-- Campos comuns -->
   <div class="calc-campo">
     <label for="tfg-creatinina">Creatinina sérica <span class="unidade-label">(mg/dL)</span></label>
@@ -260,7 +257,6 @@
   const radiosFormula   = document.querySelectorAll('input[name="formula-tfg"]');
   const campoPeso       = document.getElementById("campo-peso");
   const campoRaca       = document.getElementById("campo-raca");
-  const formulaDisplay  = document.getElementById("tfg-formula-display");
   const btnCalcular     = document.getElementById("tfg-btn-calcular");
   const resultadoEl     = document.getElementById("tfg-resultado");
   const valorEl         = document.getElementById("tfg-valor");
@@ -268,30 +264,12 @@
   const interpEl        = document.getElementById("tfg-interpretacao");
   const erroEl          = document.getElementById("tfg-erro");
 
-  // --- Fórmulas KaTeX ---
-  const formulas = {
-    cg:     "\\( \\text{TFG} = \\frac{(140 - \\text{idade}) \\times \\text{peso}}{72 \\times \\text{Cr}_{\\text{s}}} \\times (0{,}85\\ \\text{se feminino}) \\)",
-    mdrd:   "\\( \\text{TFG} = 175 \\times \\text{Cr}_{\\text{s}}^{-1.154} \\times \\text{idade}^{-0.203} \\times (0{,}742\\ \\text{se feminino}) \\times (1{,}212\\ \\text{se afrodescendente}) \\)",
-    ckdepi: "\\( \\text{TFG} = 142 \\times \\min\\!\\left(\\frac{\\text{Cr}_{\\text{s}}}{\\kappa},1\\right)^{\\alpha} \\times \\max\\!\\left(\\frac{\\text{Cr}_{\\text{s}}}{\\kappa},1\\right)^{-1.200} \\times 0{,}9938^{\\text{idade}} \\times (1{,}012\\ \\text{se feminino}) \\)"
-  };
-
   // --- Atualiza campos e fórmula visível ---
   function atualizarFormula() {
     const formula = document.getElementById("formula-tfg-select").value;
 
     campoPeso.classList.toggle("escondido", formula !== "cg");
     campoRaca.classList.toggle("escondido", formula !== "mdrd");
-
-    formulaDisplay.innerHTML = formulas[formula];
-
-    if (typeof renderMathInElement !== "undefined") {
-      renderMathInElement(formulaDisplay, {
-        delimiters: [
-          { left: "\\(", right: "\\)", display: false },
-          { left: "$$", right: "$$", display: true }
-        ]
-      });
-    }
 
     // Limpa resultado ao trocar fórmula
     resultadoEl.className = "calc-resultado escondido";

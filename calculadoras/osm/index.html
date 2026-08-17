@@ -2,12 +2,6 @@
 
 <div class="calc-osm">
   <h2>Osmolaridade Plasmática</h2>
-  <p class="calc-formula" id="formula-ureia">
-  \( \text{Osmolaridade} = (2 \times \text{Sódio}) + (\frac{\text{Glicose}}{18}) + (\frac{\text{Ureia}}{6}) \)
-</p>
-<p class="calc-formula" id="formula-bun">
-  \( \text{Osmolaridade} = (2 \times \text{Sódio}) + (\frac{\text{Glicose}}{18}) + (\frac{\text{BUN}}{2.8}) \)
-</p>
 
   <!-- Sódio -->
   <div class="calc-campo">
@@ -206,21 +200,7 @@
   const interpretacaoEl = document.getElementById("osm-interpretacao");
   const erroEl          = document.getElementById("osm-erro");
 
-  // Atualiza a fórmula visível
-function atualizarFormula() {
-  const unidade = document.querySelector('input[name="escoria-nitrogenada"]:checked').value;
-  document.getElementById("formula-ureia").style.display = unidade === "ureia" ? "block" : "none";
-  document.getElementById("formula-bun").style.display  = unidade === "bun"   ? "block" : "none";
-}
-
-// Chama ao mudar o radio
-document.querySelectorAll('input[name="escoria-nitrogenada"]').forEach(radio => {
-  radio.addEventListener("change", atualizarFormula);
-});
-
-// Chama na inicialização para já mostrar a correta
-atualizarFormula();
-  
+// Chama na inicialização para já mostrar a correta  
   function classificarOsm(osm) {
     if (osm < 275) return {
       classe: "risco-baixo",
