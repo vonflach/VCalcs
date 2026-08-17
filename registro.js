@@ -46,5 +46,13 @@ const registroCalculadoras = [
     area: "Nefrologia",
     tags: ["fração excretada", "sódio", "função renal", "nefrologia", "creatinina"],
     caminho: "calculadoras/fena/index.html"
+  },
+  {
+  id:        "tfg",
+  nome:      "Taxa de Filtração Glomerular estimada (TFGe)",
+  descricao: "Estimativa da TFG pelas fórmulas Cockcroft-Gault, MDRD e CKD-EPI 2021",
+  area:      "Nefrologia",
+  tags:      ["tfg", "tfge", "ckd-epi", "mdrd", "cockcroft", "creatinina", "funcao renal"],
+  caminho:   "calculadoras/tfg/index.html"
   }
 ];

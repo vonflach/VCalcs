@@ -73,7 +73,8 @@ Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, 
 
 ## Calculadoras adicionadas
 
-- Fração de Excreção de Sódio
+- Taxa de Filtração Glomerular estimada (TFGe) &mdash; Cockcroft-Gault, MDRD e CKD-EPI 2021
+- Fração de Excreção de Sódio (FENa)
 - Sódio corrigido pela Hiperglicemia
 - Osmolaridade Plasmática
 - Relação Albumina-Creatinina (RAC)
@@ -81,7 +82,7 @@ Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, 
 
 ## Calculadoras futuras
 
-- LDL sérico &mdash; Em desenvolvimento...
+- LDL Sérico &mdash; Em desenvolvimento...
 - Dose e Velocidade de Infusão &mdash; Em desenvolvimento...
 
 ## Disclaimer
