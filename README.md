@@ -73,6 +73,7 @@ Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, 
 
 ## Calculadoras adicionadas
 
+- Fração de Excreção de Sódio
 - Sódio corrigido pela Hiperglicemia
 - Osmolaridade Plasmática
 - Relação Albumina-Creatinina (RAC)
@@ -80,7 +81,6 @@ Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, 
 
 ## Calculadoras futuras
 
-- Fração de Excreção de Sódio &mdash; Em desenvolvimento...
 - LDL sérico &mdash; Em desenvolvimento...
 - Dose e Velocidade de Infusão &mdash; Em desenvolvimento...
 

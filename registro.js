@@ -38,5 +38,13 @@ const registroCalculadoras = [
     area: "Nefrologia",
     tags: ["correção", "plasma", "eletrólitos", "nefrologia", "sódio", "glicose", "hiperglicemia"],
     caminho: "calculadoras/sodio-glicose/index.html"
+  },
+  {
+    id: "fena",
+    nome: "Fração Excretada de Sódio (FENa)",
+    descricao: "Calcula a fração excretada de sódio para avaliar a função renal.",
+    area: "Nefrologia",
+    tags: ["fração excretada", "sódio", "função renal", "nefrologia", "creatinina"],
+    caminho: "calculadoras/fena/index.html"
   }
 ];

@@ -1,0 +1,256 @@
+<!-- calculadoras/fena/index.html -->
+
+<div class="calc-fena">
+  <h2>Fração Excretada de Sódio (FENa)</h2>
+  <p class="calc-formula" id="formula-ureia">
+  \( \text{FENa (\%)} = \left( \frac{\text{Sódio Urinário} \times \text{Creatinina Sérica}}{\text{Sódio Sérico} \times \text{Creatinina Urinária}} \right) \times 100 \)
+</p>
+
+  <!-- Sódio Urinário -->
+  <div class="calc-campo">
+    <label>Sódio Urinário &mdash; mEq/L</label>
+    <input type="number" id="fena-sodio-urinario" inputmode="decimal" placeholder="Ex: 100" min="0">
+  </div>
+
+  <!-- Sódio Sérico -->
+  <div class="calc-campo">
+    <label>Sódio Sérico &mdash; mEq/L</label>
+    <input type="number" id="fena-sodio-serico" inputmode="decimal" placeholder="Ex: 140" min="0">
+  </div>
+
+  <!-- Creatinina Sérica -->
+  <div class="calc-campo">
+    <label>Creatinina Sérica &mdash; mg/dL</label>
+    <input type="number" id="fena-creatinina-serica" inputmode="decimal" placeholder="Ex: 1.0" min="0">
+  </div>
+
+  <!-- Creatinina Urinária -->
+  <div class="calc-campo">
+    <label>Creatinina Urinária &mdash; mg/dL</label>
+    <input type="number" id="fena-creatinina-urinaria" inputmode="decimal" placeholder="Ex: 50" min="0">
+  </div>
+
+  <button id="fena-btn-calcular" class="calc-btn">Calcular</button>
+
+  <div id="fena-resultado" class="calc-resultado escondido">
+    <p class="calc-resultado-valor" id="fena-valor"></p>
+    <p class="calc-resultado-tag" id="fena-tag"></p>
+    <p class="calc-resultado-interpretacao" id="fena-interpretacao"></p>
+  </div>
+
+  <p id="fena-erro" class="calc-erro escondido">
+    Preencha todos os campos com valores numéricos válidos.
+  </p>
+</div>
+
+<style>
+  .calc-fena {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .calc-fena h2 {
+    color: var(--cor-grafite);
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+
+  .calc-formula {
+    color: var(--cor-texto-secundario);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .calc-campo {
+    margin-bottom: 18px;
+  }
+
+  .calc-campo label {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--cor-texto);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .radio-group {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #374151;
+    cursor: pointer;
+  }
+
+  .calc-campo input[type="number"] {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border: 1px solid #d0d5db;
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .calc-campo input[type="number"]:focus {
+    outline: none;
+    border-color: var(--cor-cyan);
+    box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.15);
+  }
+
+  .calc-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--cor-cyan);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-family: inherit;
+  }
+
+  .calc-btn:hover {
+    background-color: var(--cor-grafite);
+  }
+
+  .calc-erro {
+    color: #b42318;
+    font-size: 0.88rem;
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  .calc-resultado {
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid transparent;
+  }
+
+  .calc-resultado-valor {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .calc-resultado-tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .calc-resultado-interpretacao {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .calc-resultado.atencao {
+    background-color: rgba(217, 158, 10, 0.1);
+    border-color: #d99e0a;
+  }
+  .calc-resultado.atencao .calc-resultado-valor,
+  .calc-resultado.atencao .calc-resultado-tag { color: #a16207; }
+
+  .calc-resultado.risco-baixo {
+    background-color: rgba(220, 38, 38, 0.08);
+    border-color: #dc2626;
+  }
+  .calc-resultado.risco-baixo .calc-resultado-valor,
+  .calc-resultado.risco-baixo .calc-resultado-tag { color: #dc2626; }
+
+  .calc-resultado.risco-alto {
+    background-color: rgba(220, 38, 38, 0.08);
+    border-color: #dc2626;
+  }
+  .calc-resultado.risco-alto .calc-resultado-valor,
+  .calc-resultado.risco-alto .calc-resultado-tag { color: #dc2626; }
+
+  .calc-resultado.risco-alto {
+    background-color: rgba(220, 38, 38, 0.08);
+    border-color: #dc2626;
+  }
+  .calc-resultado.risco-alto .calc-resultado-valor,
+  .calc-resultado.risco-alto .calc-resultado-tag { color: #dc2626; }
+</style>
+
+<script>
+(function () {
+  const inputSodioU   = document.getElementById("fena-sodio-urinario");
+  const inputSodioS   = document.getElementById("fena-sodio-serico");
+  const inputCreatininaU = document.getElementById("fena-creatinina-urinaria");
+  const inputCreatininaS = document.getElementById("fena-creatinina-serica");
+  const btnCalcular     = document.getElementById("fena-btn-calcular");
+  const resultadoEl     = document.getElementById("fena-resultado");
+  const valorEl         = document.getElementById("fena-valor");
+  const tagEl           = document.getElementById("fena-tag");
+  const interpretacaoEl = document.getElementById("fena-interpretacao");
+  const erroEl          = document.getElementById("fena-erro");
+  
+  function classificarFena(fena) {
+    if (fena < 1) return {
+      classe: "risco-baixo",
+      tag: "FENa reduzida",
+      texto: "Sugestivo de etiologia Pré-Renal, principalmente se associado com NaU < 20 mEq/L. Avaliar contexto clínico, balanço hídrico e demais eletrólitos."
+    };
+    if (fena < 2) return {
+      classe: "atencao",
+      tag: "FENa intermediária",
+      texto: "Impossível determinar com precisão a etiologia da injúria renal aguda. Requer extensa investigação com alta correlação clínica."
+    };
+    return {
+      classe: "risco-alto",
+      tag: "FENa elevada",
+      texto: "Sugestivo de etiologia Renal, principalmente se associado com NaU > 40 mEq/L. Avaliar contexto clínico, balanço hídrico e demais eletrólitos."
+    };
+  }
+
+  function calcularFena() {
+    const sodioU  = parseFloat(inputSodioU.value);
+    const sodioS = parseFloat(inputSodioS.value);
+    const creatininaU = parseFloat(inputCreatininaU.value);
+    const creatininaS = parseFloat(inputCreatininaS.value);
+
+    if (isNaN(sodioU) || isNaN(sodioS) || isNaN(creatininaU) || isNaN(creatininaS) || sodioU < 0 || sodioS < 0 || creatininaU < 0 || creatininaS < 0) {
+      erroEl.classList.remove("escondido");
+      resultadoEl.classList.add("escondido");
+      return;
+    }
+
+    erroEl.classList.add("escondido");
+
+    // Fena
+    const fena             = (sodioU * creatininaS) / (creatininaU * sodioS) * 100;
+    const fenaArredondada  = Math.round(fena * 10) / 10;
+    const classificacao   = classificarFena(fenaArredondada);
+
+    valorEl.textContent       = `Fena: ${fenaArredondada} %`;
+    tagEl.textContent         = classificacao.tag;
+    interpretacaoEl.textContent = classificacao.texto;
+
+    resultadoEl.className = "calc-resultado " + classificacao.classe;
+    resultadoEl.classList.remove("escondido");
+    resultadoEl.scrollIntoView({ behavior: "smooth", block: "end" });
+  }
+
+  btnCalcular.addEventListener("click", calcularFena);
+
+  [inputSodioU, inputSodioS, inputCreatininaU, inputCreatininaS].forEach(campo => {
+    campo.addEventListener("keydown", e => {
+      if (e.key === "Enter") calcularFena();
+    });
+  });
+})();
+</script>
