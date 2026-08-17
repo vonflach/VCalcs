@@ -121,6 +121,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnVoltar.addEventListener("click", mostrarHome);
 
+  // Logo clicável volta para home
+  document.getElementById("logo").addEventListener("click", mostrarHome);
+
   // Modal de disclaimer/informações
   function abrirModal() {
     modalOverlay.classList.remove("escondido");

@@ -52,6 +52,13 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+.cabecalho-conteudo:hover {
+  opacity: 0.8;
 }
 
 .cabecalho-conteudo .logo {

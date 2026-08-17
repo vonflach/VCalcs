@@ -225,7 +225,7 @@ atualizarFormula();
     if (osm < 275) return {
       classe: "risco-baixo",
       tag: "Osmolaridade baixa",
-      texto: "Checar sinais de hipervolemia e possíveis distúrbios hidroeletrolíticos associados. Revisar valores inseridos e contexto clínico. Comparar com osmolaridade sérica, se disponível."
+      texto: "Checar sinais de hipervolemia e possíveis distúrbios hidroeletrolíticos associados. Revisar valores inseridos e contexto clínico. Comparar com osmolaridade sérica mensurada, se disponível."
     };
     if (osm <= 295) return {
       classe: "adequada",
@@ -234,8 +234,8 @@ atualizarFormula();
     };
     return {
       classe: "risco-alto",
-      tag: "Osmolariade elevada",
-      texto: "Checar sinais de desidratação e possíveis distúrbios hidroeletrolíticos associados. Revisar valores inseridos e contexto clínico. Comparar com osmolaridade sérica, se disponível."
+      tag: "Osmolaridade elevada",
+      texto: "Checar sinais de desidratação e possíveis distúrbios hidroeletrolíticos associados. Revisar valores inseridos e contexto clínico. Comparar com osmolaridade sérica mensurada, se disponível."
     };
   }
 

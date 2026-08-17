@@ -73,16 +73,20 @@ Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, 
 
 ## Calculadoras adicionadas
 
+- Osmolaridade Plasmática
 - Relação Albumina-Creatinina (RAC)
 - Pressão Arterial Média (PAM)
 
 ## Calculadoras futuras
 
-- Osmolaridade Sérica &mdash; Em desenvolvimento...
+- Sódio corrigido para Glicemia &mdash; Em desenvolvimento...
+- Fração de Excreção de Sódio &mdash; Em desenvolvimento...
+- LDL sérico &mdash; Em desenvolvimento...
+- Dose e Velocidade de Infusão &mdash; Em desenvolvimento...
 
 ## Disclaimer
 
-As calculadoras disponibilizadas neste aplicativo são ferramentas de **APOIO** à prática clínica e **NÃO substituem o julgamento clínico**, a avaliação individualizada do paciente ou a consulta a diretrizes atualizadas. O raciocínio clínico é soberano e deve sempre prevalecer sobre qualquer resultado apresentado aqui.
+As calculadoras disponibilizadas neste aplicativo são ferramentas de **APOIO** à prática clínica e **NÃO substituem o julgamento clínico**, a avaliação individualizada do paciente ou a consulta a diretrizes atualizadas. O raciocínio clínico é soberano e deve sempre prevalecer sobre qualquer resultado apresentado aqui. **O PRINCIPAL OBJETIVO DA PRESENTE APLICAÇÃO É EDUCACIONAL**
 
 ## Licença
 
@@ -90,4 +94,4 @@ Veja o arquivo [LICENSE](./LICENSE) para detalhes.
 
 ## Autor
 
-Gabriel von Flach Sarmento
+Gabriel von Flach Sarmento, 2026
