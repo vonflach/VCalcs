@@ -85,6 +85,7 @@ Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, 
 ## Calculadoras futuras
 
 - LDL Sérico &mdash; Em desenvolvimento...
+- Data Provável de Parto &mdash; Em desenvolvimento...
 
 ## Disclaimer
 

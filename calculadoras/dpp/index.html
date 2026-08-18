@@ -1,0 +1,394 @@
+<!-- calculadoras/dpp/index.html -->
+
+<div class="calc-dpp">
+  <h2>Data Provável do Parto (DPP)</h2>
+
+  <!-- Seleção do método -->
+  <div class="calc-campo">
+    <label>Método</label>
+    <div class="objetivo-btns">
+      <button class="objetivo-btn ativo" id="btn-dum" onclick="selecionarMetodo('dum')">
+        DUM
+        <span>Data da última menstruação</span>
+      </button>
+      <button class="objetivo-btn" id="btn-usg" onclick="selecionarMetodo('usg')">
+        USG
+        <span>Ultrassonografia obstétrica</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bloco DUM -->
+  <div id="bloco-dum">
+    <div class="calc-campo">
+      <label for="dpp-dum">Data da última menstruação</label>
+      <input type="date" id="dpp-dum">
+    </div>
+  </div>
+
+  <!-- Bloco USG -->
+  <div id="bloco-usg" class="escondido">
+    <div class="calc-campo">
+      <label for="dpp-data-usg">Data da USG</label>
+      <input type="date" id="dpp-data-usg">
+    </div>
+    <div class="calc-campo">
+      <label>Idade gestacional na USG</label>
+      <div class="ig-inputs">
+        <div class="ig-input-grupo">
+          <input type="number" id="dpp-ig-semanas" inputmode="numeric" placeholder="0" min="0" max="42">
+          <span class="ig-label">semanas</span>
+        </div>
+        <div class="ig-input-grupo">
+          <input type="number" id="dpp-ig-dias" inputmode="numeric" placeholder="0" min="0" max="6">
+          <span class="ig-label">dias</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="calc-btn" id="dpp-btn-calcular">Calcular</button>
+
+  <!-- Resultado -->
+  <div id="dpp-resultado" class="dpp-resultado escondido">
+    <div class="dpp-resultado-header">
+      <p class="dpp-resultado-titulo">Resultado Estimado</p>
+    </div>
+    <div id="dpp-linhas" class="dpp-linhas"></div>
+  </div>
+
+  <p id="dpp-erro" class="calc-erro escondido"></p>
+</div>
+
+<style>
+  .calc-dpp { max-width: 480px; margin: 0 auto; }
+
+  .calc-dpp h2 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: var(--cor-grafite);
+  }
+
+  .calc-campo { margin-bottom: 18px; }
+
+  .calc-campo label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--cor-texto);
+    margin-bottom: 6px;
+  }
+
+  .objetivo-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .objetivo-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 16px 12px;
+    border: 2px solid #d0d5db;
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--cor-texto);
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .objetivo-btn span {
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--cor-texto-secundario);
+    text-align: center;
+  }
+
+  .objetivo-btn.ativo {
+    border-color: var(--cor-cyan);
+    background-color: rgba(14, 116, 144, 0.06);
+    color: var(--cor-cyan);
+  }
+
+  .objetivo-btn.ativo span { color: var(--cor-cyan); }
+  .objetivo-btn:hover:not(.ativo) { border-color: #9ca3af; }
+
+  .calc-campo input[type="date"],
+  .calc-campo input[type="number"] {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid #d0d5db;
+    border-radius: 8px;
+    background: #ffffff;
+    color: var(--cor-texto);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .calc-campo input[type="date"]:focus,
+  .calc-campo input[type="number"]:focus {
+    outline: none;
+    border-color: var(--cor-cyan);
+    box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.15);
+  }
+
+  .ig-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .ig-input-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .ig-label {
+    font-size: 0.78rem;
+    color: var(--cor-texto-secundario);
+    padding-left: 2px;
+  }
+
+  .calc-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--cor-cyan);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background-color 0.2s ease;
+  }
+
+  .calc-btn:hover { background-color: var(--cor-grafite); }
+
+  .calc-erro {
+    color: #b42318;
+    font-size: 0.88rem;
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  .dpp-resultado {
+    margin-top: 24px;
+    border: 2px solid var(--cor-cyan);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .dpp-resultado-header { background: var(--cor-cyan); padding: 12px 18px; }
+
+  .dpp-resultado-titulo {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .dpp-linhas {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .dpp-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: #f9fafb;
+    border-radius: 8px;
+    border-left: 3px solid var(--cor-cyan);
+  }
+
+  .dpp-linha.destaque {
+    background: rgba(14, 116, 144, 0.06);
+    border-left-color: var(--cor-grafite);
+  }
+
+  .dpp-linha.alerta {
+    background: rgba(234, 179, 8, 0.08);
+    border-left-color: #d97706;
+  }
+
+  .dpp-linha-label {
+    font-size: 0.88rem;
+    color: var(--cor-texto-secundario);
+    font-weight: 500;
+  }
+
+  .dpp-linha-valor {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--cor-cyan);
+    text-align: right;
+  }
+
+  .dpp-linha.destaque .dpp-linha-valor { color: var(--cor-grafite); font-size: 1.1rem; }
+  .dpp-linha.alerta .dpp-linha-valor { color: #d97706; }
+  .dpp-separador { height: 1px; background: #e5e7eb; margin: 4px 0; }
+</style>
+
+<script>
+(function () {
+
+  let metodoAtual = "dum";
+
+  window.selecionarMetodo = function(metodo) {
+    metodoAtual = metodo;
+    document.getElementById("btn-dum").classList.toggle("ativo", metodo === "dum");
+    document.getElementById("btn-usg").classList.toggle("ativo", metodo === "usg");
+    document.getElementById("bloco-dum").classList.toggle("escondido", metodo !== "dum");
+    document.getElementById("bloco-usg").classList.toggle("escondido", metodo !== "usg");
+    document.getElementById("dpp-resultado").classList.add("escondido");
+    document.getElementById("dpp-erro").classList.add("escondido");
+  };
+
+  function mostrarErro(msg) {
+    const erroEl = document.getElementById("dpp-erro");
+    erroEl.textContent = msg;
+    erroEl.classList.remove("escondido");
+    document.getElementById("dpp-resultado").classList.add("escondido");
+  }
+
+  function adicionarDias(data, dias) {
+    const d = new Date(data.getTime());
+    d.setDate(d.getDate() + dias);
+    return d;
+  }
+
+  function fmtData(d) {
+    return d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+  }
+
+  function diaSemana(d) {
+    return d.toLocaleDateString("pt-BR", { weekday: "long" });
+  }
+
+  function igAtual(dppDate, hoje) {
+    const igDias  = 280 - Math.round((dppDate - hoje) / (1000 * 60 * 60 * 24));
+    const semanas = Math.floor(igDias / 7);
+    const dias    = igDias % 7;
+    return { semanas, dias, total: igDias };
+  }
+
+  function linha(label, valor, classe = "") {
+    return `<div class="dpp-linha${classe ? " " + classe : ""}">
+      <span class="dpp-linha-label">${label}</span>
+      <span class="dpp-linha-valor">${valor}</span>
+    </div>`;
+  }
+
+  function sep() { return `<div class="dpp-separador"></div>`; }
+
+  function parseDataLocal(str) {
+    const [ano, mes, dia] = str.split("-").map(Number);
+    return new Date(ano, mes - 1, dia);
+  }
+
+  function calcularDPP() {
+    if (document.activeElement) document.activeElement.blur();
+
+    document.getElementById("dpp-erro").classList.add("escondido");
+    document.getElementById("dpp-resultado").classList.add("escondido");
+
+    // hoje definido aqui — usado tanto na validação quanto no resultado
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    let dpp;
+
+    if (metodoAtual === "dum") {
+      const dumStr = document.getElementById("dpp-dum").value;
+      if (!dumStr) return mostrarErro("Informe a data da última menstruação.");
+
+      const dum = parseDataLocal(dumStr);
+      if (dum > hoje) return mostrarErro("A DUM não pode ser uma data futura.");
+
+      dpp = adicionarDias(dum, 280);
+
+    } else {
+      const usgStr  = document.getElementById("dpp-data-usg").value;
+      const semanas = parseInt(document.getElementById("dpp-ig-semanas").value);
+      const dias    = parseInt(document.getElementById("dpp-ig-dias").value);
+
+      if (!usgStr) return mostrarErro("Informe a data da USG.");
+      if (isNaN(semanas) || semanas < 0) return mostrarErro("Informe as semanas da IG.");
+      if (isNaN(dias) || dias < 0 || dias > 6) return mostrarErro("Os dias devem ser entre 0 e 6.");
+
+      const dataUSG = parseDataLocal(usgStr);
+      if (dataUSG > hoje) return mostrarErro("A data da USG não pode ser uma data futura.");
+
+      const igTotalDias = semanas * 7 + dias;
+      if (igTotalDias === 0) return mostrarErro("IG não pode ser zero.");
+      if (igTotalDias > 294) return mostrarErro("IG informada ultrapassa 42 semanas.");
+
+      dpp = adicionarDias(dataUSG, 280 - igTotalDias);
+    }
+
+    const ig          = igAtual(dpp, hoje);
+    const diasParaDPP = Math.round((dpp - hoje) / (1000 * 60 * 60 * 24));
+    const hojeStr     = fmtData(hoje);
+
+    const linhasEl = document.getElementById("dpp-linhas");
+    let html = "";
+
+    html += linha(
+      "Data Provável do Parto",
+      `${fmtData(dpp)} (${diaSemana(dpp)})`,
+      "destaque"
+    );
+
+    html += sep();
+
+    html += linha(`IG atual (${hojeStr})`, `${ig.semanas}s ${ig.dias}d`);
+
+    if (diasParaDPP > 0) {
+      const semanasRestantes = Math.floor(diasParaDPP / 7);
+      const diasRestantes    = diasParaDPP % 7;
+      html += linha("Semanas restantes", `${semanasRestantes}s ${diasRestantes}d (${diasParaDPP} dias)`);
+    } else if (diasParaDPP === 0) {
+      html += linha("⚠ DPP", "Hoje é a data provável do parto!", "alerta");
+    } else {
+      html += linha("⚠ DPP ultrapassada", `Há ${Math.abs(diasParaDPP)} dias`, "alerta");
+    }
+
+    let trimestre = "";
+    if (ig.semanas < 14)      trimestre = "1º trimestre";
+    else if (ig.semanas < 28) trimestre = "2º trimestre";
+    else                       trimestre = "3º trimestre";
+    html += linha("Trimestre atual", trimestre);
+
+    linhasEl.innerHTML = html;
+    document.getElementById("dpp-resultado").classList.remove("escondido");
+    document.getElementById("dpp-resultado").scrollIntoView({ behavior: "smooth", block: "end" });
+  }
+
+  window.calcularDPP = calcularDPP;
+
+  document.getElementById("dpp-btn-calcular").addEventListener("click", calcularDPP);
+
+  ["dpp-dum", "dpp-data-usg", "dpp-ig-semanas", "dpp-ig-dias"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener("keydown", e => {
+      if (e.key === "Enter") calcularDPP();
+    });
+  });
+
+})();
+</script>

@@ -58,7 +58,7 @@ const registroCalculadoras = [
   {
   id:        "infusao",
   nome:      "Infusão Contínua",
-  descricao: "Cálculo de dose ou vazão para medicações em infusão contínua",
+  descricao: "Cálculo de dose ou vazão para medicações em infusão contínua.",
   area:      "Medicina Intensiva",
   tags:      ["infusao", "infusão", "bomba", "vazao", "dose", "continua", "droga", "farmaco"],
   caminho:   "calculadoras/infusao/index.html"
@@ -66,9 +66,17 @@ const registroCalculadoras = [
   {
   id:        "hvhs",
   nome:      "Hidração Venosa via Holliday-Segar",
-  descricao: "Calcule a infusão de manutenção de líquidos em pediatria, com base no método Holliday-Segar",
+  descricao: "Calcule a infusão de manutenção de líquidos em pediatria, com base no método Holliday-Segar.",
   area:      "Pediatria",
   tags:      ["infusao", "bomba", "vazao", "dose", "continua", "eletrolito", "manutencao", "manutenção", "hidratacao", "hidratação", "holliday-segar", "pediatria"],
   caminho:   "calculadoras/hvhs/index.html"
-  }
+  },
+  {
+  id:        "dpp",
+  nome:      "Data Provável do Parto (DPP)",
+  descricao: "Cálculo da DPP pela Regra de Naegele via DUM ou USG obstétrica.",
+  area:      "Obstetrícia",
+  tags:      ["dpp", "parto", "gestacao", "obstetricia", "naegele", "dum", "usg", "ig", "idade gestacional", "gestação", "obstetrícia"],
+  caminho:   "calculadoras/dpp/index.html"
+}
 ];
