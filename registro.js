@@ -57,7 +57,7 @@ const registroCalculadoras = [
   },
   {
   id:        "infusao",
-  nome:      "Infusão Contínua",
+  nome:      "Infusão Contínua de Medicamentos",
   descricao: "Cálculo de dose ou vazão para medicações em infusão contínua.",
   area:      "Medicina Intensiva",
   tags:      ["infusao", "infusão", "bomba", "vazao", "dose", "continua", "droga", "farmaco"],
@@ -73,7 +73,7 @@ const registroCalculadoras = [
   },
   {
   id:        "dpp",
-  nome:      "Data Provável do Parto (DPP)",
+  nome:      "Data Provável de Parto (DPP)",
   descricao: "Cálculo da DPP pela Regra de Naegele via DUM ou USG obstétrica.",
   area:      "Obstetrícia",
   tags:      ["dpp", "parto", "gestacao", "obstetricia", "naegele", "dum", "usg", "ig", "idade gestacional", "gestação", "obstetrícia"],
@@ -86,5 +86,13 @@ const registroCalculadoras = [
   area:      "Cardiologia",
   tags:      ["ldl", "ldl-c", "risco cardiovascular", "coronariana", "colesterol", "cardiologia", "fórmula de friedewald", "friedewald", "colesterol ldl", "colesterol ldl-c"],
   caminho:   "calculadoras/ldl/index.html"
+  },
+  {
+  id:        "albca",
+  nome:      "Correção de Cálcio sérico pela Albumina",
+  descricao: "Corrige os níveis de cálcio sérico com base na concentração de albumina para avaliar o real impacto.",
+  area:      "Nefrologia / Endocrinologia",
+  tags:      ["calcio", "albumina", "correcao", "endocrinologia", "nefrologia", "cálcio", "correção", "cálcio sérico", "albumina sérica"],
+  caminho:   "calculadoras/albca/index.html"
   }
 ];
