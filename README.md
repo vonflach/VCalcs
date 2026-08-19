@@ -73,6 +73,7 @@ Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, 
 
 ## Calculadoras adicionadas
 
+- Estimativa para Colesterol LDL (LDL-c)
 - Data Provável de Parto (DPP)
 - Hidratação Venosa via Holliday-Segar e eletrólitos
 - Vazão e Dose de Medicamentos em Infusão Contínua
@@ -85,7 +86,6 @@ Pronto — a calculadora aparece automaticamente na home, em ordem alfabética, 
 
 ## Calculadoras futuras
 
-- LDL Sérico (Friedewald) &mdash; Em desenvolvimento...
 - Correção de Cálcio sérico pela Albumina &mdash; Em desenvolvimento...
 - Correção de Reticulócitos &mdash; Em desenvolvimento...
 - Índice FIB-4  &mdash; Em desenvolvimento...

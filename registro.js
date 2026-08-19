@@ -78,5 +78,13 @@ const registroCalculadoras = [
   area:      "Obstetrícia",
   tags:      ["dpp", "parto", "gestacao", "obstetricia", "naegele", "dum", "usg", "ig", "idade gestacional", "gestação", "obstetrícia"],
   caminho:   "calculadoras/dpp/index.html"
-}
+  },
+  {
+  id:        "ldl",
+  nome:      "Estimativa para Colesterol LDL (LDL-c)",
+  descricao: "Encontre o LDL-c segundo a fórmula de Friedewald e avalie a meta conforme o risco cardiovascular.",
+  area:      "Cardiologia",
+  tags:      ["ldl", "ldl-c", "risco cardiovascular", "coronariana", "colesterol", "cardiologia", "fórmula de friedewald", "friedewald", "colesterol ldl", "colesterol ldl-c"],
+  caminho:   "calculadoras/ldl/index.html"
+  }
 ];
