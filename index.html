@@ -6,18 +6,17 @@
   <title>VCalcs</title>
   <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="style.css">
   <!-- KaTeX -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body, {
-    delimiters: [
-      {left: '\\(', right: '\\)', display: false},
-      {left: '$$', right: '$$', display: true}
-    ]
-  })">
-</script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\(', right: '\\)', display: false},
+        {left: '$$', right: '$$', display: true}
+      ]
+    })">
+  </script>
 </head>
 <body>
 
@@ -53,15 +52,11 @@
         de ferramentas de inteligência artificial. <strong>As fórmulas e faixas de
         interpretação clínica foram definidas e revisadas pelo autor.</strong>
       </p>
-      <p>
-        Gabriel von Flach Sarmento, 2026
-      </p>
+      <p>Gabriel von Flach Sarmento, 2026</p>
       <p>
         <a href="https://github.com/vonflach/VCalcs.git" target="_blank" rel="noopener noreferrer">GitHub do projeto</a>.
       </p>
-      <p>
-        Versão 1.0.0 
-      </p>
+      <p>Versão 1.0.0</p>
     </div>
   </div>
 
@@ -77,15 +72,21 @@
           autocomplete="off"
         >
       </div>
-
       <div id="lista-calculadoras" class="lista-calculadoras">
-        <!-- Cards são renderizados aqui dinamicamente pelo app.js -->
+        <!-- Cards renderizados pelo app.js -->
       </div>
     </div>
 
-    <!-- ÁREA DA CALCULADORA: recebe o HTML da calc carregada via fetch -->
+    <!-- ÁREA DA CALCULADORA: recebe o HTML da calc ou utilitário carregado via fetch -->
     <div id="area-calculadora" class="area-calculadora escondido">
-      <!-- Conteúdo da calculadora injetado aqui pelo app.js -->
+      <!-- Conteúdo injetado pelo app.js -->
+    </div>
+
+    <!-- ÁREA DE UTILITÁRIOS: grid de cards -->
+    <div id="area-utilitarios" class="area-utilitarios escondido">
+      <div id="lista-utilitarios" class="lista-calculadoras">
+        <!-- Cards de utilitários renderizados pelo app.js -->
+      </div>
     </div>
 
   </main>
@@ -94,8 +95,21 @@
     <p>VCalcs &mdash; Calculadoras Médicas</p>
   </footer>
 
-  <!-- Ordem importa: registro.js antes de app.js -->
+  <!-- Navegação inferior -->
+  <nav class="nav-inferior">
+    <button class="nav-inferior-btn ativo" id="nav-calcs" onclick="navegarPara('calcs')">
+      <img src="assets/icons/calc.svg" alt="Calculadoras" class="nav-icone">
+      <span>Calculadoras</span>
+    </button>
+    <button class="nav-inferior-btn" id="nav-utils" onclick="navegarPara('utils')">
+      <img src="assets/icons/book.svg" alt="Utilitários" class="nav-icone">
+      <span>Utilitários</span>
+    </button>
+  </nav>
+
+  <!-- Ordem importa! -->
   <script src="registro.js"></script>
+  <script src="registro-utilitarios.js"></script>
   <script src="app.js"></script>
 
 </body>

@@ -28,6 +28,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-bottom: 72px;
 }
 
 /* ---------- Utilitário ---------- */
@@ -108,6 +109,7 @@ body {
   padding: 8px 14px;
   font-size: 0.9rem;
   cursor: pointer;
+  font-family: inherit;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -210,12 +212,16 @@ main {
   padding: 24px 0;
 }
 
-/* ---------- Área da calculadora carregada ---------- */
+/* ---------- Área da calculadora / utilitário carregado ---------- */
 .area-calculadora {
   background-color: var(--cor-card);
   border-radius: 10px;
   padding: 24px;
   box-shadow: var(--sombra-card);
+}
+
+.area-utilitarios {
+  width: 100%;
 }
 
 /* ---------- Modal de disclaimer ---------- */
@@ -288,6 +294,62 @@ main {
   padding: 18px;
   font-size: 0.8rem;
   color: var(--cor-texto-secundario);
+}
+
+/* ---------- Navegação inferior ---------- */
+.nav-inferior {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  z-index: 20;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.nav-inferior-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px 0 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.nav-inferior-btn:hover:not(.ativo) {
+  color: #6b7280;
+}
+
+.nav-inferior-btn.ativo {
+  color: var(--cor-cyan);
+}
+
+/* Ícones SVG externos da nav */
+.nav-icone {
+  width: 22px;
+  height: 22px;
+  opacity: 0.45;
+  transition: opacity 0.15s ease;
+}
+
+.nav-inferior-btn.ativo .nav-icone {
+  opacity: 1;
+  filter: invert(35%) sepia(80%) saturate(500%) hue-rotate(155deg) brightness(90%);
+}
+
+.nav-inferior-btn:hover:not(.ativo) .nav-icone {
+  opacity: 0.65;
 }
 
 /* ---------- Responsivo ---------- */

@@ -1,33 +1,47 @@
 // app.js
-// Responsável por: ordenar/filtrar o registro, renderizar a home (cards + busca)
-// e carregar cada calculadora dinamicamente via fetch.
+// Responsável por: ordenar/filtrar o registro, renderizar a home (cards + busca),
+// carregar calculadoras e utilitários dinamicamente via fetch,
+// e gerenciar a navegação inferior entre abas.
 //
-// Depende de registro.js (deve ser carregado ANTES deste arquivo no index.html)
-// e dos seguintes elementos existirem no index.html (raiz):
-//   #campo-busca        -> <input> de busca
-//   #lista-calculadoras  -> <div> onde os cards são renderizados
-//   #area-calculadora    -> <div> onde o HTML da calc carregada é injetado
-//   #home                -> <div> que envolve busca + lista (escondida ao abrir uma calc)
-//   #btn-voltar          -> botão "< Voltar" (escondido na home)
+// Depende de registro.js e registro-utilitarios.js (carregados ANTES no index.html)
 
 document.addEventListener("DOMContentLoaded", () => {
-  const campoBusca = document.getElementById("campo-busca");
-  const listaEl = document.getElementById("lista-calculadoras");
-  const areaCalculadora = document.getElementById("area-calculadora");
-  const homeEl = document.getElementById("home");
-  const btnVoltar = document.getElementById("btn-voltar");
-  const btnInfo = document.getElementById("btn-info");
-  const modalOverlay = document.getElementById("modal-overlay");
-  const btnFecharModal = document.getElementById("btn-fechar-modal");
 
-  // Ordena o registro por nome (A-Z), sem alterar o array original
+  // --- Elementos ---
+  const campoBusca      = document.getElementById("campo-busca");
+  const listaEl         = document.getElementById("lista-calculadoras");
+  const areaCalculadora = document.getElementById("area-calculadora");
+  const areaUtilitarios = document.getElementById("area-utilitarios");
+  const listaUtilitarios = document.getElementById("lista-utilitarios");
+  const homeEl          = document.getElementById("home");
+  const btnVoltar       = document.getElementById("btn-voltar");
+  const btnInfo         = document.getElementById("btn-info");
+  const modalOverlay    = document.getElementById("modal-overlay");
+  const btnFecharModal  = document.getElementById("btn-fechar-modal");
+
+  // --- Utilitário: ordenar por nome ---
   function ordenarPorNome(lista) {
     return [...lista].sort((a, b) =>
       a.nome.localeCompare(b.nome, "pt-BR", { sensitivity: "base" })
     );
   }
 
-  // Renderiza os cards na tela a partir de uma lista (já ordenada/filtrada)
+  // --- KaTeX helper ---
+  function renderizarKatex(elemento) {
+    if (typeof renderMathInElement !== "undefined") {
+      renderMathInElement(elemento, {
+        delimiters: [
+          { left: "\\(", right: "\\)", display: false },
+          { left: "$$", right: "$$", display: true }
+        ]
+      });
+    }
+  }
+
+  // ═══════════════════════════════════════════
+  //  CALCULADORAS
+  // ═══════════════════════════════════════════
+
   function renderizarLista(lista) {
     listaEl.innerHTML = "";
 
@@ -49,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Filtra o registro pelo texto digitado (nome, descrição e tags)
   function filtrarCalculadoras(texto) {
     const termo = texto.trim().toLowerCase();
     if (termo === "") return ordenarPorNome(registroCalculadoras);
@@ -64,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return ordenarPorNome(filtradas);
   }
 
-  // Carrega o HTML da calculadora selecionada dentro de #area-calculadora
   async function carregarCalculadora(calc) {
     try {
       const resposta = await fetch(calc.caminho);
@@ -73,25 +85,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const html = await resposta.text();
       areaCalculadora.innerHTML = html;
 
-      // Os <script> injetados via innerHTML não executam automaticamente,
-      // então precisamos recriá-los manualmente para que a lógica da calc rode.
       areaCalculadora.querySelectorAll("script").forEach((scriptAntigo) => {
         const scriptNovo = document.createElement("script");
         scriptNovo.textContent = scriptAntigo.textContent;
         scriptAntigo.replaceWith(scriptNovo);
       });
-      // Renderiza fórmulas KaTeX injetadas via fetch
-      if (typeof renderMathInElement !== "undefined") {
-       renderMathInElement(areaCalculadora, {
-        delimiters: [
-          { left: "\\(", right: "\\)", display: false },
-          { left: "$$", right: "$$", display: true }
-         ]
-      });
-    }
 
+      renderizarKatex(areaCalculadora);
       mostrarCalculadora();
       window.scrollTo({ top: 0, behavior: "smooth" });
+
     } catch (erro) {
       areaCalculadora.innerHTML = `<p class="mensagem-erro">Erro ao carregar a calculadora. Tente novamente.</p>`;
       mostrarCalculadora();
@@ -101,51 +104,147 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function mostrarCalculadora() {
     homeEl.classList.add("escondido");
+    areaUtilitarios.classList.add("escondido");
     areaCalculadora.classList.remove("escondido");
     btnVoltar.classList.remove("escondido");
   }
+
+  // ═══════════════════════════════════════════
+  //  UTILITÁRIOS
+  // ═══════════════════════════════════════════
+
+  function renderizarUtilitarios() {
+    listaUtilitarios.innerHTML = "";
+
+    if (registroUtilitarios.length === 0) {
+      listaUtilitarios.innerHTML = `<p class="mensagem-vazia">Nenhum utilitário disponível.</p>`;
+      return;
+    }
+
+    const lista = ordenarPorNome(registroUtilitarios);
+
+    lista.forEach((util) => {
+      const card = document.createElement("div");
+      card.className = "card-calculadora";
+      card.innerHTML = `
+        <h3>${util.nome}</h3>
+        <p>${util.descricao}</p>
+        <span class="card-area">${util.area}</span>
+      `;
+      card.addEventListener("click", () => carregarUtilitario(util));
+      listaUtilitarios.appendChild(card);
+    });
+  }
+
+  async function carregarUtilitario(util) {
+    try {
+      const resposta = await fetch(util.caminho);
+      if (!resposta.ok) throw new Error(`Não foi possível carregar ${util.caminho}`);
+
+      const html = await resposta.text();
+      areaCalculadora.innerHTML = html;
+
+      areaCalculadora.querySelectorAll("script").forEach((scriptAntigo) => {
+        const scriptNovo = document.createElement("script");
+        scriptNovo.textContent = scriptAntigo.textContent;
+        scriptAntigo.replaceWith(scriptNovo);
+      });
+
+      renderizarKatex(areaCalculadora);
+
+      areaUtilitarios.classList.add("escondido");
+      areaCalculadora.classList.remove("escondido");
+      btnVoltar.classList.remove("escondido");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+    } catch (erro) {
+      areaCalculadora.innerHTML = `<p class="mensagem-erro">Erro ao carregar o utilitário. Tente novamente.</p>`;
+      areaUtilitarios.classList.add("escondido");
+      areaCalculadora.classList.remove("escondido");
+      btnVoltar.classList.remove("escondido");
+      console.error(erro);
+    }
+  }
+
+  // ═══════════════════════════════════════════
+  //  NAVEGAÇÃO INFERIOR
+  // ═══════════════════════════════════════════
+
+  window.navegarPara = function(destino) {
+    document.getElementById("nav-calcs").classList.toggle("ativo", destino === "calcs");
+    document.getElementById("nav-utils").classList.toggle("ativo", destino === "utils");
+
+    // Limpa área de calculadora ao trocar de aba
+    areaCalculadora.classList.add("escondido");
+    areaCalculadora.innerHTML = "";
+    btnVoltar.classList.add("escondido");
+
+    if (destino === "calcs") {
+      areaUtilitarios.classList.add("escondido");
+      homeEl.classList.remove("escondido");
+      campoBusca.value = "";
+      renderizarLista(ordenarPorNome(registroCalculadoras));
+
+    } else {
+      homeEl.classList.add("escondido");
+      areaUtilitarios.classList.remove("escondido");
+      renderizarUtilitarios();
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // ═══════════════════════════════════════════
+  //  BOTÃO VOLTAR E LOGO
+  // ═══════════════════════════════════════════
 
   function mostrarHome() {
     areaCalculadora.classList.add("escondido");
     areaCalculadora.innerHTML = "";
     btnVoltar.classList.add("escondido");
-    homeEl.classList.remove("escondido");
-    campoBusca.value = "";
-    renderizarLista(ordenarPorNome(registroCalculadoras));
+
+    // Volta para a aba que estava ativa
+    const utilsAtivo = document.getElementById("nav-utils").classList.contains("ativo");
+
+    if (utilsAtivo) {
+      areaUtilitarios.classList.remove("escondido");
+      renderizarUtilitarios();
+    } else {
+      homeEl.classList.remove("escondido");
+      campoBusca.value = "";
+      renderizarLista(ordenarPorNome(registroCalculadoras));
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  // Eventos
+  btnVoltar.addEventListener("click", mostrarHome);
+  document.getElementById("logo").addEventListener("click", () => navegarPara("calcs"));
+
+  // ═══════════════════════════════════════════
+  //  BUSCA
+  // ═══════════════════════════════════════════
+
   campoBusca.addEventListener("input", (e) => {
     renderizarLista(filtrarCalculadoras(e.target.value));
   });
 
-  btnVoltar.addEventListener("click", mostrarHome);
+  // ═══════════════════════════════════════════
+  //  MODAL
+  // ═══════════════════════════════════════════
 
-  // Logo clicável volta para home
-  document.getElementById("logo").addEventListener("click", mostrarHome);
-
-  // Modal de disclaimer/informações
-  function abrirModal() {
-    modalOverlay.classList.remove("escondido");
-  }
-
-  function fecharModal() {
-    modalOverlay.classList.add("escondido");
-  }
+  function abrirModal() { modalOverlay.classList.remove("escondido"); }
+  function fecharModal() { modalOverlay.classList.add("escondido"); }
 
   btnInfo.addEventListener("click", abrirModal);
   btnFecharModal.addEventListener("click", fecharModal);
+  modalOverlay.addEventListener("click", (e) => { if (e.target === modalOverlay) fecharModal(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") fecharModal(); });
 
-  // Fecha ao clicar fora do conteúdo (no overlay escuro)
-  modalOverlay.addEventListener("click", (e) => {
-    if (e.target === modalOverlay) fecharModal();
-  });
+  // ═══════════════════════════════════════════
+  //  INICIALIZAÇÃO
+  // ═══════════════════════════════════════════
 
-  // Fecha com a tecla Esc
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") fecharModal();
-  });
-
-  // Inicialização: mostra a lista completa, ordenada, ao carregar a página
   renderizarLista(ordenarPorNome(registroCalculadoras));
+
 });

@@ -94,5 +94,13 @@ const registroCalculadoras = [
   area:      "Nefrologia / Endocrinologia",
   tags:      ["calcio", "albumina", "correcao", "endocrinologia", "nefrologia", "cálcio", "correção", "cálcio sérico", "albumina sérica"],
   caminho:   "calculadoras/albca/index.html"
+  },
+  {
+  id:        "ret",
+  nome:      "Contagem de Reticulócitos corrigida",
+  descricao: "Corrige os valores de reticulócitos conforme o grau da anemia do paciente.",
+  area:      "Hematologia",
+  tags:      ["reticulocitos", "anemia", "correcao", "contagem", "correção", "reticulócitos", "anemia", "hematologia", "reticulócitos corrigidos", "contagem de reticulócitos", "hemograma"],
+  caminho:   "calculadoras/ret/index.html"
   }
 ];
