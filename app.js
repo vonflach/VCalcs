@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnInfo         = document.getElementById("btn-info");
   const modalOverlay    = document.getElementById("modal-overlay");
   const btnFecharModal  = document.getElementById("btn-fechar-modal");
+  const campoBuscaUtils = document.getElementById("campo-busca-utilitarios");
+
 
   // --- Utilitário: ordenar por nome ---
   function ordenarPorNome(lista) {
@@ -113,15 +115,13 @@ document.addEventListener("DOMContentLoaded", () => {
   //  UTILITÁRIOS
   // ═══════════════════════════════════════════
 
-  function renderizarUtilitarios() {
+  function renderizarUtilitarios(lista = ordenarPorNome(registroUtilitarios)) {
     listaUtilitarios.innerHTML = "";
 
     if (registroUtilitarios.length === 0) {
       listaUtilitarios.innerHTML = `<p class="mensagem-vazia">Nenhum utilitário disponível.</p>`;
       return;
     }
-
-    const lista = ordenarPorNome(registroUtilitarios);
 
     lista.forEach((util) => {
       const card = document.createElement("div");
@@ -134,6 +134,17 @@ document.addEventListener("DOMContentLoaded", () => {
       card.addEventListener("click", () => carregarUtilitario(util));
       listaUtilitarios.appendChild(card);
     });
+  }
+
+  function filtrarUtilitarios(texto) {
+  const termo = texto.trim().toLowerCase();
+  if (termo === "") return ordenarPorNome(registroUtilitarios);
+
+  return ordenarPorNome(registroUtilitarios.filter(util =>
+    util.nome.toLowerCase().includes(termo) ||
+    util.descricao.toLowerCase().includes(termo) ||
+    util.tags.some(tag => tag.toLowerCase().includes(termo))
+    ));
   }
 
   async function carregarUtilitario(util) {
@@ -188,6 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       homeEl.classList.add("escondido");
       areaUtilitarios.classList.remove("escondido");
+      campoBuscaUtils.value = "";
       renderizarUtilitarios();
     }
 
@@ -208,6 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (utilsAtivo) {
       areaUtilitarios.classList.remove("escondido");
+      campoBuscaUtils.value = "";
       renderizarUtilitarios();
     } else {
       homeEl.classList.remove("escondido");
@@ -227,6 +240,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   campoBusca.addEventListener("input", (e) => {
     renderizarLista(filtrarCalculadoras(e.target.value));
+  });
+
+  campoBuscaUtils.addEventListener("input", (e) => {
+  renderizarUtilitarios(filtrarUtilitarios(e.target.value));
   });
 
   // ═══════════════════════════════════════════

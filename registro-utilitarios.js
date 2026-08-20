@@ -7,7 +7,7 @@ const registroUtilitarios = [
     id:        "meq",
     nome:      "Referência de Eletrólitos",
     descricao: "Apresentações comerciais e equivalências em mEq/mL e mEq/ampola mais comumente utilizadas.",
-    area:      "Geral",
+    area:      "Nefrologia",
     tags:      ["eletrólitos", "nacl", "kcl", "mgso4", "calcio", "bicarbonato", "meq", "ampola", "sodio", "potassio", "magnésio", "cálcio", "bicarbonato de sódio"],
     caminho:   "utilitarios/meq/index.html"
   }
