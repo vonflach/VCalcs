@@ -29,6 +29,7 @@ body {
   display: flex;
   flex-direction: column;
   padding-bottom: 72px;
+  overflow-y: scroll;
 }
 
 /* ---------- Utilitário ---------- */
