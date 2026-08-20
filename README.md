@@ -114,16 +114,16 @@ O utilitário aparece automaticamente na aba **Utilitários**. Nenhum outro arqu
 
 - Contagem de Reticulócitos Corrigida
 - Correção de Cálcio sérico pela Albumina
+- Estimativa para Colesterol LDL (LDL-c)
 - Data Provável de Parto (DPP)
-- Estimativa para Colesterol LDL-c (Friedewald)
+- Hidratação Venosa via Holliday-Segar e eletrólitos
+- Vazão e Dose de Medicamentos em Infusão Contínua
+- Taxa de Filtração Glomerular estimada (TFGe) &mdash; Cockcroft-Gault, MDRD e CKD-EPI 2021
 - Fração de Excreção de Sódio (FENa)
-- Hidratação Venosa via Holliday-Segar
+- Sódio corrigido pela Hiperglicemia
 - Osmolaridade Plasmática
-- Pressão Arterial Média (PAM)
 - Relação Albumina-Creatinina (RAC)
-- Sódio Corrigido pela Hiperglicemia
-- Taxa de Filtração Glomerular estimada (TFGe) — Cockcroft-Gault, MDRD e CKD-EPI 2021
-- Vazão e Dose em Infusão Contínua
+- Pressão Arterial Média (PAM)
 
 ## Utilitários disponíveis
 
