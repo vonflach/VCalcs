@@ -2,7 +2,10 @@
    Visual "Sleek Interface": header grafite escuro, destaques em cyan,
    cards brancos com borda superior cyan. */
 
-/* ---------- Reset básico ---------- */
+   /* ---------- Importar Fontes ---------- */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+   /* ---------- Reset básico ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -22,7 +25,7 @@
 }
 
 body {
-  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   background-color: var(--cor-fundo);
   color: var(--cor-texto);
   min-height: 100vh;
@@ -380,5 +383,10 @@ main {
 
   .lista-calculadoras {
     grid-template-columns: 1fr;
+  }
+
+  /* ---------- Tipografia de resultado ---------- */
+  .resultado-valor {
+  font-family: "IBM Plex Mono", monospace;
   }
 }
