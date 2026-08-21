@@ -30,7 +30,7 @@
   <button id="fena-btn-calcular" class="calc-btn">Calcular</button>
 
   <div id="fena-resultado" class="calc-resultado escondido">
-    <p class="calc-resultado-valor" id="fena-valor"></p>
+    <p class="calc-resultado-valor resultado-valor" id="fena-valor"></p>
     <p class="calc-resultado-tag" id="fena-tag"></p>
     <p class="calc-resultado-interpretacao" id="fena-interpretacao"></p>
   </div>
@@ -233,7 +233,7 @@
     const fenaArredondada  = Math.round(fena * 10) / 10;
     const classificacao   = classificarFena(fenaArredondada);
 
-    valorEl.textContent       = `Fena: ${fenaArredondada} %`;
+    valorEl.textContent       = `FENa: ${fenaArredondada} %`;
     tagEl.textContent         = classificacao.tag;
     interpretacaoEl.textContent = classificacao.texto;
 

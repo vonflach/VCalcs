@@ -24,7 +24,7 @@
   <button id="albca-btn-calcular" class="calc-btn">Calcular</button>
 
   <div id="albca-resultado" class="calc-resultado escondido">
-    <p class="calc-resultado-valor" id="albca-valor"></p>
+    <p class="calc-resultado-valor resultado-valor" id="albca-valor"></p>
     <p class="calc-resultado-tag" id="albca-tag"></p>
     <p class="calc-resultado-interpretacao" id="albca-interpretacao"></p>
   </div>
@@ -219,7 +219,7 @@
 
     const classificacao   = classificarAlbca(albcaArredondada);
 
-    valorEl.textContent       = `Cálcio Sérico Corrigido: ${albcaArredondada} mg/dL`;
+    valorEl.textContent       = `Cálcio Corrigido: ${albcaArredondada} mg/dL`;
     tagEl.textContent         = classificacao.tag;
     interpretacaoEl.textContent = classificacao.texto;
 
