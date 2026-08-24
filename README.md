@@ -136,6 +136,7 @@ O utilitário aparece automaticamente na aba **Utilitários**. Nenhum outro arqu
 **Calculadoras:**
 - Dosagem de Fluidoterapia Intraoperatória
 - Índice FIB-4
+- Critérios de Wells para Trombose Venosa Profunda
 
 **Utilitários:**
 - Faixas Terapêuticas de Sedativos e Hipnóticos
