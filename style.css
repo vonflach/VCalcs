@@ -231,6 +231,23 @@ body {
   flex-direction: column;
   min-height: 100vh;
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.principal::-webkit-scrollbar {
+  display: none;
+}
+
+/* Esconde scrollbar global */
+html, body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* Cabeçalho da seção */
@@ -797,4 +814,53 @@ input[type="number"] {
   #campo-busca-topbar:focus { border-color: var(--cor-vermelho); }
   #campo-busca-topbar::-webkit-search-decoration,
   #campo-busca-topbar::-webkit-search-cancel-button { -webkit-appearance: none; }
+}
+
+/* ══════════════════════════════════════
+   TOGGLE SWITCH — checkboxes .label-toggle
+══════════════════════════════════════ */
+
+.label-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.label-toggle input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 36px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--cor-olive);
+  border: 1px solid var(--cor-borda);
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.label-toggle input[type="checkbox"]::before {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--cor-texto-mudo);
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+  transition: left 0.2s, background 0.2s;
+}
+
+.label-toggle input[type="checkbox"]:checked {
+  background: var(--cor-vermelho);
+  border-color: var(--cor-vermelho);
+}
+
+.label-toggle input[type="checkbox"]:checked::before {
+  left: 18px;
+  background: #fff;
 }
