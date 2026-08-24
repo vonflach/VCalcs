@@ -131,7 +131,7 @@ O utilitário aparece automaticamente na aba **Utilitários**. Nenhum outro arqu
 
 ---
 
-## Em desenvolvimento
+## Em desenvolvimento...
 
 **Calculadoras:**
 - Dosagem de Fluidoterapia Intraoperatória
@@ -139,6 +139,7 @@ O utilitário aparece automaticamente na aba **Utilitários**. Nenhum outro arqu
 
 **Utilitários:**
 - Faixas Terapêuticas de Sedativos e Hipnóticos
+- Correção de Posologia Antimicrobiana pela Função Renal
 
 ---
 
