@@ -3,6 +3,10 @@
 <div class="calc-dpp">
   <h2>Data Provável do Parto (DPP)</h2>
 
+  <p class="calc-resumo">
+    Cálculo da DPP pela Regra de Naegele via DUM ou USG obstétrica.
+  </p> 
+
   <!-- Seleção do método -->
   <div class="calc-campo">
     <label>Método</label>
@@ -129,7 +133,7 @@
     border: 1px solid #d0d5db;
     border-radius: 8px;
     background: #ffffff;
-    color: var(--cor-texto);
+    color: var(--cor-olive-escuro);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
@@ -217,7 +221,7 @@
   }
 
   .dpp-linha.destaque {
-    background: rgba(14, 116, 144, 0.06);
+    background: #d97706;
     border-left-color: var(--cor-grafite);
   }
 
@@ -228,18 +232,18 @@
 
   .dpp-linha-label {
     font-size: 0.88rem;
-    color: var(--cor-texto-secundario);
+    color: var(--cor-olive-escuro);
     font-weight: 500;
   }
 
   .dpp-linha-valor {
     font-size: 1rem;
     font-weight: 700;
-    color: var(--cor-cyan);
+    color: var(--cor-olive-escuro);
     text-align: right;
   }
 
-  .dpp-linha.destaque .dpp-linha-valor { color: var(--cor-grafite); font-size: 1.1rem; }
+  .dpp-linha.destaque .dpp-linha-valor { color: var(--cor-olive-escuro); font-size: 1.1rem; }
   .dpp-linha.alerta .dpp-linha-valor { color: #d97706; }
   .dpp-separador { height: 1px; background: #e5e7eb; margin: 4px 0; }
 </style>

@@ -20,100 +20,188 @@
 </head>
 <body>
 
-  <header class="cabecalho">
-    <div class="cabecalho-conteudo" id="logo">
-      <img src="assets/img/logo.svg" alt="VCalcs" class="logo">
-      <h1>VCalcs</h1>
+  <!-- ══ TOP BAR — apenas mobile ══ -->
+  <div class="mobile-topbar">
+    <div class="topbar-logo" id="logo-topbar">
+      <img src="assets/img/logo.svg" alt="VCalcs">
+      <h1>V<span>Calcs</span></h1>
     </div>
-    <div class="cabecalho-acoes">
-      <button id="btn-voltar" class="btn-voltar escondido">&larr; Voltar</button>
-      <button id="btn-info" class="btn-info" aria-label="Informações e disclaimer" title="Informações">i</button>
-    </div>
-  </header>
-
-  <!-- MODAL: disclaimer / informações -->
-  <div id="modal-overlay" class="modal-overlay escondido">
-    <div class="modal-conteudo">
-      <button id="btn-fechar-modal" class="btn-fechar-modal" aria-label="Fechar">&times;</button>
-      <h2>Sobre o VCalcs</h2>
-      <p>
-        O VCalcs reúne calculadoras médicas de apoio à prática clínica. Os resultados e
-        interpretações apresentados aqui são ferramentas de auxílio e <strong>NÃO SUBSTITUEM</strong>
-        o julgamento clínico, a avaliação individualizada do paciente ou a consulta
-        a diretrizes atualizadas.<strong> O PRINCIPAL OBJETIVO DA PRESENTE APLICAÇÃO É EDUCACIONAL.</strong>
-      </p>
-      <p>
-        Sempre confirme os resultados obtidos e não siga cegamente o programa. Os colaboradores 
-        da presente aplicação não se responsabilizam por decisões clínicas tomadas com base nos 
-        resultados aqui encontrados &mdash; O raciocínio clínico é soberano e deve prevalecer <strong>SEMPRE</strong>.
-      </p>
-      <p class="disclaimer-espacado">
-        Aviso de transparência: o código deste aplicativo foi desenvolvido com apoio
-        de ferramentas de inteligência artificial. <strong>As fórmulas e faixas de
-        interpretação clínica foram definidas e revisadas pelo autor.</strong>
-      </p>
-      <p>Gabriel von Flach Sarmento, 2026</p>
-      <p>
-        <a href="https://github.com/vonflach/VCalcs.git" target="_blank" rel="noopener noreferrer">GitHub do projeto</a>.
-      </p>
-      <p>Versão 1.0.0</p>
+    <div class="topbar-busca-wrap">
+      <img src="assets/icons/magnifier.svg" alt="" aria-hidden="true" class="icone-busca">
+      <input type="search" id="campo-busca-topbar" placeholder="Buscar..." autocomplete="off">
     </div>
   </div>
 
-  <main>
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar">
 
-    <!-- ÁREA DA HOME: busca + lista de calculadoras -->
-    <div id="home">
-      <div class="area-busca">
-        <input
-          type="text"
-          id="campo-busca"
-          placeholder="Buscar calculadora por nome, área ou palavra-chave..."
-          autocomplete="off"
+    <!-- Logo -->
+    <div class="sidebar-logo" id="logo">
+  <div class="sidebar-logo-inner">
+    <img src="assets/img/logo.svg" alt="VCalcs">
+
+    <div class="sidebar-logo-text">
+      <h1>V<span>Calcs</span></h1>
+      <small>Calculadoras Médicas</small>
+    </div>
+  </div>
+</div>
+
+    <!-- Busca -->
+<div class="sidebar-busca">
+  <div class="sidebar-busca-wrap">
+    <img
+      src="assets/icons/magnifier.svg"
+      alt=""
+      aria-hidden="true"
+      class="icone-busca"
+    >
+    <input
+      type="text"
+      id="campo-busca-sidebar"
+      placeholder="Buscar..."
+      autocomplete="off"
+    >
+  </div>
+</div>
+
+    <!-- Navegação -->
+    <nav class="sidebar-nav">
+      <div class="nav-label">Menu</div>
+
+      <div class="nav-item ativo" id="nav-calcs" onclick="navegarPara('calcs')">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden="true"
         >
+          <path
+            d="M19 6V3H5L14 12L5 21H19V18"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+         Calculadoras
       </div>
-      <div id="lista-calculadoras" class="lista-calculadoras">
-        <!-- Cards renderizados pelo app.js -->
+
+      <div class="nav-item" id="nav-utils" onclick="navegarPara('utils')">
+        <svg
+          viewBox="0 0 488.841 488.841"
+          fill="currentColor"
+          aria-hidden="true"
+          transform="rotate(270) matrix(1, 0, 0, -1, 0, 0)"
+
+        >
+          <path d="M197.625,438.689c-39.5-39.5-57.2-97.8-46.8-152.9l-144.6-144.7c-8.3-8.3-8.3-20.8,0-29.1l107.1-106.1c7.3-7.3,20.8-7.3,29.1,0l143.6,144.6c10.4-2.1,88.7-17.4,152.9,46.8c46.8,46.8,62.4,117.6,39.5,180c-2.1,6.2-14.3,21.1-33.3,7.3l-98.7-98.9l-46.8,12.5l-12.5,46.8l98.8,98.8c15.2,16.6-1,31.2-7.3,33.3C358.825,484.389,278.325,512.489,197.625,438.689z M48.825,126.589l138.4,138.4c5.2,5.2,7.3,12.5,5.2,19.8c-11.4,44.7,1,92.6,33.3,124.8c41.4,45.2,99.9,38.5,104,37.5l-81.1-81.1c-5.2-5.2-7.3-12.5-5.2-19.8l18.7-69.7c2.1-7.3,7.3-12.5,14.6-14.6l69.7-18.7c7.3-2.1,14.6,0,19.8,5.2l81.1,81.1c3.1-38.5-9.4-77-37.5-104c-49.8-51-114.4-36.5-124.8-33.4c-7.3,2.1-14.6,0-19.8-5.2l-137.3-138.4L48.825,126.589z"/>
+        </svg>
+
+        Utilitários
       </div>
+
+      <div class="nav-divisor"></div>
+
+      <div class="nav-item" id="nav-info" onclick="navegarPara('info')">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 18.5C12.5523 18.5 13 18.0523 13 17.5L13 10.5C13 9.94772 12.5523 9.5 12 9.5C11.4477 9.5 11 9.94772 11 10.5L11 17.5C11 18.0523 11.4477 18.5 12 18.5Z"
+            fill="currentColor"
+          />
+          <path
+            d="M12 8.5C12.8284 8.5 13.5 7.82843 13.5 7C13.5 6.17157 12.8284 5.5 12 5.5C11.1716 5.5 10.5 6.17157 10.5 7C10.5 7.82843 11.1716 8.5 12 8.5Z"
+            fill="currentColor"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M1,12 C1,18.0751,5.92487,23,12,23 C18.0751,23,23,18.0751,23,12 C23,5.92487,18.0751,1,12,1 C5.92487,1,1,5.92487,1,12 Z M12,21 C7.02944,21,3,16.9706,3,12 C3,7.02944,7.02944,3,12,3 C16.9706,3,21,7.02944,21,12 C21,16.9706,16.9706,21,12,21 Z"
+            fill="currentColor"
+          />
+        </svg>
+        Sobre o App
+      </div>
+    </nav>
+
+  </aside>
+
+  <!-- ══ ÁREA PRINCIPAL ══ -->
+  <main class="principal">
+
+    <!-- HOME: lista de calculadoras -->
+    <div id="home">
+      <div class="secao-header">
+        <div class="secao-titulo-wrap"><img src="assets/icons/math.svg" alt="" aria-hidden="true">
+        <div class="secao-titulo" id="secao-titulo">
+          Calculadoras</div>
+          </div>
+        <div class="secao-sub" id="secao-sub"></div>
+      </div>
+
+      <!-- Filtros por área (só visível em Calculadoras) -->
+      <div class="filtro-tabs" id="filtro-tabs"></div>
+
+      <div id="lista-calculadoras" class="lista-calculadoras"></div>
     </div>
 
-    <!-- ÁREA DA CALCULADORA: recebe o HTML da calc ou utilitário carregado via fetch -->
-    <div id="area-calculadora" class="area-calculadora escondido">
+    <!-- ÁREA DE UTILITÁRIOS -->
+    <div id="area-utilitarios" class="escondido">
+      <div class="secao-header">
+        <div class="secao-titulo-wrap">
+          <img src="assets/icons/wrench.svg" alt="" aria-hidden="true">
+        <div class="secao-titulo">          
+          Utilitários</div>
+        </div>
+        <div class="secao-sub" id="secao-sub-utils"></div>
+      </div>
+
+      <!-- Filtros por área (só visível em Utilitários) -->
+      <div class="filtro-tabs" id="filtro-tabs-utils"></div>
+
+      <div id="lista-utilitarios" class="lista-calculadoras"></div>
+    </div>
+
+    <!-- ÁREA INFO -->
+    <div id="area-info" class="area-info escondido">
+      <div class="info-titulo">
+      <img src="assets/icons/info.svg" alt="" aria-hidden="true">
+      <h2>Sobre o VCalcs</h2>
+      </div>
+      <p>
+        O VCalcs reúne calculadoras médicas de apoio à prática clínica. Os resultados e
+        interpretações apresentados são ferramentas de auxílio e <strong>NÃO SUBSTITUEM</strong>
+        o julgamento clínico, a avaliação individualizada do paciente ou a consulta
+        a diretrizes atualizadas/Institucionais. <strong>O principal objetivo desta aplicação é EDUCACIONAL.</strong>
+      </p>
+      <p>
+        Sempre confirme os resultados obtidos e <strong>NÃO</strong> siga cegamente o programa. Os colaboradores
+        desta aplicação não se responsabilizam por decisões clínicas tomadas com base nos
+        resultados aqui encontrados — o raciocínio clínico é soberano e deve prevalecer <strong>SEMPRE</strong>.
+      </p>
+      <p class="disclaimer-espacado">
+        Aviso de transparência: o código da presente aplicação foi desenvolvido com apoio
+        de ferramentas de inteligência artificial. Apesar disto, <strong>as fórmulas e faixas de
+        interpretação clínica foram definidas e revisadas pelo autor.</strong>
+      </p>
+      <p class="autor">
+        <a href="https://github.com/vonflach" target="_blank" rel="noopener noreferrer"
+         class="github-autor"><span>Gabriel von Flach Sarmento</span>
+          <img src="assets/icons/github-142-svgrepo-com.svg" alt="GitHub" />
+        </a>
+        </p>
+        <div class="info-versao">Versão 2.0.0 &mdash; 2026</div>
+    </div>
+
+    <!-- CALCULADORA / UTILITÁRIO CARREGADO -->
+    <div id="area-calculadora" class="area-calculadora-wrap escondido">
       <!-- Conteúdo injetado pelo app.js -->
     </div>
 
-    <!-- ÁREA DE UTILITÁRIOS: grid de cards -->
-    <div id="area-utilitarios" class="area-utilitarios escondido">
-      <div class="area-busca">
-        <input
-          type="text"
-          id="campo-busca-utilitarios"
-          placeholder="Buscar utilitário por nome, área ou palavra-chave..."
-          autocomplete="off"
-        >
-      </div>
-      <div id="lista-utilitarios" class="lista-calculadoras">
-        <!-- Cards de utilitários renderizados pelo app.js -->
-      </div>
-    </div>
-
   </main>
-
-  <footer class="rodape">
-    <p>VCalcs &mdash; Calculadoras Médicas</p>
-  </footer>
-
-  <!-- Navegação inferior -->
-  <nav class="nav-inferior">
-    <button class="nav-inferior-btn ativo" id="nav-calcs" onclick="navegarPara('calcs')">
-      <img src="assets/icons/calc.svg" alt="Calculadoras" class="nav-icone">
-      <span>Calculadoras</span>
-    </button>
-    <button class="nav-inferior-btn" id="nav-utils" onclick="navegarPara('utils')">
-      <img src="assets/icons/book.svg" alt="Utilitários" class="nav-icone">
-      <span>Utilitários</span>
-    </button>
-  </nav>
 
   <!-- Ordem importa! -->
   <script src="registro.js"></script>

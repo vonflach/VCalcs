@@ -3,6 +3,10 @@
 <div class="calc-hvhs">
   <h2>Hidratação Venosa — Holliday-Segar</h2>
 
+  <p class="calc-resumo">
+    Calcule a infusão de manutenção de líquidos em pediatria, com base no método Holliday-Segar.
+  </p> 
+
   <!-- Peso -->
   <div class="calc-campo">
     <label for="hvhs-peso">Peso <span class="unidade-label">(kg)</span></label>
@@ -30,8 +34,8 @@
   <div class="calc-campo" id="campo-sf-escolha">
     <label>Completar volume restante com (se necessário):</label>
     <div class="radio-group">
-      <label><input type="radio" name="tipo-sf" value="0.154" checked> SF 0,9% (154 mEq/L)</label>
-      <label><input type="radio" name="tipo-sf" value="0.077"> SF 0,45% (77 mEq/L)</label>
+      <label><input type="radio" name="tipo-sf" value="0.154" checked> <span>SF 0,9% (154 mEq/L)</span></label>
+      <label><input type="radio" name="tipo-sf" value="0.077"> <span>SF 0,45% (77 mEq/L)</span></label>
     </div>
   </div>
 
@@ -54,8 +58,8 @@
     </label>
     <div id="campo-k" class="eletrolito-campos escondido">
       <div class="radio-group" style="margin-bottom:8px">
-        <label><input type="radio" name="conc-k" value="1.34" checked> KCl 10% (1,34 mEq/mL)</label>
-        <label><input type="radio" name="conc-k" value="2.56"> KCl 19,1% (2,56 mEq/mL)</label>
+        <label><input type="radio" name="conc-k" value="1.34" checked> <span>KCl 10% (1,34 mEq/mL)</span></label>
+        <label><input type="radio" name="conc-k" value="2.56"> <span>KCl 19,1% (2,56 mEq/mL)</span></label>
       </div>
       <input type="number" id="hvhs-k" inputmode="decimal" placeholder="mEq/kg/dia — Ex: 2" min="0" step="any">
     </div>
@@ -80,8 +84,8 @@
     </label>
     <div id="campo-mg" class="eletrolito-campos escondido">
       <div class="radio-group" style="margin-bottom:8px">
-        <label><input type="radio" name="conc-mg" value="0.81" checked> MgSO₄ 10% (0,81 mEq/mL)</label>
-        <label><input type="radio" name="conc-mg" value="4.06"> MgSO₄ 50% (4,06 mEq/mL)</label>
+        <label><input type="radio" name="conc-mg" value="0.81" checked> <span>MgSO₄ 10% (0,81 mEq/mL)</span></label>
+        <label><input type="radio" name="conc-mg" value="4.06"> <span>MgSO₄ 50% (4,06 mEq/mL)</span></label>
       </div>
       <input type="number" id="hvhs-mg" inputmode="decimal" placeholder="mEq/kg/dia — Ex: 0.5" min="0" step="any">
     </div>
@@ -133,10 +137,7 @@
 
   .eletrolito-campos {
     margin-top: 8px;
-    padding: 12px 14px;
-    background: #f9fafb;
     border-radius: 8px;
-    border: 1px solid #e5e7eb;
   }
 
   .radio-group { display: flex; gap: 1.2rem; flex-wrap: wrap; }
@@ -223,23 +224,23 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 14px;
-    background: #f9fafb;
+    background: var(--cor-olive-escuro);
     border-radius: 8px;
     border-left: 3px solid var(--cor-cyan);
   }
 
   .hvhs-linha-label { font-size: 0.88rem; color: var(--cor-texto-secundario); font-weight: 500; }
-  .hvhs-linha-valor { font-size: 1rem; font-weight: 700; color: var(--cor-cyan); text-align: right; }
+  .hvhs-linha-valor { font-size: 1rem; font-weight: 700; color: var(--cor-texto); text-align: right; }
   .hvhs-separador { height: 1px; background: #e5e7eb; margin: 4px 0; }
 
-  .hvhs-linha.destaque { background: rgba(14,116,144,0.06); border-left-color: var(--cor-grafite); }
+  .hvhs-linha.destaque { background: var(--cor-olive-escuro); border-left-color: var(--cor-grafite); }
   .hvhs-linha.destaque .hvhs-linha-valor { color: var(--cor-grafite); }
 
-  .hvhs-linha.alerta { background: rgba(234,179,8,0.08); border-left-color: #d97706; }
+  .hvhs-linha.alerta { background: var(--cor-olive-escuro); border-left-color: #d97706; }
   .hvhs-linha.alerta .hvhs-linha-valor { color: #d97706; }
 
-  .hvhs-linha.info { background: rgba(14,116,144,0.03); border-left-color: #a5f3fc; }
-  .hvhs-linha.info .hvhs-linha-valor { color: #0e7490; font-size: 0.9rem; }
+  .hvhs-linha.info { background: var(--cor-olive-escuro); border-left-color: #a5f3fc; }
+  .hvhs-linha.info .hvhs-linha-valor { color: var(--cor-texto); font-size: 0.9rem; }
 </style>
 
 <script>

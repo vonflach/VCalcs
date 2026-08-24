@@ -90,8 +90,8 @@ const registroCalculadoras = [
   {
   id:        "albca",
   nome:      "Correção de Cálcio sérico pela Albumina",
-  descricao: "Corrige os níveis de cálcio sérico com base na concentração de albumina para avaliar o real impacto.",
-  area:      "Nefrologia / Endocrinologia",
+  descricao: "Corrige os níveis de cálcio sérico com base na concentração de albumina para avaliar o real valor do eletrólito.",
+  area:      "Nefrologia",
   tags:      ["calcio", "albumina", "correcao", "endocrinologia", "nefrologia", "cálcio", "correção", "cálcio sérico", "albumina sérica"],
   caminho:   "calculadoras/albca/index.html"
   },

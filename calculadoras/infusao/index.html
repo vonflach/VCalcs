@@ -36,8 +36,8 @@
       <div class="input-com-radio">
         <input type="number" id="inf-vazao" inputmode="decimal" placeholder="Ex: 10" min="0" step="any">
         <div class="radio-group">
-          <label><input type="radio" name="unidade-vazao-dose" value="h" checked> mL/h</label>
-          <label><input type="radio" name="unidade-vazao-dose" value="min"> mL/min</label>
+          <label><input type="radio" name="unidade-vazao-dose" value="h" checked> <span>mL/h</span></label>
+          <label><input type="radio" name="unidade-vazao-dose" value="min"> <span>mL/min</span></label>
         </div>
       </div>
     </div>
@@ -45,25 +45,25 @@
     <div class="calc-campo">
       <label>Unidade de massa do resultado</label>
       <div class="radio-group">
-        <label><input type="radio" name="massa-dose" value="mg" checked> mg</label>
-        <label><input type="radio" name="massa-dose" value="mcg"> mcg</label>
-        <label><input type="radio" name="massa-dose" value="g"> g</label>
+        <label><input type="radio" name="massa-dose" value="mg" checked> <span>mg</span></label>
+        <label><input type="radio" name="massa-dose" value="mcg"> <span>mcg</span></label>
+        <label><input type="radio" name="massa-dose" value="g"> <span>g</span></label>
       </div>
     </div>
 
     <div class="calc-campo">
       <label>Unidade de tempo do resultado</label>
       <div class="radio-group">
-        <label><input type="radio" name="tempo-dose" value="min" checked> /min</label>
-        <label><input type="radio" name="tempo-dose" value="h"> /h</label>
+        <label><input type="radio" name="tempo-dose" value="min" checked> <span>/min</span></label>
+        <label><input type="radio" name="tempo-dose" value="h"> <span>/h</span></label>
       </div>
     </div>
 
     <div class="calc-campo">
       <label>Considerar peso?</label>
       <div class="radio-group">
-        <label><input type="radio" name="usa-peso-dose" value="nao" checked onchange="togglePeso('dose')"> Não</label>
-        <label><input type="radio" name="usa-peso-dose" value="sim" onchange="togglePeso('dose')"> Sim</label>
+        <label><input type="radio" name="usa-peso-dose" value="nao" checked onchange="togglePeso('dose')"> <span>Não</span></label>
+        <label><input type="radio" name="usa-peso-dose" value="sim" onchange="togglePeso('dose')"> <span>Sim</span></label>
       </div>
     </div>
 
@@ -80,9 +80,9 @@
       <div class="input-com-radio">
         <input type="number" id="inf-dose-desejada" inputmode="decimal" placeholder="Ex: 5" min="0" step="any">
         <div class="radio-group">
-          <label><input type="radio" name="massa-vazao" value="mg" checked> mg</label>
-          <label><input type="radio" name="massa-vazao" value="mcg"> mcg</label>
-          <label><input type="radio" name="massa-vazao" value="g"> g</label>
+          <label><input type="radio" name="massa-vazao" value="mg" checked> <span>mg</span></label>
+          <label><input type="radio" name="massa-vazao" value="mcg"> <span>mcg</span></label>
+          <label><input type="radio" name="massa-vazao" value="g"> <span>g</span></label>
         </div>
       </div>
     </div>
@@ -90,16 +90,16 @@
     <div class="calc-campo">
       <label>Unidade de tempo da dose</label>
       <div class="radio-group">
-        <label><input type="radio" name="tempo-vazao" value="min" checked> /min</label>
-        <label><input type="radio" name="tempo-vazao" value="h"> /h</label>
+        <label><input type="radio" name="tempo-vazao" value="min" checked> <span>/min</span></label>
+        <label><input type="radio" name="tempo-vazao" value="h"> <span>/h</span></label>
       </div>
     </div>
 
     <div class="calc-campo">
       <label>Considerar peso?</label>
       <div class="radio-group">
-        <label><input type="radio" name="usa-peso-vazao" value="nao" checked onchange="togglePeso('vazao')"> Não</label>
-        <label><input type="radio" name="usa-peso-vazao" value="sim" onchange="togglePeso('vazao')"> Sim</label>
+        <label><input type="radio" name="usa-peso-vazao" value="nao" checked onchange="togglePeso('vazao')"> <span>Não</span></label>
+        <label><input type="radio" name="usa-peso-vazao" value="sim" onchange="togglePeso('vazao')"> <span>Sim</span></label>
       </div>
     </div>
 

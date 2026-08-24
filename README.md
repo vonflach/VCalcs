@@ -69,7 +69,7 @@ vcalcs/
 1. **Crie a subpasta** em `calculadoras/[id]/`
 2. **Crie o arquivo** `index.html` dentro dela, contendo:
    - HTML com inputs, botões e área de resultado
-   - `<style>` com CSS específico (use as variáveis globais, ex: `var(--cor-cyan)`)
+   - `<style>` com CSS específico (use as variáveis globais, ex: `var(--cor-vermelho)`)
    - `<script>` **inline** com toda a lógica em JavaScript
 
    > ⚠️ O `<script>` precisa ser **inline** (sem `src` externo). Como cada calculadora é carregada via `fetch()` e injetada no DOM, scripts externos não são executados automaticamente. O `app.js` já trata isso.

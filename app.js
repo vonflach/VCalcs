@@ -1,34 +1,65 @@
-// app.js
-// Responsável por: ordenar/filtrar o registro, renderizar a home (cards + busca),
-// carregar calculadoras e utilitários dinamicamente via fetch,
-// e gerenciar a navegação inferior entre abas.
-//
-// Depende de registro.js e registro-utilitarios.js (carregados ANTES no index.html)
+// app.js — VCalcs v2
+// Navegação sidebar, filtro por área, carregamento de calcs e utilitários via fetch.
+// Depende de registro.js e registro-utilitarios.js (carregados antes no index.html)
 
 document.addEventListener("DOMContentLoaded", () => {
 
   // --- Elementos ---
-  const campoBusca      = document.getElementById("campo-busca");
-  const listaEl         = document.getElementById("lista-calculadoras");
-  const areaCalculadora = document.getElementById("area-calculadora");
-  const areaUtilitarios = document.getElementById("area-utilitarios");
-  const listaUtilitarios = document.getElementById("lista-utilitarios");
-  const homeEl          = document.getElementById("home");
-  const btnVoltar       = document.getElementById("btn-voltar");
-  const btnInfo         = document.getElementById("btn-info");
-  const modalOverlay    = document.getElementById("modal-overlay");
-  const btnFecharModal  = document.getElementById("btn-fechar-modal");
-  const campoBuscaUtils = document.getElementById("campo-busca-utilitarios");
+  const campoBusca       = document.getElementById("campo-busca-sidebar");
+  const campoBuscaTopbar = document.getElementById("campo-busca-topbar");
+  const listaEl          = document.getElementById("lista-calculadoras");
+  const listaUtils       = document.getElementById("lista-utilitarios");
+  const areaCalculadora  = document.getElementById("area-calculadora");
+  const areaUtilitarios  = document.getElementById("area-utilitarios");
+  const areaInfo         = document.getElementById("area-info");
+  const homeEl           = document.getElementById("home");
+  const filtroTabs       = document.getElementById("filtro-tabs");
+  const secaoTitulo      = document.getElementById("secao-titulo");
+  const secaoSub         = document.getElementById("secao-sub");
+  const secaoSubUtils    = document.getElementById("secao-sub-utils");
+  const filtroTabsUtils = document.getElementById("filtro-tabs-utils");
 
+  // Estado atual
+  let secaoAtiva    = "calcs";   // "calcs" | "utils" | "info"
+  let filtroArea    = "todas";   // área selecionada nas tabs
+  let filtroAreaUtils = "todas"; // área selecionada nas tabs de utilitários
+  let termoBusca    = "";        // texto do campo de busca
 
-  // --- Utilitário: ordenar por nome ---
+  function renderizarFiltros(registro, container, callbackFiltro) {
+    container.innerHTML = "";
+    const areas = [...new Set(registro.map(c => c.area).filter(Boolean))].sort((a, b) =>
+      a.localeCompare(b, "pt-BR", { sensitivity: "base" })
+    );
+
+    // Só renderiza se houver mais de uma área
+    if (areas.length <= 1) {
+      container.style.display = "none";
+      return;
+    }
+
+    const btnTodas = document.createElement("button");
+    btnTodas.className = "filtro-tab ativo";
+    btnTodas.textContent = "Todas";
+    btnTodas.onclick = () => callbackFiltro(btnTodas, "todas");
+    container.appendChild(btnTodas);
+
+    areas.forEach(area => {
+      const btn = document.createElement("button");
+      btn.className = "filtro-tab";
+      btn.textContent = area;
+      btn.onclick = () => callbackFiltro(btn, area);
+      container.appendChild(btn);
+    });
+  }
+
+  // --- Ordenação ---
   function ordenarPorNome(lista) {
     return [...lista].sort((a, b) =>
       a.nome.localeCompare(b.nome, "pt-BR", { sensitivity: "base" })
     );
   }
 
-  // --- KaTeX helper ---
+  // --- KaTeX ---
   function renderizarKatex(elemento) {
     if (typeof renderMathInElement !== "undefined") {
       renderMathInElement(elemento, {
@@ -44,15 +75,39 @@ document.addEventListener("DOMContentLoaded", () => {
   //  CALCULADORAS
   // ═══════════════════════════════════════════
 
-  function renderizarLista(lista) {
+  function calcsFiltradas() {
+    let lista = registroCalculadoras;
+
+    // Filtro por busca
+    if (termoBusca) {
+      const t = termoBusca.toLowerCase();
+      lista = lista.filter(c =>
+        c.nome.toLowerCase().includes(t) ||
+        c.descricao.toLowerCase().includes(t) ||
+        c.tags.some(tag => tag.toLowerCase().includes(t))
+      );
+    }
+
+    // Filtro por área (ignora se busca ativa ou "todas")
+    if (filtroArea !== "todas" && !termoBusca) {
+      lista = lista.filter(c => c.area === filtroArea);
+    }
+
+    return ordenarPorNome(lista);
+  }
+
+  function renderizarCalcs() {
+    const lista = calcsFiltradas();
     listaEl.innerHTML = "";
+
+    secaoSub.textContent = `${lista.length} calculadora${lista.length !== 1 ? "s" : ""}`;
 
     if (lista.length === 0) {
       listaEl.innerHTML = `<p class="mensagem-vazia">Nenhuma calculadora encontrada.</p>`;
       return;
     }
 
-    lista.forEach((calc) => {
+    lista.forEach(calc => {
       const card = document.createElement("div");
       card.className = "card-calculadora";
       card.innerHTML = `
@@ -65,20 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function filtrarCalculadoras(texto) {
-    const termo = texto.trim().toLowerCase();
-    if (termo === "") return ordenarPorNome(registroCalculadoras);
-
-    const filtradas = registroCalculadoras.filter((calc) => {
-      const nomeMatch = calc.nome.toLowerCase().includes(termo);
-      const descMatch = calc.descricao.toLowerCase().includes(termo);
-      const tagsMatch = calc.tags.some((tag) => tag.toLowerCase().includes(termo));
-      return nomeMatch || descMatch || tagsMatch;
-    });
-
-    return ordenarPorNome(filtradas);
-  }
-
   async function carregarCalculadora(calc) {
     try {
       const resposta = await fetch(calc.caminho);
@@ -87,43 +128,73 @@ document.addEventListener("DOMContentLoaded", () => {
       const html = await resposta.text();
       areaCalculadora.innerHTML = html;
 
-      areaCalculadora.querySelectorAll("script").forEach((scriptAntigo) => {
+      areaCalculadora.querySelectorAll("script").forEach(scriptAntigo => {
         const scriptNovo = document.createElement("script");
         scriptNovo.textContent = scriptAntigo.textContent;
         scriptAntigo.replaceWith(scriptNovo);
       });
 
       renderizarKatex(areaCalculadora);
-      mostrarCalculadora();
+
+      // Atualiza header da seção
+      secaoTitulo.textContent = calc.nome;
+      secaoSub.textContent    = calc.area;
+
+      // Esconde home, mostra calc
+      homeEl.classList.add("escondido");
+      areaUtilitarios.classList.add("escondido");
+      areaInfo.classList.add("escondido");
+      areaCalculadora.classList.remove("escondido");
+
+      // Listener para Enter
+      areaCalculadora.querySelectorAll("input").forEach(input => {
+        input.addEventListener("keydown", e => {
+          if (e.key === "Enter") {
+            const btn = areaCalculadora.querySelector(".calc-btn");
+            if (btn) { input.blur(); btn.click(); }
+          }
+        });
+      });
+
       window.scrollTo({ top: 0, behavior: "smooth" });
 
     } catch (erro) {
       areaCalculadora.innerHTML = `<p class="mensagem-erro">Erro ao carregar a calculadora. Tente novamente.</p>`;
-      mostrarCalculadora();
+      homeEl.classList.add("escondido");
+      areaCalculadora.classList.remove("escondido");
       console.error(erro);
     }
-  }
-
-  function mostrarCalculadora() {
-    homeEl.classList.add("escondido");
-    areaUtilitarios.classList.add("escondido");
-    areaCalculadora.classList.remove("escondido");
-    btnVoltar.classList.remove("escondido");
   }
 
   // ═══════════════════════════════════════════
   //  UTILITÁRIOS
   // ═══════════════════════════════════════════
 
-  function renderizarUtilitarios(lista = ordenarPorNome(registroUtilitarios)) {
-    listaUtilitarios.innerHTML = "";
+  function renderizarUtilitarios() {
+    let lista = registroUtilitarios;
 
-    if (registroUtilitarios.length === 0) {
-      listaUtilitarios.innerHTML = `<p class="mensagem-vazia">Nenhum utilitário disponível.</p>`;
+  if (termoBusca) {
+    const t = termoBusca.toLowerCase();
+      lista = lista.filter(u =>
+        u.nome.toLowerCase().includes(t) ||
+        u.descricao.toLowerCase().includes(t) ||
+        (u.tags || []).some(tag => tag.toLowerCase().includes(t))
+      );
+    } else if (filtroAreaUtils !== "todas") {
+      lista = lista.filter(u => u.area === filtroAreaUtils);
+    }
+
+    lista = ordenarPorNome(lista);
+    listaUtils.innerHTML = "";
+
+    secaoSubUtils.textContent = `${lista.length} utilitário${lista.length !== 1 ? "s" : ""}`;
+
+    if (lista.length === 0) {
+      listaUtils.innerHTML = `<p class="mensagem-vazia">Nenhum utilitário disponível.</p>`;
       return;
     }
 
-    lista.forEach((util) => {
+    lista.forEach(util => {
       const card = document.createElement("div");
       card.className = "card-calculadora";
       card.innerHTML = `
@@ -132,19 +203,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="card-area">${util.area}</span>
       `;
       card.addEventListener("click", () => carregarUtilitario(util));
-      listaUtilitarios.appendChild(card);
+      listaUtils.appendChild(card);
     });
-  }
-
-  function filtrarUtilitarios(texto) {
-  const termo = texto.trim().toLowerCase();
-  if (termo === "") return ordenarPorNome(registroUtilitarios);
-
-  return ordenarPorNome(registroUtilitarios.filter(util =>
-    util.nome.toLowerCase().includes(termo) ||
-    util.descricao.toLowerCase().includes(termo) ||
-    util.tags.some(tag => tag.toLowerCase().includes(termo))
-    ));
   }
 
   async function carregarUtilitario(util) {
@@ -155,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const html = await resposta.text();
       areaCalculadora.innerHTML = html;
 
-      areaCalculadora.querySelectorAll("script").forEach((scriptAntigo) => {
+      areaCalculadora.querySelectorAll("script").forEach(scriptAntigo => {
         const scriptNovo = document.createElement("script");
         scriptNovo.textContent = scriptAntigo.textContent;
         scriptAntigo.replaceWith(scriptNovo);
@@ -163,105 +223,145 @@ document.addEventListener("DOMContentLoaded", () => {
 
       renderizarKatex(areaCalculadora);
 
+      secaoTitulo.textContent = util.nome;
+      secaoSub.textContent    = util.area;
+
+      homeEl.classList.add("escondido");
       areaUtilitarios.classList.add("escondido");
+      areaInfo.classList.add("escondido");
       areaCalculadora.classList.remove("escondido");
-      btnVoltar.classList.remove("escondido");
+
       window.scrollTo({ top: 0, behavior: "smooth" });
 
     } catch (erro) {
       areaCalculadora.innerHTML = `<p class="mensagem-erro">Erro ao carregar o utilitário. Tente novamente.</p>`;
-      areaUtilitarios.classList.add("escondido");
       areaCalculadora.classList.remove("escondido");
-      btnVoltar.classList.remove("escondido");
       console.error(erro);
     }
   }
 
   // ═══════════════════════════════════════════
-  //  NAVEGAÇÃO INFERIOR
+  //  NAVEGAÇÃO SIDEBAR
   // ═══════════════════════════════════════════
 
   window.navegarPara = function(destino) {
+    secaoAtiva = destino;
+
+    // Atualiza estado visual dos nav-items
     document.getElementById("nav-calcs").classList.toggle("ativo", destino === "calcs");
     document.getElementById("nav-utils").classList.toggle("ativo", destino === "utils");
+    document.getElementById("nav-info").classList.toggle("ativo", destino === "info");
 
-    // Limpa área de calculadora ao trocar de aba
+    // Limpa calc carregada
     areaCalculadora.classList.add("escondido");
     areaCalculadora.innerHTML = "";
-    btnVoltar.classList.add("escondido");
+
+    // Esconde tudo
+    homeEl.classList.add("escondido");
+    areaUtilitarios.classList.add("escondido");
+    areaInfo.classList.add("escondido");
+    filtroTabs.style.display = "none";
 
     if (destino === "calcs") {
-      areaUtilitarios.classList.add("escondido");
       homeEl.classList.remove("escondido");
-      campoBusca.value = "";
-      renderizarLista(ordenarPorNome(registroCalculadoras));
+      filtroTabs.style.display = "flex";
+      secaoTitulo.textContent = "Calculadoras";
+      // Reseta filtro de área ao mudar de seção
+      filtroArea = "todas";
+      renderizarFiltros(registroCalculadoras, filtroTabs, filtrarArea);
+      renderizarCalcs();
 
-    } else {
-      homeEl.classList.add("escondido");
+    } else if (destino === "utils") {
+      filtroAreaUtils = "todas";  // ← adiciona
       areaUtilitarios.classList.remove("escondido");
-      campoBuscaUtils.value = "";
+      renderizarFiltros(registroUtilitarios, filtroTabsUtils, filtrarAreaUtils);
       renderizarUtilitarios();
+    } else if (destino === "info") {
+      areaInfo.classList.remove("escondido");
+      secaoTitulo.textContent = "Sobre o VCalcs";
+      secaoSub.textContent    = "";
     }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // ═══════════════════════════════════════════
-  //  BOTÃO VOLTAR E LOGO
+  //  FILTRO POR ÁREA (tabs)
   // ═══════════════════════════════════════════
 
-  function mostrarHome() {
-    areaCalculadora.classList.add("escondido");
-    areaCalculadora.innerHTML = "";
-    btnVoltar.classList.add("escondido");
+  window.filtrarArea = function(el, area) {
+    filtroArea = area;
+    aplicarBusca("");
+    document.querySelectorAll(".filtro-tab").forEach(t => t.classList.remove("ativo"));
+    el.classList.add("ativo");
+    renderizarCalcs();
+  };
 
-    // Volta para a aba que estava ativa
-    const utilsAtivo = document.getElementById("nav-utils").classList.contains("ativo");
+  window.filtrarAreaUtils = function(el, area) {
+    filtroAreaUtils = area;
+    aplicarBusca("");
+    document.querySelectorAll("#filtro-tabs-utils .filtro-tab").forEach(t => t.classList.remove("ativo"));
+    el.classList.add("ativo");
+    renderizarUtilitarios();
+  };
 
-    if (utilsAtivo) {
-      areaUtilitarios.classList.remove("escondido");
-      campoBuscaUtils.value = "";
-      renderizarUtilitarios();
-    } else {
-      homeEl.classList.remove("escondido");
-      campoBusca.value = "";
-      renderizarLista(ordenarPorNome(registroCalculadoras));
+  // ═══════════════════════════════════════════
+  //  BUSCA (sidebar — afeta seção ativa)
+  // ═══════════════════════════════════════════
+
+  function aplicarBusca(valor) {
+    termoBusca = valor;
+    campoBusca.value = valor;
+    campoBuscaTopbar.value = valor;
+
+    // Reseta visual das tabs de filtro
+    if (valor) {
+      document.querySelectorAll("#filtro-tabs .filtro-tab").forEach(t => t.classList.remove("ativo"));
+      document.querySelector("#filtro-tabs .filtro-tab")?.classList.add("ativo"); // marca "Todas"
+      document.querySelectorAll("#filtro-tabs-utils .filtro-tab").forEach(t => t.classList.remove("ativo"));
+      document.querySelector("#filtro-tabs-utils .filtro-tab")?.classList.add("ativo"); // marca "Todas"
     }
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (secaoAtiva === "calcs") {
+      renderizarCalcs();
+    } else if (secaoAtiva === "utils") {
+      renderizarUtilitarios();
+    }
   }
 
-  btnVoltar.addEventListener("click", mostrarHome);
-  document.getElementById("logo").addEventListener("click", () => navegarPara("calcs"));
+  campoBusca.addEventListener("input",       e => aplicarBusca(e.target.value.trim()));
+  campoBuscaTopbar.addEventListener("input", e => aplicarBusca(e.target.value.trim()));
 
   // ═══════════════════════════════════════════
-  //  BUSCA
+  //  LOGO → volta para home de calcs
   // ═══════════════════════════════════════════
 
-  campoBusca.addEventListener("input", (e) => {
-    renderizarLista(filtrarCalculadoras(e.target.value));
+  document.getElementById("logo").addEventListener("click", () => {
+  aplicarBusca("");
+  navegarPara("calcs");
   });
 
-  campoBuscaUtils.addEventListener("input", (e) => {
-  renderizarUtilitarios(filtrarUtilitarios(e.target.value));
+  document.getElementById("logo-topbar").addEventListener("click", () => {
+    aplicarBusca("");
+    navegarPara("calcs");
   });
 
   // ═══════════════════════════════════════════
-  //  MODAL
+  //  Impedir scroll em campos number (evita scroll acidental)
   // ═══════════════════════════════════════════
 
-  function abrirModal() { modalOverlay.classList.remove("escondido"); }
-  function fecharModal() { modalOverlay.classList.add("escondido"); }
-
-  btnInfo.addEventListener("click", abrirModal);
-  btnFecharModal.addEventListener("click", fecharModal);
-  modalOverlay.addEventListener("click", (e) => { if (e.target === modalOverlay) fecharModal(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") fecharModal(); });
+  document.addEventListener("wheel", e => {
+    if (document.activeElement.type === "number") {
+      document.activeElement.blur();
+    }
+  }, { passive: true });
 
   // ═══════════════════════════════════════════
   //  INICIALIZAÇÃO
   // ═══════════════════════════════════════════
 
-  renderizarLista(ordenarPorNome(registroCalculadoras));
+  filtroTabs.style.display = "flex";
+  renderizarFiltros(registroCalculadoras, filtroTabs, filtrarArea);
+  renderizarCalcs();
 
 });
