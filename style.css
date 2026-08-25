@@ -564,6 +564,15 @@ body::-webkit-scrollbar {
   justify-content: center;
 }
 
+.area-info .autor-p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor-texto-mudo);
+  text-align: center;
+  font-size: 0.78rem;
+}
+
 .github-autor {
   display: inline-flex;
   align-items: center;
