@@ -13,16 +13,16 @@
     <input type="number" id="fib-idade" inputmode="decimal" placeholder="Ex: 50" min="0">
   </div>
 
-  <!-- ALT -->
-  <div class="calc-campo">
-    <label>ALT (U/L)</label>
-    <input type="number" id="fib-alt" inputmode="decimal" placeholder="Ex: 40" min="0">
-  </div>
-
   <!-- AST -->
   <div class="calc-campo">
     <label>AST (U/L)</label>
     <input type="number" id="fib-ast" inputmode="decimal" placeholder="Ex: 30" min="0">
+  </div>
+
+  <!-- ALT -->
+  <div class="calc-campo">
+    <label>ALT (U/L)</label>
+    <input type="number" id="fib-alt" inputmode="decimal" placeholder="Ex: 40" min="0">
   </div>
 
   <!-- Plaquetas -->
@@ -170,7 +170,7 @@
         texto: "Individualizar cada caso. Avaliar necessidade de demais exames complementares e/ou encaminhamento para o atenção especializada conforme necessário."
     };
     }
-    if (fib > 2.66) {
+    if (fib >= 2.67) {
     return {
         classe: "risco-alto",
         tag: "Risco Alto de Fibrose Hepática avançada",
@@ -186,9 +186,9 @@
 
   // Chama na inicialização para já mostrar a correta  
   function calcularFib() {
-    const idade  = parseFloat(inputIdades.value);
-    const ast = parseFloat(inputAst.value);
-    const alt = parseFloat(inputAlt.value);
+    const idade     = parseFloat(inputIdades.value);
+    const ast       = parseFloat(inputAst.value);
+    const alt       = parseFloat(inputAlt.value);
     const plaquetas = parseFloat(inputPlaquetas.value);
 
     if (isNaN(idade) || isNaN(ast) || isNaN(alt) || isNaN(plaquetas) || idade < 0 || alt < 0 || ast < 0 || plaquetas < 0) {
@@ -202,7 +202,7 @@
     // FIB-4
     const fib             = (idade * ast) / (plaquetas * Math.sqrt(alt));
     const fibArredondada  = Math.round(fib * 10) / 10;         
-    const classificacao = classificarFib(fibArredondada);
+    const classificacao   = classificarFib(fibArredondada);
 
     valorEl.textContent         = `FIB-4: ${fibArredondada}`;
     tagEl.textContent           = classificacao.tag;
