@@ -14,9 +14,17 @@ const registroUtilitarios = [
   {
     id:        "hip",
     nome:      "Sedativos e Hipnóticos",
-    descricao: "Apresentações comerciais e equivalências em mEq/mL e mEq/ampola mais comumente utilizadas.",
-    area:      "Medicina Intensiva",
-    tags:      ["eletrólitos", "nacl", "kcl", "mgso4", "calcio", "bicarbonato", "meq", "ampola", "sodio", "potassio", "magnésio", "cálcio", "bicarbonato de sódio"],
+    descricao: "Avalie as faixas terapêuticas para sedativos e/ou hipnóticos.",
+    area:      "Anestesiologia",
+    tags:      ["sedativos", "hipnóticos", "anestésicos", "infusão", "midazolam", "propofol", "dexmedetomidina", "lorazepam", "fentanil", "remifentanil"],
     caminho:   "utilitarios/hip/index.html"
+  },
+  {
+    id:        "interacao",
+    nome:      "Interações Medicamentosas (National Library of Medicine &mdash; NLM)",
+    descricao: "Cheque por interações medicamentosas descritas na NLM.",
+    area:      "Geral",
+    tags:      ["interações medicamentosas", "interações", "medicamentos", "drugs", "interactions", "nlm"],
+    caminho:   "utilitarios/interacao/index.html"
   }
 ];

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interações Medicamentosas (National Library of Medicine)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ---------- Reset ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background-color: var(--cor-olive);
+      color: var(--cor-texto);
+      min-height: 100vh;
+      padding: 40px 24px 60px;
+    }
+
+    /* ---------- Container ---------- */
+    .container {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    /* ---------- Header ---------- */
+    .page-header {
+      margin-bottom: 28px;
+    }
+    .page-header h1 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--cor-texto);
+      margin-bottom: 4px;
+    }
+    .page-header p {
+      font-size: 0.82rem;
+      color: var(--cor-texto-mudo);
+      line-height: 1.5;
+    }
+    .page-header a {
+      color: var(--cor-vermelho);
+      text-decoration: none;
+      font-size: 0.78rem;
+    }
+    .page-header a:hover { text-decoration: underline; }
+
+    /* ---------- Section label ---------- */
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--cor-texto-mudo);
+      margin-bottom: 10px;
+    }
+
+    /* ---------- Input row ---------- */
+    .input-wrap {
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    .drug-input {
+      width: 100%;
+      background: var(--cor-olive);
+      border: 1px solid var(--cor-borda);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--cor-texto);
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .drug-input::placeholder { color: var(--cor-texto-mudo); }
+    .drug-input:focus {
+      border-color: var(--cor-vermelho);
+      box-shadow: 0 0 0 3px rgba(140, 0, 7, 0.15);
+    }
+    .drug-input:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ---------- Suggestions ---------- */
+    .suggestions-box {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0; right: 0;
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: 8px;
+      z-index: 50;
+      overflow: hidden;
+      display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .suggestions-box.open { display: block; }
+
+    .suggestion-item {
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      color: var(--cor-texto-sec);
+      cursor: pointer;
+      border-bottom: 1px solid var(--cor-borda);
+      transition: background 0.1s, color 0.1s;
+    }
+    .suggestion-item:last-child { border-bottom: none; }
+    .suggestion-item:hover {
+      background: var(--cor-olive-claro);
+      color: var(--cor-texto);
+    }
+    .suggestion-item .highlight { color: var(--cor-vermelho); font-weight: 500; }
+
+    /* ---------- Chips ---------- */
+    .chip-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 34px;
+      align-items: center;
+    }
+    .chip-placeholder {
+      font-size: 0.8rem;
+      color: var(--cor-texto-mudo);
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px 5px 12px;
+      background: var(--cor-olive-claro);
+      border: 1px solid var(--cor-borda);
+      border-radius: 999px;
+      font-size: 0.82rem;
+      color: var(--cor-texto);
+      font-weight: 500;
+    }
+    .chip-remove {
+      background: none;
+      border: none;
+      color: var(--cor-texto-mudo);
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      transition: color 0.1s;
+    }
+    .chip-remove:hover { color: var(--cor-vermelho); }
+
+    .chip-limit-hint {
+      font-size: 0.75rem;
+      color: var(--cor-texto-mudo);
+      margin-top: 6px;
+    }
+    .chip-limit-hint.warn { color: var(--cor-vermelho); }
+
+    /* ---------- Actions ---------- */
+    .actions-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .btn-check {
+      flex: 1;
+      padding: 10px 18px;
+      background: var(--cor-vermelho);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-check:hover:not(:disabled) { background: var(--cor-vermelho-hover); }
+    .btn-check:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-reset {
+      padding: 10px 16px;
+      background: none;
+      border: 1px solid var(--cor-borda);
+      border-radius: 8px;
+      color: var(--cor-texto-sec);
+      font-size: 0.85rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .btn-reset:hover { border-color: var(--cor-vermelho); color: var(--cor-vermelho); }
+
+    /* ---------- Status ---------- */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: var(--cor-texto-mudo);
+      min-height: 20px;
+      margin-top: 14px;
+    }
+    .spinner {
+      width: 14px; height: 14px;
+      border: 2px solid var(--cor-borda);
+      border-top-color: var(--cor-vermelho);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+      flex-shrink: 0;
+    }
+    .spinner.active { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ---------- Error ---------- */
+    .error-box {
+      background: rgba(140, 0, 7, 0.12);
+      border: 1px solid rgba(140, 0, 7, 0.35);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: #f87171;
+      display: none;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+    .error-box.visible { display: block; }
+
+    /* ---------- Results ---------- */
+    .results-wrap { display: none; }
+    .results-wrap.visible { display: block; }
+
+    .results-title {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--cor-texto-mudo);
+      margin-bottom: 12px;
+    }
+
+    /* Severity group */
+    .severity-group { margin-bottom: 14px; }
+
+    .severity-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .severity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 500;
+    }
+    .severity-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .badge-severe  { background: rgba(194,41,41,0.15); color: #f87171; }
+    .badge-severe .severity-dot  { background: #f87171; }
+    .badge-moderate { background: rgba(212,130,10,0.15); color: #fbbf24; }
+    .badge-moderate .severity-dot { background: #fbbf24; }
+    .badge-low     { background: rgba(26,122,74,0.15); color: #4ade80; }
+    .badge-low .severity-dot     { background: #4ade80; }
+
+    .count-pill {
+      font-size: 0.7rem;
+      color: var(--cor-texto-mudo);
+      background: var(--cor-olive-claro);
+      border-radius: 999px;
+      padding: 2px 8px;
+    }
+
+    /* Accordion card */
+    .interaction-card {
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: 8px;
+      margin-bottom: 6px;
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+    .interaction-card:hover { border-color: #4a4f3a; }
+
+    .interaction-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      cursor: pointer;
+      user-select: none;
+      gap: 10px;
+    }
+
+    .interaction-drugs {
+      font-size: 0.87rem;
+      font-weight: 500;
+      color: var(--cor-texto);
+      flex: 1;
+      line-height: 1.4;
+    }
+    .interaction-drugs .sep {
+      color: var(--cor-texto-mudo);
+      font-weight: 400;
+      margin: 0 5px;
+      font-size: 0.8rem;
+    }
+
+    .chevron {
+      color: var(--cor-texto-mudo);
+      font-size: 0.75rem;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .chevron.open { transform: rotate(180deg); }
+
+    .interaction-body {
+      display: none;
+      padding: 10px 14px 14px;
+      border-top: 1px solid var(--cor-borda);
+      font-size: 0.82rem;
+      color: var(--cor-texto-sec);
+      line-height: 1.7;
+    }
+    .interaction-body.open { display: block; }
+
+    .source-tag {
+      display: inline-block;
+      font-size: 0.67rem;
+      color: var(--cor-texto-mudo);
+      margin-top: 8px;
+      background: var(--cor-olive);
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+
+    /* No interactions */
+    .no-interactions {
+      text-align: center;
+      padding: 32px 16px;
+      color: var(--cor-texto-mudo);
+      font-size: 0.88rem;
+    }
+    .no-interactions svg {
+      display: block;
+      margin: 0 auto 10px;
+      opacity: 0.4;
+    }
+
+    /* ---------- Footer ---------- */
+    .page-footer {
+      margin-top: 28px;
+      font-size: 0.74rem;
+      color: var(--cor-texto-mudo);
+      text-align: center;
+      line-height: 1.6;
+    }
+    .page-footer a { color: var(--cor-texto-mudo); }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 480px) {
+      body { padding: 24px 14px 48px; }
+      .actions-row { flex-direction: column; }
+      .btn-reset { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1>Interações Medicamentosas (National Library of Medicine &mdash; NLM)</h1>
+    <p>Cheque por interações medicamentosas descritas na NLM. </p>
+    <p>Adicione até 5 drogas — Interações obtidas a partir de <a href="https://rxnav.nlm.nih.gov" target="_blank">RxNav NLM</a>.</p>
+    <p  class="calc-resumo"><em>Somente em Inglês</em></p>
+  </div>
+
+  <!-- Input card -->
+  <div class="card">
+    <p class="section-label">Adicione drogas</p>
+
+    <div class="input-wrap" id="inputWrap">
+      <input
+        class="drug-input"
+        id="drugInput"
+        type="text"
+        placeholder="Digite um medicamento e selecione-o na lista…"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <div class="suggestions-box" id="suggestionsBox"></div>
+    </div>
+
+    <div class="chip-area" id="chipArea">
+      <span class="chip-placeholder" id="chipPlaceholder">Nenhuma droga adicionada ainda</span>
+    </div>
+    <p class="chip-limit-hint" id="limitHint"></p>
+
+    <div class="actions-row">
+      <button class="btn-check" id="btnCheck" disabled>Checar interações</button>
+      <button class="btn-reset" id="btnReset">Limpar</button>
+    </div>
+
+    <div class="status-bar">
+      <div class="spinner" id="spinner"></div>
+      <span id="statusText"></span>
+    </div>
+
+    <div class="error-box" id="errorBox"></div>
+  </div>
+
+  <!-- Results -->
+  <div class="results-wrap" id="resultsWrap">
+    <p class="results-title" id="resultsTitle">Resultados</p>
+    <div id="resultsContent"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    Fonte: RxNav / NLM · National Library of Medicine<br/>
+    Apenas para consulta &mdash; Sempre consulte as diretrizes atualizadas e de sua instituição local.
+  </div>
+
+</div>
+
+<script>
+  const MAX_DRUGS = 5;
+
+  const drugInput   = document.getElementById('drugInput');
+  const suggestBox  = document.getElementById('suggestionsBox');
+  const chipArea    = document.getElementById('chipArea');
+  const chipHolder  = document.getElementById('chipPlaceholder');
+  const limitHint   = document.getElementById('limitHint');
+  const btnCheck    = document.getElementById('btnCheck');
+  const btnReset    = document.getElementById('btnReset');
+  const spinner     = document.getElementById('spinner');
+  const statusText  = document.getElementById('statusText');
+  const errorBox    = document.getElementById('errorBox');
+  const resultsWrap = document.getElementById('resultsWrap');
+  const resultsContent = document.getElementById('resultsContent');
+  const resultsTitle   = document.getElementById('resultsTitle');
+
+  let drugs    = [];   // { name, rxcui }
+  let debTimer = null;
+  let abortCtrl = null;
+
+  /* ── Utilities ── */
+  function setStatus(msg, loading = false) {
+    statusText.textContent = msg;
+    spinner.classList.toggle('active', loading);
+  }
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.classList.add('visible');
+  }
+  function hideError() { errorBox.classList.remove('visible'); }
+  function clearResults() {
+    resultsWrap.classList.remove('visible');
+    resultsContent.innerHTML = '';
+    hideError();
+    setStatus('');
+  }
+
+  /* ── Chips ── */
+  function renderChips() {
+    chipArea.innerHTML = '';
+    if (!drugs.length) {
+      chipArea.appendChild(chipHolder);
+      limitHint.textContent = '';
+      limitHint.classList.remove('warn');
+      btnCheck.disabled = true;
+      drugInput.disabled = false;
+      return;
+    }
+
+    drugs.forEach((d, i) => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.innerHTML = `
+        <span>${d.name}</span>
+        <button class="chip-remove" aria-label="Remove ${d.name}" data-i="${i}">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <line x1="1" y1="1" x2="11" y2="11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="11" y1="1" x2="1" y2="11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>`;
+      chip.querySelector('.chip-remove').addEventListener('click', () => {
+        drugs.splice(i, 1);
+        renderChips();
+        clearResults();
+      });
+      chipArea.appendChild(chip);
+    });
+
+    const atMax = drugs.length >= MAX_DRUGS;
+    drugInput.disabled = atMax;
+    if (atMax) {
+      limitHint.textContent = 'Limite máximo de 5 medicamentos.';
+      limitHint.classList.add('warn');
+      suggestBox.classList.remove('open');
+    } else {
+      limitHint.textContent = `${drugs.length} of ${MAX_DRUGS} medicamentos adicionados.`;
+      limitHint.classList.remove('warn');
+    }
+
+    btnCheck.disabled = drugs.length < 2;
+  }
+
+  /* ── Autocomplete ── */
+  async function fetchSuggestions(query) {
+    if (query.length < 2) { suggestBox.classList.remove('open'); return; }
+    if (abortCtrl) abortCtrl.abort();
+    abortCtrl = new AbortController();
+    try {
+      const url = `https://rxnav.nlm.nih.gov/REST/spellingsuggestions.json?name=${encodeURIComponent(query)}`;
+      const r = await fetch(url, { signal: abortCtrl.signal });
+      if (!r.ok) throw new Error('network');
+      const data = await r.json();
+      const list = data.suggestionGroup?.suggestionList?.suggestion || [];
+      renderSuggestions(list, query);
+    } catch(e) {
+      if (e.name !== 'AbortError') suggestBox.classList.remove('open');
+    }
+  }
+
+  function renderSuggestions(list, query) {
+    suggestBox.innerHTML = '';
+    const filtered = list
+      .filter(s => !drugs.find(d => d.name.toLowerCase() === s.toLowerCase()))
+      .slice(0, 6);
+    if (!filtered.length) { suggestBox.classList.remove('open'); return; }
+
+    filtered.forEach(s => {
+      const item = document.createElement('div');
+      item.className = 'suggestion-item';
+      // highlight matching portion
+      const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+      item.innerHTML = s.replace(re, '<span class="highlight">$1</span>');
+      item.addEventListener('mousedown', e => {
+        e.preventDefault(); // prevent blur before click
+        selectDrug(s);
+      });
+      suggestBox.appendChild(item);
+    });
+    suggestBox.classList.add('open');
+  }
+
+  drugInput.addEventListener('input', () => {
+    clearTimeout(debTimer);
+    const q = drugInput.value.trim();
+    if (!q) { suggestBox.classList.remove('open'); return; }
+    debTimer = setTimeout(() => fetchSuggestions(q), 280);
+  });
+
+  drugInput.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { suggestBox.classList.remove('open'); }
+  });
+
+  document.addEventListener('click', e => {
+    if (!suggestBox.contains(e.target) && e.target !== drugInput) {
+      suggestBox.classList.remove('open');
+    }
+  });
+
+  /* ── Select drug → resolve RxCUI ── */
+  async function selectDrug(name) {
+    const normalized = name.trim();
+    if (!normalized) return;
+    if (drugs.find(d => d.name.toLowerCase() === normalized.toLowerCase())) {
+      drugInput.value = '';
+      suggestBox.classList.remove('open');
+      return;
+    }
+    if (drugs.length >= MAX_DRUGS) return;
+
+    drugInput.value = '';
+    suggestBox.classList.remove('open');
+    setStatus(`Resolving "${normalized}"…`, true);
+
+    try {
+      const url = `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${encodeURIComponent(normalized)}&search=1`;
+      const r = await fetch(url);
+      const data = await r.json();
+      const rxcui = data.idGroup?.rxnormId?.[0] || null;
+      if (!rxcui) {
+        setStatus('');
+        showError(`Não foi possível localizar “${normalized}” no RxNorm. Tente selecionar uma opção na lista de preenchimento automático.`);
+        return;
+      }
+      drugs.push({ name: normalized, rxcui });
+      renderChips();
+      clearResults();
+      setStatus('');
+    } catch(e) {
+      setStatus('');
+      showError('Erro de rede. Verifique sua conexão.');
+    }
+  }
+
+  /* ── Reset ── */
+  btnReset.addEventListener('click', () => {
+    drugs = [];
+    drugInput.value = '';
+    suggestBox.classList.remove('open');
+    renderChips();
+    clearResults();
+    drugInput.focus();
+  });
+
+  /* ── Severity ── */
+  function parseSeverity(raw) {
+    const s = (raw || '').toLowerCase();
+    if (s.includes('high') || s.includes('contraindicated') || s.includes('severe')) return 'severe';
+    if (s.includes('moderate')) return 'moderate';
+    return 'low';
+  }
+
+  /* ── Toggle accordion ── */
+  function toggleCard(id) {
+    const body = document.getElementById('body-' + id);
+    const chev = document.getElementById('chev-' + id);
+    const open = body.classList.toggle('open');
+    chev.classList.toggle('open', open);
+  }
+
+  /* ── Build results HTML ── */
+  function buildResults(groups) {
+    const order  = ['severe', 'moderate', 'low'];
+    const labels = { severe: 'Severe', moderate: 'Moderate', low: 'Low / Minor' };
+    const badge  = { severe: 'badge-severe', moderate: 'badge-moderate', low: 'badge-low' };
+    let html = '';
+    let total = 0;
+    order.forEach(s => total += (groups[s] || []).length);
+
+    if (!total) {
+      html = `
+        <div class="no-interactions">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/>
+          </svg>
+          Nenhuma interação encontrada entre os medicamentos selecionados.
+        </div>`;
+      return html;
+    }
+
+    order.forEach(sev => {
+      const items = groups[sev] || [];
+      if (!items.length) return;
+      html += `
+        <div class="severity-group">
+          <div class="severity-header">
+            <span class="severity-badge ${badge[sev]}">
+              <span class="severity-dot"></span>${labels[sev]}
+            </span>
+            <span class="count-pill">${items.length} interação${items.length > 1 ? 's' : ''}</span>
+          </div>`;
+
+      items.forEach((item, idx) => {
+        const id = `${sev}-${idx}`;
+        html += `
+          <div class="interaction-card">
+            <div class="interaction-header" onclick="toggleCard('${id}')">
+              <div class="interaction-drugs">
+                ${item.drug1}<span class="sep">×</span>${item.drug2}
+              </div>
+              <span class="chevron" id="chev-${id}">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="interaction-body" id="body-${id}">
+              ${item.description || 'No additional details available.'}
+              <span class="source-tag">Source: ${item.source || 'RxNav NLM'}</span>
+            </div>
+          </div>`;
+      });
+
+      html += `</div>`;
+    });
+
+    return html;
+  }
+
+  /* ── Check interactions ── */
+  btnCheck.addEventListener('click', async () => {
+    hideError();
+    clearResults();
+    btnCheck.disabled = true;
+    btnReset.disabled = true;
+
+    const rxcuis = drugs.map(d => d.rxcui).join('+');
+    setStatus('Buscando interações…', true);
+
+    try {
+      const url = `https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=${rxcuis}`;
+      const r = await fetch(url);
+      if (!r.ok) throw new Error('network');
+      const data = await r.json();
+
+      const groups = { severe: [], moderate: [], low: [] };
+      const interactionGroups = data.fullInteractionTypeGroup || [];
+
+      interactionGroups.forEach(g => {
+        (g.fullInteractionType || []).forEach(type => {
+          (type.interactionPair || []).forEach(pair => {
+            const drug1 = pair.interactionConcept?.[0]?.minConceptItem?.name || '?';
+            const drug2 = pair.interactionConcept?.[1]?.minConceptItem?.name || '?';
+            const desc  = pair.description || '';
+            const sev   = parseSeverity(pair.severity || '');
+            const source = type.comment || g.sourceDisclaimer || 'RxNav NLM';
+            groups[sev].push({ drug1, drug2, description: desc, source });
+          });
+        });
+      });
+
+      const total = Object.values(groups).reduce((a, b) => a + b.length, 0);
+      resultsTitle.textContent = `${total} interações${total !== 1 ? 's' : ''} encontradas`;
+
+      resultsContent.innerHTML = buildResults(groups);
+      resultsWrap.classList.add('visible');
+      setStatus('');
+    } catch(e) {
+      setStatus('');
+      showError('Erro de rede. Verifique sua conexão e tente novamente.');
+    }
+
+    btnCheck.disabled = drugs.length < 2;
+    btnReset.disabled = false;
+  });
+
+  /* ── Init ── */
+  renderChips();
+  drugInput.focus();
+</script>
+</body>
+</html>
