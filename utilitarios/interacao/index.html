@@ -516,7 +516,7 @@
       limitHint.classList.add('warn');
       suggestBox.classList.remove('open');
     } else {
-      limitHint.textContent = `${drugs.length} of ${MAX_DRUGS} medicamentos adicionados.`;
+      limitHint.textContent = `${drugs.length} de ${MAX_DRUGS} medicamentos adicionados.`;
       limitHint.classList.remove('warn');
     }
 
@@ -533,6 +533,7 @@
       const r = await fetch(url, { signal: abortCtrl.signal });
       if (!r.ok) throw new Error('network');
       const data = await r.json();
+      console.log("Resposta do RxNav:", data);
       const list = data.suggestionGroup?.suggestionList?.suggestion || [];
       renderSuggestions(list, query);
     } catch(e) {
@@ -706,11 +707,11 @@
     btnCheck.disabled = true;
     btnReset.disabled = true;
 
-    const rxcuis = drugs.map(d => d.rxcui).join('%20');
+    const rxcuis = drugs.map(d => d.rxcui).join('+');
     setStatus('Buscando interações…', true);
 
     try {
-      const url = `https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=${rxcuis}`;
+      const url = `https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=${encodeURIComponent(rxcuis)}`;
       const r = await fetch(url);
       if (!r.ok) throw new Error('network');
       const data = await r.json();
@@ -738,6 +739,7 @@
       resultsWrap.classList.add('visible');
       setStatus('');
     } catch(e) {
+      console.error(e);
       setStatus('');
       showError('Erro de rede. Verifique sua conexão e tente novamente.');
     }
