@@ -706,7 +706,7 @@
     btnCheck.disabled = true;
     btnReset.disabled = true;
 
-    const rxcuis = drugs.map(d => d.rxcui).join('+');
+    const rxcuis = drugs.map(d => d.rxcui).join('%20');
     setStatus('Buscando interações…', true);
 
     try {
