@@ -102,5 +102,13 @@ const registroCalculadoras = [
   area:      "Hematologia",
   tags:      ["reticulocitos", "anemia", "correcao", "contagem", "correção", "reticulócitos", "anemia", "hematologia", "reticulócitos corrigidos", "contagem de reticulócitos", "hemograma"],
   caminho:   "calculadoras/ret/index.html"
+  },
+  {
+  id:        "fib",
+  nome:      "Índice de Fibrose Hepática (FIB-4)",
+  descricao: "Estima a probabilidade de fibrose hepática pelo método FIB-4.",
+  area:      "Hepatologia",
+  tags:      ["fib-4", "fibrose", "hepatica", "hepatologia", "fibrose hepática", "cirrose", "hepatite"],
+  caminho:   "calculadoras/fib/index.html"
   }
 ];

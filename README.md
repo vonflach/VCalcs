@@ -112,6 +112,7 @@ O utilitário aparece automaticamente na aba **Utilitários**. Nenhum outro arqu
 
 ## Calculadoras disponíveis
 
+- Índice de Fibrose Hepática (FIB-4)
 - Contagem de Reticulócitos Corrigida
 - Correção de Cálcio sérico pela Albumina
 - Estimativa para Colesterol LDL (LDL-c)
@@ -135,7 +136,6 @@ O utilitário aparece automaticamente na aba **Utilitários**. Nenhum outro arqu
 
 **Calculadoras:**
 - Dosagem de Fluidoterapia Intraoperatória
-- Índice FIB-4
 - Critérios de Wells para Trombose Venosa Profunda (TVP)
 - Escore de Pádua para Predição de Tromboembolismo Venoso (TEV)
 
