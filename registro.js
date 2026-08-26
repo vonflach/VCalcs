@@ -110,5 +110,13 @@ const registroCalculadoras = [
   area:      "Hepatologia",
   tags:      ["fib-4", "fibrose", "hepatica", "hepatologia", "fibrose hepática", "cirrose", "hepatite"],
   caminho:   "calculadoras/fib/index.html"
+  },
+  {
+  id:        "tvp",
+  nome:      "Critérios de Wells para Trombose Venosa Profunda (TVP)",
+  descricao: "Estima o risco de TVP com base em critérios clínicos.",
+  area:      "Cirurgia",
+  tags:      ["wells", "tvp", "trombose", "venosa", "profunda", "anticoagulante", "cirurgia", "trombose venosa profunda", "risco de tvp", "risco de trombose venosa profunda"],
+  caminho:   "calculadoras/tvp/index.html"
   }
 ];
