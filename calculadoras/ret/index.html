@@ -189,8 +189,7 @@
     const ret             = hemogramaHb * valor;
     const retArredondada  = Math.round(ret * 10) / 10;
 
-    valorEl.textContent       = `${retArredondada} %`;
-    tagEl.textContent         = "Reticulócitos Corrigidos";
+    valorEl.textContent       = `Reticulócitos Corrigidos: ${retArredondada} %`;
     interpretacaoEl.textContent = "Avaliar o resultado em conjunto com demais parâmetros clínicos e laboratoriais do paciente.";
 
     resultadoEl.className = "calc-resultado ";

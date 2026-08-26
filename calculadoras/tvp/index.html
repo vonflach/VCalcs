@@ -4,16 +4,261 @@
   <h2>Critérios de Wells para Trombose Venosa Profunda (TVP)</h2>
 
   <p class="calc-resumo">
-    Estima o risco de TVP com base em critérios clínicos.
+    Estima a probabilidade pré-teste de TVP com base em critérios clínicos.
   </p>
-  
-  <!-- CA ativo -->
+
+  <!-- 1. Câncer ativo -->
   <div class="calc-campo">
-    <label>Câncer em curso</label>
+    <label>Câncer ativo (tratamento ativo, paliativo ou < 6 meses)</label>
     <div class="radio-group">
-      <label><input type="radio" name="cancer" value="sim"> <span>Sim</span></label>
-      <label><input type="radio" name="cancer" value="nao" checked> <span>Não</span></label>
+      <label><input type="radio" name="tvp-cancer" value="nao" checked> <span>Não</span></label>
+      <label><input type="radio" name="tvp-cancer" value="sim"> <span>Sim</span></label>
+    </div>
+  </div>
+
+  <!-- 2. Paralisia / paresia / imobilização -->
+  <div class="calc-campo">
+    <label>Paralisia, paresia ou imobilização recente de membro inferior</label>
+    <div class="radio-group">
+      <label><input type="radio" name="tvp-paralisia" value="nao" checked> <span>Não</span></label>
+      <label><input type="radio" name="tvp-paralisia" value="sim"> <span>Sim</span></label>
+    </div>
+  </div>
+
+  <!-- 3. Acamado / cirurgia recente -->
+  <div class="calc-campo">
+    <label>Acamado > 3 dias ou cirurgia de grande porte nas últimas 12 semanas</label>
+    <div class="radio-group">
+      <label><input type="radio" name="tvp-acamado" value="nao" checked> <span>Não</span></label>
+      <label><input type="radio" name="tvp-acamado" value="sim"> <span>Sim</span></label>
+    </div>
+  </div>
+
+  <!-- 4. Dor à palpação -->
+  <div class="calc-campo">
+    <label>Dor localizada no trajeto do sistema venoso profundo</label>
+    <div class="radio-group">
+      <label><input type="radio" name="tvp-dor" value="nao" checked> <span>Não</span></label>
+      <label><input type="radio" name="tvp-dor" value="sim"> <span>Sim</span></label>
+    </div>
+  </div>
+
+  <!-- 5. Edema de toda a perna -->
+  <div class="calc-campo">
+    <label>Edema de todo o membro inferior</label>
+    <div class="radio-group">
+      <label><input type="radio" name="tvp-edema-total" value="nao" checked> <span>Não</span></label>
+      <label><input type="radio" name="tvp-edema-total" value="sim"> <span>Sim</span></label>
+    </div>
+  </div>
+
+  <!-- 6. Edema da perna sintomática > 3 cm -->
+  <div class="calc-campo">
+    <label>Edema da panturrilha > 3 cm em relação ao lado assintomático</label>
+    <div class="radio-group">
+      <label><input type="radio" name="tvp-edema-panturrilha" value="nao" checked> <span>Não</span></label>
+      <label><input type="radio" name="tvp-edema-panturrilha" value="sim"> <span>Sim</span></label>
+    </div>
+  </div>
+
+  <!-- 7. Edema com cacifo confinado à perna sintomática -->
+  <div class="calc-campo">
+    <label>Edema com cacifo restrito à perna sintomática</label>
+    <div class="radio-group">
+      <label><input type="radio" name="tvp-cacifo" value="nao" checked> <span>Não</span></label>
+      <label><input type="radio" name="tvp-cacifo" value="sim"> <span>Sim</span></label>
+    </div>
+  </div>
+
+  <!-- 8. Veias colaterais superficiais -->
+  <div class="calc-campo">
+    <label>Presença de veias colaterais superficiais não varicosas</label>
+    <div class="radio-group">
+      <label><input type="radio" name="tvp-colaterais" value="nao" checked> <span>Não</span></label>
+      <label><input type="radio" name="tvp-colaterais" value="sim"> <span>Sim</span></label>
+    </div>
+  </div>
+
+  <!-- 9. TVP prévia documentada -->
+  <div class="calc-campo">
+    <label>TVP prévia documentada</label>
+    <div class="radio-group">
+      <label><input type="radio" name="tvp-previa" value="nao" checked> <span>Não</span></label>
+      <label><input type="radio" name="tvp-previa" value="sim"> <span>Sim</span></label>
+    </div>
+  </div>
+
+  <!-- 10. Diagnóstico alternativo (−2) -->
+  <div class="calc-campo">
+    <label>Diagnóstico alternativo tão ou mais provável que TVP</label>
+    <div class="radio-group">
+      <label><input type="radio" name="tvp-alt-diag" value="nao" checked> <span>Não</span></label>
+      <label><input type="radio" name="tvp-alt-diag" value="sim"> <span>Sim (−2)</span></label>
     </div>
   </div>
 
   <button id="tvp-btn-calcular" class="calc-btn">Calcular</button>
+
+  <div id="tvp-resultado" class="calc-resultado escondido">
+  <p class="calc-resultado-valor resultado-valor" id="tvp-valor"></p>
+  <p class="calc-resultado-tag" id="tvp-tag"></p>
+  <p class="calc-resultado-interpretacao" id="tvp-interpretacao"></p>
+  </div>
+</div>
+
+<style>
+  .calc-tvp {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .calc-tvp h2 {
+    color: var(--cor-grafite);
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+
+  .calc-campo {
+    margin-bottom: 18px;
+  }
+
+  .calc-campo label {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--cor-texto);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .radio-group {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 24px;
+  }
+
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #374151;
+    cursor: pointer;
+  }
+
+  .calc-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--cor-cyan);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-family: inherit;
+  }
+
+  .calc-btn:hover {
+    background-color: var(--cor-grafite);
+  }
+
+  .calc-erro {
+    color: #b42318;
+    font-size: 0.88rem;
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  .calc-resultado {
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid transparent;
+  }
+
+  .calc-resultado-valor {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .calc-resultado-tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .calc-resultado-interpretacao {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+</style>
+
+<script>
+  
+  const btnCalcular     = document.getElementById('tvp-btn-calcular');
+  const resultadoEl     = document.getElementById('tvp-resultado');
+  const valorEl         = document.getElementById('tvp-valor');
+  const tagEl           = document.getElementById('tvp-tag');
+  const interpretacaoEl = document.getElementById('tvp-interpretacao');
+  
+  const TVP_CAMPOS_POSITIVOS = [
+    'tvp-cancer',
+    'tvp-paralisia',
+    'tvp-acamado',
+    'tvp-dor',
+    'tvp-edema-total',
+    'tvp-edema-panturrilha',
+    'tvp-cacifo',
+    'tvp-colaterais',
+    'tvp-previa',
+  ];
+
+  document.getElementById('tvp-btn-calcular').addEventListener('click', () => {
+    const scoreCampos = TVP_CAMPOS_POSITIVOS.reduce((total, nome) => {
+      const checked = document.querySelector(`input[name="${nome}"]:checked`);
+      return total + (checked?.value === 'sim' ? 1 : 0);
+    }, 0);
+
+    const altDiag = document.querySelector('input[name="tvp-alt-diag"]:checked')?.value === 'sim';
+    const score = scoreCampos + (altDiag ? -2 : 0);
+
+    exibirResultado(score);
+  });
+
+  function exibirResultado(score) {
+    let classe, tag, texto;
+
+    if (score <= 0) {
+      classe = 'risco-baixo';
+      tag    = 'Baixa probabilidade — Probabilidade pré-teste: 5%';
+      texto  = 'Considere solicitação de exames complementares. Sempre faça a avaliação individualizada.';
+    } else if (score <= 2) {
+      classe = 'atencao';
+      tag    = 'Moderada probabilidade — Probabilidade pré-teste: 17%';
+      texto  = 'Considere solicitação de exames complementares. Sempre faça a avaliação individualizada.';
+    } else {
+      classe = 'risco-alto';
+      tag    = 'Alta probabilidade — Probabilidade pré-teste: 17-53%';
+      texto  = 'Considere solicitação de exames complementares. Sempre faça a avaliação individualizada.';
+    }
+
+    valorEl.textContent         = `Score de Wells: ${score} pontos`;
+    tagEl.textContent           = tag;
+    interpretacaoEl.textContent = texto;
+
+    resultadoEl.className = `calc-resultado ${classe}`;
+    resultadoEl.classList.remove('escondido');
+    resultadoEl.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') btnCalcular.click();
+  });
+
+</script>
