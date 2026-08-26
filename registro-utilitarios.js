@@ -13,9 +13,9 @@ const registroUtilitarios = [
   },
   {
     id:        "hip",
-    nome:      "Sedativos e Hipnóticos",
-    descricao: "Avalie as faixas terapêuticas para sedativos e/ou hipnóticos.",
-    area:      "Anestesiologia",
+    nome:      "Faixas Terapêuticas de Sedativos e Hipnóticos",
+    descricao: "Avalie as faixas terapêuticas para sedativos e/ou hipnóticos para pacientes críticos em ventilação mecânica.",
+    area:      "Medicina Intensiva",
     tags:      ["sedativos", "hipnóticos", "anestésicos", "infusão", "midazolam", "propofol", "dexmedetomidina", "lorazepam", "fentanil", "remifentanil"],
     caminho:   "utilitarios/hip/index.html"
   }

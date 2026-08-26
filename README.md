@@ -128,6 +128,7 @@ O utilitário aparece automaticamente na aba **Utilitários**. Nenhum outro arqu
 
 ## Utilitários disponíveis
 
+- Faixas Terapêuticas de Sedativos e Hipnóticos
 - Eletrólitos — apresentações comerciais e equivalências em mEq/mL e mEq/ampola
 
 ---
@@ -140,7 +141,6 @@ O utilitário aparece automaticamente na aba **Utilitários**. Nenhum outro arqu
 - Escore de Pádua para Predição de Tromboembolismo Venoso (TEV)
 
 **Utilitários:**
-- Faixas Terapêuticas de Sedativos e Hipnóticos
 - Correção de Posologia Antimicrobiana pela Função Renal
 
 ---
@@ -151,10 +151,18 @@ As calculadoras e utilitários disponibilizados neste aplicativo são ferramenta
 
 ---
 
+## Feedback e Sugestões
+
+Apesar de estar em desenvolvimento, o presente projeto está em aprimoramento contínuo. Na presença de uma sugestão, feedback ou bug, abra uma [Issue aqui](https://github.com/vonflach/VCalcs/issues/new), descrevendo o conteúdo da mensagem.
+
+Toda contribuição é bem-vinda!
+
+---
+
 ## Licença
 
 Veja o arquivo [LICENSE](./LICENSE) para detalhes.
 
 ## Autor
 
-Gabriel von Flach Sarmento, 2026
+Gabriel von Flach Sarmento (@vonflach)

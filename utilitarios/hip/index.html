@@ -1,0 +1,180 @@
+<!-- utilitarios/hip/index.html -->
+
+<div class="util-hip">
+  <h2>Faixas Terapêuticas de Sedativos e Hipnóticos</h2>
+  <p class="calc-resumo">Avalie as faixas terapêuticas para sedativos e/ou hipnóticos para pacientes críticos em ventilação mecânica.</p>
+        <div class="util-secao">
+    <table class="util-tabela">
+        <thead>
+        <tr>
+            <th>Sedativo/Hipnótico</th>
+            <th>Dose Bolus</th>
+            <th>Dose de Manutenção</th>
+            <th>Cuidados</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    </div>
+</div>
+
+<script>
+(function () {
+  const sedativos = [
+    {
+      nome: "Midazolam",
+      bolus: "1 &mdash; 5 mg",
+      manutencao: "0,03 &mdash; 0,2 mg/kg/h",
+      cuidados: "Risco de delirium, acúmulo em insuficiência renal/hepática"
+    },
+    {
+      nome: "Cisatracúrio (BNM)",
+      bolus: "0,15 &mdash; 0,2 mg/kg",
+      manutencao: "0,5 &mdash; 5 mcg/kg/min",
+      cuidados: "Acúmulo em insuficiência renal/hepática"
+    },
+    {
+      nome: "Dexmedetomidina",
+      bolus: "Não recomendado",
+      manutencao: "0,2 &mdash; 1,5 mcg/kg/h",
+      cuidados: "Atentar para bradicardia e hipotensão"
+    },
+    {
+      nome: "Fentanil",
+      bolus: "0,5 &mdash; 1 mcg/kg",
+      manutencao: "10 &mdash; 100 mcg/h",
+      cuidados: "Risco de constipação, tórax rígido, acúmulo em insuficiência renal/hepática"
+    },
+    {
+      nome: "Cetamina",
+      bolus: "0,1 &mdash; 0,3 mg/kg",
+      manutencao: "0,2 mg/kg/h",
+      cuidados: "Risco de alucinação, hipertensão, taquicardia"
+    },
+    {
+      nome: "Morfina",
+      bolus: "0,1 mg/kg",
+      manutencao: "1 &mdash; 10 mg/h",
+      cuidados: "Risco de constipação, náuseas, liberação de histamina, vasodilatação"
+    },
+    {
+      nome: "Propofol",
+      bolus: "0,5 &mdash; 1 mg/kg",
+      manutencao: "1 &mdash; 3 mg/kg/h",
+      cuidados: "Atentar para hipotensão, bradicardia, hipertrigliceridemia e síndrome da infusão de propofol (Acidose lática, rabdomiólise, insuficiência renal aguda, arritmias e morte)"
+    }
+  ];
+
+  // Ordena alfabeticamente
+  sedativos.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+
+  // Gera as linhas
+  const tbody = document.querySelector('.util-tabela tbody');
+  tbody.innerHTML = '';
+
+  sedativos.forEach(s => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${s.nome}</td>
+      <td>${s.bolus}</td>
+      <td>${s.manutencao}</td>
+      <td>${s.cuidados}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+})();
+</script>
+
+<style>
+    .util-hip {
+    width: min(100% - 24px, 640px);
+    margin-inline: auto;
+    box-sizing: border-box;
+    }
+
+  .util-hip h2 {
+    font-size: 1.3rem;
+    color: var(--cor-grafite);
+    margin-bottom: 4px;
+  }
+
+  .util-secao {
+    margin-bottom: 24px;
+  }
+
+  .util-secao-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .util-icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cor-texto);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.02em;
+    min-width: 48px;
+  }
+
+  .util-secao-titulo {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cor-texto);
+  }
+
+  .util-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+
+  .util-tabela thead tr {
+    background: var(--cor-vermelho);
+    color: #ffffff;
+  }
+
+  .util-tabela th {
+    padding: 9px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+
+  .util-tabela th:first-child { border-radius: 8px 0 0 0; }
+  .util-tabela th:last-child  { border-radius: 0 8px 0 0; }
+
+  .util-tabela tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+    transition: background 0.1s ease;
+  }
+
+  .util-tabela tbody tr:last-child { border-bottom: none; }
+
+  .util-tabela tbody tr:hover { background: rgba(14, 116, 144, 0.04); }
+
+  .util-tabela td {
+    padding: 10px 12px;
+    color: var(--cor-olive-escuro);
+    background: #ffffff;
+    font-size: 0.7rem;
+  }
+
+  .util-tabela td:first-child { font-weight: 500; }
+
+  .util-tabela tbody tr:last-child td:first-child  { border-radius: 0 0 0 8px; }
+  .util-tabela tbody tr:last-child td:last-child   { border-radius: 0 0 8px 0; }
+
+  /* Sombra sutil na tabela */
+  .util-tabela {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+</style>
