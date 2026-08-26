@@ -18,13 +18,5 @@ const registroUtilitarios = [
     area:      "Anestesiologia",
     tags:      ["sedativos", "hipnóticos", "anestésicos", "infusão", "midazolam", "propofol", "dexmedetomidina", "lorazepam", "fentanil", "remifentanil"],
     caminho:   "utilitarios/hip/index.html"
-  },
-  {
-    id:        "interacao",
-    nome:      "Interações Medicamentosas (National Library of Medicine &mdash; NLM)",
-    descricao: "Cheque por interações medicamentosas descritas na NLM.",
-    area:      "Geral",
-    tags:      ["interações medicamentosas", "interações", "medicamentos", "drugs", "interactions", "nlm"],
-    caminho:   "utilitarios/interacao/index.html"
   }
 ];
