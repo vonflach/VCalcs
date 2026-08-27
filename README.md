@@ -112,6 +112,7 @@ O utilitário aparece automaticamente na aba **Utilitários**. Nenhum outro arqu
 
 ## Calculadoras disponíveis
 
+- Critérios de Wells para Trombose Venosa Profunda (TVP)
 - Índice de Fibrose Hepática (FIB-4)
 - Contagem de Reticulócitos Corrigida
 - Correção de Cálcio sérico pela Albumina
@@ -136,8 +137,8 @@ O utilitário aparece automaticamente na aba **Utilitários**. Nenhum outro arqu
 ## Em desenvolvimento...
 
 **Calculadoras:**
+- Critérios de Wells para Tromboembolismo Pulmonar (TEP)
 - Dosagem de Fluidoterapia Intraoperatória
-- Critérios de Wells para Trombose Venosa Profunda (TVP)
 - Escore de Pádua para Predição de Tromboembolismo Venoso (TEV)
 
 **Utilitários:**
