@@ -947,3 +947,108 @@ input[type="number"] {
   color: var(--cor-vermelho-hover);
   text-decoration: underline;
 }
+
+/* ══════════════════════════════════════
+   INFO ACCORDION
+══════════════════════════════════════ */
+.info-accordion {
+  margin-top: 16px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  overflow: hidden;
+}
+
+.info-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.info-tab {
+  all: unset;
+  cursor: pointer;
+  padding: 10px 4px;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--cor-texto-mudo);
+  border-right: 1px solid var(--cor-borda);
+  transition:
+    background 0.15s,
+    color 0.15s;
+  font-family: inherit;
+}
+
+.info-tab:last-child {
+  border-right: none;
+}
+
+.info-tab:hover {
+  color: var(--cor-texto-sec);
+  background: var(--cor-olive-claro);
+}
+
+.info-tab.ativo {
+  background: var(--cor-vermelho);
+  color: #ffffff;
+}
+
+.info-body {
+  display: none;
+  padding: 14px 16px;
+  font-size: 0.85rem;
+  color: var(--cor-texto-sec);
+  line-height: 1.6;
+}
+
+.info-body.visivel {
+  display: block;
+}
+
+.info-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.info-list li {
+  margin-bottom: 6px;
+}
+
+.info-list li:last-child {
+  margin-bottom: 0;
+}
+
+.info-list a {
+  color: var(--cor-vermelho);
+  text-decoration: none;
+}
+
+.info-list a:hover {
+  color: var(--cor-vermelho-hover);
+  text-decoration: underline;
+}
+
+.info-formula-label {
+  margin: 0 0 8px;
+  color: var(--cor-texto-mudo);
+  font-size: 0.8rem;
+}
+
+.info-formula-block {
+  background: var(--cor-olive);
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--cor-texto);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.info-formula-nota {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--cor-texto-mudo);
+  font-style: italic;
+}
