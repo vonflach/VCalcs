@@ -39,6 +39,8 @@
   <p id="pam-erro" class="calc-erro escondido">
     Preencha PAS e PAD com valores numéricos válidos.
   </p>
+
+  <div id="pam-accordion-container"></div>
 </div>
 
 <style>
@@ -189,21 +191,52 @@
     const interpretacaoEl = document.getElementById("pam-interpretacao");
     const erroEl = document.getElementById("pam-erro");
 
+    const container = document.getElementById("pam-accordion-container");
+
+    var refs = `
+  <ol class="info-list">
+    <li>Magder S. The highs and lows of blood pressure: toward meaningful clinical targets in patients with shock.
+      <a href="https://doi.org/10.1097/ccm.0000000000000324" target="_blank">Crit Care Med, 2014.</a>
+    </li>
+    <li>Sesso HD, et al. Systolic and Diastolic Blood Pressure, Pulse Pressure, and Mean Arterial Pressure as Predictors of Cardiovascular Disease Risk in Men.
+      <a href="https://doi.org/10.1161/01.HYP.36.5.801" target="_blank">Hypertension, 2000.</a>
+    </li>
+  </ol>`;
+
+    var formula = `
+  <p class="info-formula-label">Fórmula:</p>
+  <div class="info-formula-block">
+    \\( \\text{PAM} = \\dfrac{\\text{PAS} + 2 \\times \\text{PAD}}{3} \\)
+  </div>
+  <p class="info-formula-nota">
+    Sua validade isolada é limitada &mdash; Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.
+  </p>`;
+
+    var cuidados = `
+  <ul class="info-list">
+    <li>Os valores de referência (70–100 mmHg) são para adultos em contexto geral —
+        pacientes com HAS crônica podem necessitar de alvos mais elevados.</li>
+    <li>Em sepse, o alvo habitual é PAM ≥ 65 mmHg, podendo ser individualizado.</li>
+    <li>Não substitui monitorização invasiva em instabilidade hemodinâmica.</li>
+  </ul>`;
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+    renderMathInElement(container, {
+      // linha nova
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+    });
+
     function classificarPAM(pam) {
-      if (pam < 60) {
+      if (pam < 65) {
         return {
           classe: "risco-baixo",
           tag: "Risco — PAM baixa",
           texto:
             "Risco de hipoperfusão de órgãos-alvo. Avaliar sinais de choque e necessidade de intervenção.",
-        };
-      }
-      if (pam < 70) {
-        return {
-          classe: "atencao",
-          tag: "Atenção — limite inferior",
-          texto:
-            "PAM próxima ao limite inferior de perfusão adequada. Monitorar tendência e contexto clínico.",
         };
       }
       if (pam <= 100) {
@@ -212,14 +245,6 @@
           tag: "Adequada",
           texto:
             "PAM dentro da faixa considerada adequada para perfusão de órgãos-alvo na maioria dos contextos clínicos.",
-        };
-      }
-      if (pam <= 110) {
-        return {
-          classe: "atencao",
-          tag: "Atenção — PAM elevada",
-          texto:
-            "PAM acima do intervalo habitual. Avaliar causa e risco de lesão de órgão-alvo conforme contexto.",
         };
       }
       return {
