@@ -44,6 +44,7 @@ vcalcs/
 ├── app.js                      # Lógica central: renderização, busca, navegação
 ├── registro.js                 # Catálogo de calculadoras
 ├── registro-utilitarios.js     # Catálogo de utilitários
+├── accordion.js                # Componente global do bloco de Referências / Fórmula / Cuidados
 │
 ├── assets/
 │   ├── img/                    # Logo e imagens
