@@ -873,3 +873,45 @@ input[type="number"] {
   left: 18px;
   background: #fff;
 }
+
+/* ══════════════════════════════════════
+   REFERENCIAS
+══════════════════════════════════════ */
+.references {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.references-title {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.references-list {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--cor-texto-mudo);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.references-item {
+  margin-bottom: 6px;
+}
+
+.references-item:last-child {
+  margin-bottom: 0;
+}
+
+.references a {
+  color: var(--cor-vermelho);
+  text-decoration: none;
+}
+
+.references a:hover {
+  color: var(--cor-vermelho-hover);
+  text-decoration: underline;
+}

@@ -2,7 +2,7 @@
 
 <div class="util-hip">
   <h2>Faixas Terapêuticas de Sedativos e Hipnóticos</h2>
-  <p class="calc-resumo">Avalie as faixas terapêuticas para sedativos e/ou hipnóticos para pacientes críticos em ventilação mecânica.</p>
+  <p class="calc-resumo">Avalie as faixas terapêuticas para sedativos e/ou hipnóticos para pacientes críticos não-pediátricos, principalmente no contexto de ventilação mecânica invasiva. Não são doses de SRI.</p>
         <div class="util-secao">
     <table class="util-tabela">
         <thead>
@@ -16,6 +16,20 @@
         <tbody></tbody>
     </table>
     </div>
+    <div class="references">
+      <h3 class="references-title">Referências</h3>
+      <ol class="references-list">
+        <li class="references-item">
+          Hospital Sírio-Libanês. <em>Guia Farmacêutico</em>.
+          <a href="https://guiafarmaceutico.hsl.org.br/Paginas/default.aspx"
+            target="_blank"
+            rel="noopener noreferrer">
+            Disponível online aqui
+          </a>.
+          Acesso em: 26 ago. 2026.
+        </li>
+      </ol>
+    </div> 
 </div>
 
 <script>
@@ -30,13 +44,19 @@
     {
       nome: "Cisatracúrio (BNM)",
       bolus: "0,15 &mdash; 0,2 mg/kg",
-      manutencao: "0,5 &mdash; 5 mcg/kg/min",
-      cuidados: "Acúmulo em insuficiência renal/hepática"
+      manutencao: "1 &mdash; 3 mcg/kg/min",
+      cuidados: "Atentar para pacientes grandes queimados ou com miastenia gravis"
+    },
+    {
+      nome: "Rocurônio (BNM)",
+      bolus: "0,6 &mdash; 1 mg/kg",
+      manutencao: "0,48 &mdash; 0,72 mg/kg/h",
+      cuidados: "Atentar para pacientes com insuficiência renal/hepática, grandes queimados ou com miastenia gravis"
     },
     {
       nome: "Dexmedetomidina",
       bolus: "Não recomendado",
-      manutencao: "0,2 &mdash; 1,5 mcg/kg/h",
+      manutencao: "0,2 &mdash; 0,7 mcg/kg/h",
       cuidados: "Atentar para bradicardia e hipotensão"
     },
     {
@@ -48,19 +68,19 @@
     {
       nome: "Cetamina",
       bolus: "0,1 &mdash; 0,3 mg/kg",
-      manutencao: "0,2 mg/kg/h",
+      manutencao: "2 &mdash; 7 mcg/kg/min",
       cuidados: "Risco de alucinação, hipertensão, taquicardia"
     },
     {
       nome: "Morfina",
-      bolus: "0,1 mg/kg",
-      manutencao: "1 &mdash; 10 mg/h",
+      bolus: "0,01 &mdash; 0,15 mg/kg",
+      manutencao: "0,07 &mdash; 0,5 mg/kg/h",
       cuidados: "Risco de constipação, náuseas, liberação de histamina, vasodilatação"
     },
     {
       nome: "Propofol",
       bolus: "0,5 &mdash; 1 mg/kg",
-      manutencao: "1 &mdash; 3 mg/kg/h",
+      manutencao: "0,3 &mdash; 4 mg/kg/h",
       cuidados: "Atentar para hipotensão, bradicardia, hipertrigliceridemia e síndrome da infusão de propofol (Acidose lática, rabdomiólise, insuficiência renal aguda, arritmias e morte)"
     }
   ];
