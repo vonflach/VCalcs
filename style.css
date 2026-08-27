@@ -4,7 +4,7 @@
    Layout: sidebar fixa + área principal */
 
 /* ---------- Fontes ---------- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap");
 
 /* ---------- Reset ---------- */
 * {
@@ -15,25 +15,25 @@
 
 /* ---------- Variáveis ---------- */
 :root {
-  --cor-vermelho:       #8c0007;
+  --cor-vermelho: #8c0007;
   --cor-vermelho-hover: #a80009;
-  --cor-vermelho-suave: rgba(140, 0, 7, 0.10);
-  --cor-olive-escuro:   #1a1d13;
-  --cor-olive:          #25291c;
-  --cor-olive-claro:    #2e3323;
-  --cor-borda:          #3a3f2e;
-  --cor-texto:          #e6e1de;
-  --cor-texto-sec:      #a8ab99;
-  --cor-texto-mudo:     #6b6e5f;
-  --cor-card:           #1a1d13;
-  --cor-card-hover:     #1e2117;
-  --raio:               10px;
-  --sidebar-largura:    224px;
+  --cor-vermelho-suave: rgba(140, 0, 7, 0.1);
+  --cor-olive-escuro: #1a1d13;
+  --cor-olive: #25291c;
+  --cor-olive-claro: #2e3323;
+  --cor-borda: #3a3f2e;
+  --cor-texto: #e6e1de;
+  --cor-texto-sec: #a8ab99;
+  --cor-texto-mudo: #6b6e5f;
+  --cor-card: #1a1d13;
+  --cor-card-hover: #1e2117;
+  --raio: 10px;
+  --sidebar-largura: 224px;
 }
 
 /* ---------- Base ---------- */
 body {
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-family: "Inter", "Segoe UI", sans-serif;
   background-color: var(--cor-olive);
   color: var(--cor-texto);
   min-height: 100vh;
@@ -163,9 +163,16 @@ body {
   padding: 8px 0;
 }
 
-.sidebar-nav::-webkit-scrollbar { width: 3px; }
-.sidebar-nav::-webkit-scrollbar-track { background: transparent; }
-.sidebar-nav::-webkit-scrollbar-thumb { background: var(--cor-borda); border-radius: 3px; }
+.sidebar-nav::-webkit-scrollbar {
+  width: 3px;
+}
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: var(--cor-borda);
+  border-radius: 3px;
+}
 
 .nav-label {
   font-size: 0.68rem;
@@ -186,7 +193,9 @@ body {
   font-size: 0.87rem;
   font-weight: 400;
   border-left: 2px solid transparent;
-  transition: color 0.15s, background 0.15s;
+  transition:
+    color 0.15s,
+    background 0.15s;
   user-select: none;
 }
 
@@ -240,7 +249,8 @@ body {
 }
 
 /* Esconde scrollbar global */
-html, body {
+html,
+body {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -330,11 +340,13 @@ body::-webkit-scrollbar {
   border-radius: var(--raio);
   padding: 16px 14px 14px;
   cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
   display: flex;
   flex-direction: column;
   gap: 0;
-  height: 148px;        /* altura fixa igual para todos */
+  height: 148px; /* altura fixa igual para todos */
 }
 
 .card-calculadora:hover {
@@ -361,7 +373,7 @@ body::-webkit-scrollbar {
   color: var(--cor-texto-mudo);
   line-height: 1.45;
   margin-bottom: 0;
-  flex: 1;              /* ocupa o espaço disponível */
+  flex: 1; /* ocupa o espaço disponível */
   /* limita a 3 linhas */
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -380,7 +392,7 @@ body::-webkit-scrollbar {
   border-radius: 999px;
   letter-spacing: 0.3px;
   align-self: flex-start;
-  margin-top: auto;     /* sempre gruda no rodapé do card */
+  margin-top: auto; /* sempre gruda no rodapé do card */
 }
 
 .mensagem-vazia {
@@ -412,7 +424,6 @@ body::-webkit-scrollbar {
   line-height: 1.55;
   margin: 10px 0 28px;
 }
-
 
 /* Ajustes para calcs internas (sobrescreve cores antigas das calcs) */
 .area-calculadora-wrap .calc-btn,
@@ -497,7 +508,7 @@ body::-webkit-scrollbar {
 
 /* Tipografia serif para resultados */
 .resultado-valor {
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: "Source Serif 4", Georgia, serif;
   font-weight: 600;
 }
 
@@ -713,7 +724,7 @@ body::-webkit-scrollbar {
 
   border-radius: 999px;
 
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-family: "Inter", "Segoe UI", sans-serif;
   font-size: 0.8rem;
   font-weight: 400;
   line-height: normal;
@@ -760,7 +771,9 @@ input[type="number"] {
 }
 
 /* ══ TOP BAR — apenas mobile ══ */
-.mobile-topbar { display: none; }
+.mobile-topbar {
+  display: none;
+}
 
 @media (max-width: 640px) {
   .mobile-topbar {
@@ -769,7 +782,9 @@ input[type="number"] {
     justify-content: space-between;
     gap: 12px;
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 56px;
     background-color: var(--cor-olive-escuro);
     border-bottom: 1px solid var(--cor-borda);
@@ -783,7 +798,10 @@ input[type="number"] {
     cursor: pointer;
     flex-shrink: 0;
   }
-  .topbar-logo img { width: 30px; height: 30px; }
+  .topbar-logo img {
+    width: 30px;
+    height: 30px;
+  }
   .topbar-logo h1 {
     font-size: 1.1rem;
     font-weight: 600;
@@ -791,7 +809,9 @@ input[type="number"] {
     letter-spacing: -0.2px;
     margin: 0;
   }
-  .topbar-logo h1 span { color: var(--cor-vermelho); }
+  .topbar-logo h1 span {
+    color: var(--cor-vermelho);
+  }
   .topbar-busca-wrap {
     position: relative;
     flex: 1;
@@ -799,8 +819,10 @@ input[type="number"] {
   }
   .topbar-busca-wrap .icone-busca {
     position: absolute;
-    width: 13px; height: 13px;
-    left: 9px; top: 50%;
+    width: 13px;
+    height: 13px;
+    left: 9px;
+    top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
     opacity: 0.5;
@@ -819,10 +841,16 @@ input[type="number"] {
     -webkit-appearance: none;
     appearance: none;
   }
-  #campo-busca-topbar::placeholder { color: var(--cor-texto-mudo); }
-  #campo-busca-topbar:focus { border-color: var(--cor-vermelho); }
+  #campo-busca-topbar::placeholder {
+    color: var(--cor-texto-mudo);
+  }
+  #campo-busca-topbar:focus {
+    border-color: var(--cor-vermelho);
+  }
   #campo-busca-topbar::-webkit-search-decoration,
-  #campo-busca-topbar::-webkit-search-cancel-button { -webkit-appearance: none; }
+  #campo-busca-topbar::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
 }
 
 /* ══════════════════════════════════════
@@ -848,11 +876,13 @@ input[type="number"] {
   position: relative;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 
 .label-toggle input[type="checkbox"]::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 14px;
   height: 14px;
@@ -861,7 +891,9 @@ input[type="number"] {
   top: 50%;
   left: 2px;
   transform: translateY(-50%);
-  transition: left 0.2s, background 0.2s;
+  transition:
+    left 0.2s,
+    background 0.2s;
 }
 
 .label-toggle input[type="checkbox"]:checked {

@@ -5,7 +5,7 @@
 
   <p class="calc-resumo">
     Estimativa da TFG pelas fórmulas Cockcroft-Gault, MDRD e CKD-EPI 2021.
-  </p> 
+  </p>
 
   <!-- Seleção da fórmula -->
   <div class="calc-campo">
@@ -19,35 +19,72 @@
 
   <!-- Campos comuns -->
   <div class="calc-campo">
-    <label for="tfg-creatinina">Creatinina sérica <span class="unidade-label">(mg/dL)</span></label>
-    <input type="number" id="tfg-creatinina" inputmode="decimal" placeholder="Ex: 1.2" min="0" step="any">
+    <label for="tfg-creatinina"
+      >Creatinina sérica <span class="unidade-label">(mg/dL)</span></label
+    >
+    <input
+      type="number"
+      id="tfg-creatinina"
+      inputmode="decimal"
+      placeholder="Ex: 1.2"
+      min="0"
+      step="any"
+    />
   </div>
 
   <div class="calc-campo">
-    <label for="tfg-idade">Idade <span class="unidade-label">(anos)</span></label>
-    <input type="number" id="tfg-idade" inputmode="numeric" placeholder="Ex: 55" min="1" max="120">
+    <label for="tfg-idade"
+      >Idade <span class="unidade-label">(anos)</span></label
+    >
+    <input
+      type="number"
+      id="tfg-idade"
+      inputmode="numeric"
+      placeholder="Ex: 55"
+      min="1"
+      max="120"
+    />
   </div>
 
   <div class="calc-campo">
     <label>Sexo</label>
     <div class="radio-group">
-      <label><input type="radio" name="sexo-tfg" value="m" checked> <span>Masculino</span></label>
-      <label><input type="radio" name="sexo-tfg" value="f"> <span>Feminino</span></label>
+      <label
+        ><input type="radio" name="sexo-tfg" value="m" checked />
+        <span>Masculino</span></label
+      >
+      <label
+        ><input type="radio" name="sexo-tfg" value="f" />
+        <span>Feminino</span></label
+      >
     </div>
   </div>
 
   <!-- Peso (só Cockcroft-Gault) -->
   <div class="calc-campo" id="campo-peso">
     <label for="tfg-peso">Peso <span class="unidade-label">(kg)</span></label>
-    <input type="number" id="tfg-peso" inputmode="decimal" placeholder="Ex: 70" min="0" step="any">
+    <input
+      type="number"
+      id="tfg-peso"
+      inputmode="decimal"
+      placeholder="Ex: 70"
+      min="0"
+      step="any"
+    />
   </div>
 
   <!-- Raça (só MDRD) -->
   <div class="calc-campo escondido" id="campo-raca">
     <label>Afrodescendente</label>
     <div class="radio-group">
-      <label><input type="radio" name="raca-tfg" value="nao" checked> <span>Não</span></label>
-      <label><input type="radio" name="raca-tfg" value="neg"> <span>Sim</span></label>
+      <label
+        ><input type="radio" name="raca-tfg" value="nao" checked />
+        <span>Não</span></label
+      >
+      <label
+        ><input type="radio" name="raca-tfg" value="neg" />
+        <span>Sim</span></label
+      >
     </div>
   </div>
 
@@ -66,23 +103,25 @@
 
 <style>
   .tfg-select {
-  width: 100%;
-  padding: 12px 14px;
-  font-size: 1rem;
-  font-family: inherit;
-  border: 1px solid #d0d5db;
-  border-radius: 8px;
-  background-color: #ffffff;
-  color: var(--cor-texto);
-  cursor: pointer;
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid #d0d5db;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: var(--cor-texto);
+    cursor: pointer;
+    outline: none;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .tfg-select:focus {
-  border-color: var(--cor-cyan);
-  box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.15);
-  }  
+    border-color: var(--cor-cyan);
+    box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.15);
+  }
   .calc-tfg {
     max-width: 480px;
     margin: 0 auto;
@@ -120,7 +159,9 @@
     padding: 10px 14px;
     border: 1px solid #d0d5db;
     border-radius: 8px;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
   }
 
   .formula-opcao:has(input:checked) {
@@ -167,7 +208,9 @@
     font-size: 1rem;
     border: 1px solid #d0d5db;
     border-radius: 8px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
     font-family: inherit;
   }
 
@@ -229,150 +272,218 @@
     line-height: 1.5;
   }
 
-  .calc-resultado.g1 { background-color: rgba(22,163,74,0.08); border-color: #16a34a; }
+  .calc-resultado.g1 {
+    background-color: rgba(22, 163, 74, 0.08);
+    border-color: #16a34a;
+  }
   .calc-resultado.g1 .calc-resultado-valor,
-  .calc-resultado.g1 .calc-resultado-tag { color: #16a34a; }
+  .calc-resultado.g1 .calc-resultado-tag {
+    color: #16a34a;
+  }
 
-  .calc-resultado.g2 { background-color: rgba(34,197,94,0.08); border-color: #4ade80; }
+  .calc-resultado.g2 {
+    background-color: rgba(34, 197, 94, 0.08);
+    border-color: #4ade80;
+  }
   .calc-resultado.g2 .calc-resultado-valor,
-  .calc-resultado.g2 .calc-resultado-tag { color: #15803d; }
+  .calc-resultado.g2 .calc-resultado-tag {
+    color: #15803d;
+  }
 
-  .calc-resultado.g3a { background-color: rgba(234,179,8,0.08); border-color: #eab308; }
+  .calc-resultado.g3a {
+    background-color: rgba(234, 179, 8, 0.08);
+    border-color: #eab308;
+  }
   .calc-resultado.g3a .calc-resultado-valor,
-  .calc-resultado.g3a .calc-resultado-tag { color: #a16207; }
+  .calc-resultado.g3a .calc-resultado-tag {
+    color: #a16207;
+  }
 
-  .calc-resultado.g3b { background-color: rgba(249,115,22,0.08); border-color: #f97316; }
+  .calc-resultado.g3b {
+    background-color: rgba(249, 115, 22, 0.08);
+    border-color: #f97316;
+  }
   .calc-resultado.g3b .calc-resultado-valor,
-  .calc-resultado.g3b .calc-resultado-tag { color: #c2410c; }
+  .calc-resultado.g3b .calc-resultado-tag {
+    color: #c2410c;
+  }
 
-  .calc-resultado.g4 { background-color: rgba(239,68,68,0.08); border-color: #ef4444; }
+  .calc-resultado.g4 {
+    background-color: rgba(239, 68, 68, 0.08);
+    border-color: #ef4444;
+  }
   .calc-resultado.g4 .calc-resultado-valor,
-  .calc-resultado.g4 .calc-resultado-tag { color: #dc2626; }
+  .calc-resultado.g4 .calc-resultado-tag {
+    color: #dc2626;
+  }
 
-  .calc-resultado.g5 { background-color: rgba(127,29,29,0.08); border-color: #7f1d1d; }
+  .calc-resultado.g5 {
+    background-color: rgba(127, 29, 29, 0.08);
+    border-color: #7f1d1d;
+  }
   .calc-resultado.g5 .calc-resultado-valor,
-  .calc-resultado.g5 .calc-resultado-tag { color: #7f1d1d; }
+  .calc-resultado.g5 .calc-resultado-tag {
+    color: #7f1d1d;
+  }
 </style>
 
 <script>
-(function () {
+  (function () {
+    // --- Elementos ---
+    const radiosFormula = document.querySelectorAll(
+      'input[name="formula-tfg"]',
+    );
+    const campoPeso = document.getElementById("campo-peso");
+    const campoRaca = document.getElementById("campo-raca");
+    const btnCalcular = document.getElementById("tfg-btn-calcular");
+    const resultadoEl = document.getElementById("tfg-resultado");
+    const valorEl = document.getElementById("tfg-valor");
+    const tagEl = document.getElementById("tfg-tag");
+    const interpEl = document.getElementById("tfg-interpretacao");
+    const erroEl = document.getElementById("tfg-erro");
 
-  // --- Elementos ---
-  const radiosFormula   = document.querySelectorAll('input[name="formula-tfg"]');
-  const campoPeso       = document.getElementById("campo-peso");
-  const campoRaca       = document.getElementById("campo-raca");
-  const btnCalcular     = document.getElementById("tfg-btn-calcular");
-  const resultadoEl     = document.getElementById("tfg-resultado");
-  const valorEl         = document.getElementById("tfg-valor");
-  const tagEl           = document.getElementById("tfg-tag");
-  const interpEl        = document.getElementById("tfg-interpretacao");
-  const erroEl          = document.getElementById("tfg-erro");
+    // --- Atualiza campos e fórmula visível ---
+    function atualizarFormula() {
+      const formula = document.getElementById("formula-tfg-select").value;
 
-  // --- Atualiza campos e fórmula visível ---
-  function atualizarFormula() {
-    const formula = document.getElementById("formula-tfg-select").value;
+      campoPeso.classList.toggle("escondido", formula !== "cg");
+      campoRaca.classList.toggle("escondido", formula !== "mdrd");
 
-    campoPeso.classList.toggle("escondido", formula !== "cg");
-    campoRaca.classList.toggle("escondido", formula !== "mdrd");
-
-    // Limpa resultado ao trocar fórmula
-    resultadoEl.className = "calc-resultado escondido";
-    erroEl.classList.add("escondido");
-  }
-
-  // --- Classificação KDIGO ---
-  function classificarTFG(tfg) {
-    if (tfg >= 90)  return { classe: "g1",  tag: "G1 — Normal ou elevada",          texto: "TFG ≥ 90 mL/min/1,73m²." };
-    if (tfg >= 60)  return { classe: "g2",  tag: "G2 — Diminuição discreta",        texto: "TFG 60–89 mL/min/1,73m²." };
-    if (tfg >= 45)  return { classe: "g3a", tag: "G3a — Diminuição moderada", texto: "TFG 45–59 mL/min/1,73m²." };
-    if (tfg >= 30)  return { classe: "g3b", tag: "G3b — Diminuição pouco severa", texto: "TFG 30–44 mL/min/1,73m²." };
-    if (tfg >= 15)  return { classe: "g4",  tag: "G4 — Diminuição grave",      texto: "TFG 15–29 mL/min/1,73m²." };
-    return           { classe: "g5",  tag: "G5 — Falência renal",               texto: "TFG < 15 mL/min/1,73m²." };
-  }
-
-  // --- Cálculos ---
-  function calcularCG(creat, idade, peso, sexo) {
-    let tfg = ((140 - idade) * peso) / (72 * creat);
-    if (sexo === "f") tfg *= 0.85;
-    return tfg;
-  }
-
-  function calcularMDRD(creat, idade, sexo, raca) {
-    let tfg = 175 * Math.pow(creat, -1.154) * Math.pow(idade, -0.203);
-    if (sexo === "f") tfg *= 0.742;
-    if (raca === "neg") tfg *= 1.212;
-    return tfg;
-  }
-
-  function calcularCKDEPI(creat, idade, sexo) {
-    const k     = sexo === "f" ? 0.7  : 0.9;
-    const alpha = sexo === "f" ? -0.241 : -0.302;
-    const fator = sexo === "f" ? 1.012 : 1.0;
-
-    const ratio = creat / k;
-    const tfg   = 142
-      * Math.pow(Math.min(ratio, 1), alpha)
-      * Math.pow(Math.max(ratio, 1), -1.200)
-      * Math.pow(0.9938, idade)
-      * fator;
-
-    return tfg;
-  }
-
-  // --- Calcular ---
-  function calcular() {
-    const formula   = document.getElementById("formula-tfg-select").value;
-    const creat     = parseFloat(document.getElementById("tfg-creatinina").value);
-    const idade     = parseFloat(document.getElementById("tfg-idade").value);
-    const sexo      = document.querySelector('input[name="sexo-tfg"]:checked').value;
-    const peso      = parseFloat(document.getElementById("tfg-peso").value);
-    const raca      = document.querySelector('input[name="raca-tfg"]:checked').value;
-
-    // Validação
-    const camposBase  = !isNaN(creat) && !isNaN(idade) && creat > 0 && idade > 0;
-    const precisaPeso = formula === "cg" && (isNaN(peso) || peso <= 0);
-
-    if (!camposBase || precisaPeso) {
-      erroEl.classList.remove("escondido");
+      // Limpa resultado ao trocar fórmula
       resultadoEl.className = "calc-resultado escondido";
-      return;
+      erroEl.classList.add("escondido");
     }
 
-    erroEl.classList.add("escondido");
+    // --- Classificação KDIGO ---
+    function classificarTFG(tfg) {
+      if (tfg >= 90)
+        return {
+          classe: "g1",
+          tag: "G1 — Normal ou elevada",
+          texto: "TFG ≥ 90 mL/min/1,73m².",
+        };
+      if (tfg >= 60)
+        return {
+          classe: "g2",
+          tag: "G2 — Diminuição discreta",
+          texto: "TFG 60–89 mL/min/1,73m².",
+        };
+      if (tfg >= 45)
+        return {
+          classe: "g3a",
+          tag: "G3a — Diminuição moderada",
+          texto: "TFG 45–59 mL/min/1,73m².",
+        };
+      if (tfg >= 30)
+        return {
+          classe: "g3b",
+          tag: "G3b — Diminuição pouco severa",
+          texto: "TFG 30–44 mL/min/1,73m².",
+        };
+      if (tfg >= 15)
+        return {
+          classe: "g4",
+          tag: "G4 — Diminuição grave",
+          texto: "TFG 15–29 mL/min/1,73m².",
+        };
+      return {
+        classe: "g5",
+        tag: "G5 — Falência renal",
+        texto: "TFG < 15 mL/min/1,73m².",
+      };
+    }
 
-    let tfg;
-    if (formula === "cg")      tfg = calcularCG(creat, idade, peso, sexo);
-    else if (formula === "mdrd") tfg = calcularMDRD(creat, idade, sexo, raca);
-    else                         tfg = calcularCKDEPI(creat, idade, sexo);
+    // --- Cálculos ---
+    function calcularCG(creat, idade, peso, sexo) {
+      let tfg = ((140 - idade) * peso) / (72 * creat);
+      if (sexo === "f") tfg *= 0.85;
+      return tfg;
+    }
 
-    const tfgArredondada  = Math.round(tfg * 10) / 10;
-    const classificacao   = classificarTFG(tfgArredondada);
+    function calcularMDRD(creat, idade, sexo, raca) {
+      let tfg = 175 * Math.pow(creat, -1.154) * Math.pow(idade, -0.203);
+      if (sexo === "f") tfg *= 0.742;
+      if (raca === "neg") tfg *= 1.212;
+      return tfg;
+    }
 
-    valorEl.textContent       = `TFGe: ${tfgArredondada} mL/min/1,73m²`;
-    tagEl.textContent         = classificacao.tag;
-    interpEl.textContent      = classificacao.texto;
+    function calcularCKDEPI(creat, idade, sexo) {
+      const k = sexo === "f" ? 0.7 : 0.9;
+      const alpha = sexo === "f" ? -0.241 : -0.302;
+      const fator = sexo === "f" ? 1.012 : 1.0;
 
-    resultadoEl.className = "calc-resultado " + classificacao.classe;
-    resultadoEl.classList.remove("escondido");
-    resultadoEl.scrollIntoView({ behavior: "smooth", block: "end" });
-  }
+      const ratio = creat / k;
+      const tfg =
+        142 *
+        Math.pow(Math.min(ratio, 1), alpha) *
+        Math.pow(Math.max(ratio, 1), -1.2) *
+        Math.pow(0.9938, idade) *
+        fator;
 
-  // --- Eventos ---
-  document.getElementById("formula-tfg-select").addEventListener("change", atualizarFormula);
-  btnCalcular.addEventListener("click", calcular);
+      return tfg;
+    }
 
-  [
-    document.getElementById("tfg-creatinina"),
-    document.getElementById("tfg-idade"),
-    document.getElementById("tfg-peso")
-  ].forEach(campo => {
-    if (campo) campo.addEventListener("keydown", e => {
-      if (e.key === "Enter") calcular();
+    // --- Calcular ---
+    function calcular() {
+      const formula = document.getElementById("formula-tfg-select").value;
+      const creat = parseFloat(document.getElementById("tfg-creatinina").value);
+      const idade = parseFloat(document.getElementById("tfg-idade").value);
+      const sexo = document.querySelector(
+        'input[name="sexo-tfg"]:checked',
+      ).value;
+      const peso = parseFloat(document.getElementById("tfg-peso").value);
+      const raca = document.querySelector(
+        'input[name="raca-tfg"]:checked',
+      ).value;
+
+      // Validação
+      const camposBase =
+        !isNaN(creat) && !isNaN(idade) && creat > 0 && idade > 0;
+      const precisaPeso = formula === "cg" && (isNaN(peso) || peso <= 0);
+
+      if (!camposBase || precisaPeso) {
+        erroEl.classList.remove("escondido");
+        resultadoEl.className = "calc-resultado escondido";
+        return;
+      }
+
+      erroEl.classList.add("escondido");
+
+      let tfg;
+      if (formula === "cg") tfg = calcularCG(creat, idade, peso, sexo);
+      else if (formula === "mdrd") tfg = calcularMDRD(creat, idade, sexo, raca);
+      else tfg = calcularCKDEPI(creat, idade, sexo);
+
+      const tfgArredondada = Math.round(tfg * 10) / 10;
+      const classificacao = classificarTFG(tfgArredondada);
+
+      valorEl.textContent = `TFGe: ${tfgArredondada} mL/min/1,73m²`;
+      tagEl.textContent = classificacao.tag;
+      interpEl.textContent = classificacao.texto;
+
+      resultadoEl.className = "calc-resultado " + classificacao.classe;
+      resultadoEl.classList.remove("escondido");
+      resultadoEl.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+
+    // --- Eventos ---
+    document
+      .getElementById("formula-tfg-select")
+      .addEventListener("change", atualizarFormula);
+    btnCalcular.addEventListener("click", calcular);
+
+    [
+      document.getElementById("tfg-creatinina"),
+      document.getElementById("tfg-idade"),
+      document.getElementById("tfg-peso"),
+    ].forEach((campo) => {
+      if (campo)
+        campo.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") calcular();
+        });
     });
-  });
 
-  // Inicialização
-  atualizarFormula();
-
-})();
+    // Inicialização
+    atualizarFormula();
+  })();
 </script>

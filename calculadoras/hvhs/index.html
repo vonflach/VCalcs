@@ -4,29 +4,56 @@
   <h2>Hidratação Venosa — Holliday-Segar</h2>
 
   <p class="calc-resumo">
-    Calcule a infusão de manutenção de líquidos em pediatria, com base no método Holliday-Segar.
-  </p> 
+    Calcule a infusão de manutenção de líquidos em pediatria, com base no método
+    Holliday-Segar.
+  </p>
 
   <!-- Peso -->
   <div class="calc-campo">
     <label for="hvhs-peso">Peso <span class="unidade-label">(kg)</span></label>
-    <input type="number" id="hvhs-peso" inputmode="decimal" placeholder="Ex: 15" min="0" step="any">
+    <input
+      type="number"
+      id="hvhs-peso"
+      inputmode="decimal"
+      placeholder="Ex: 15"
+      min="0"
+      step="any"
+    />
   </div>
 
   <!-- Tempo de infusão -->
   <div class="calc-campo">
-    <label for="hvhs-tempo">Tempo de infusão <span class="unidade-label">(horas)</span></label>
-    <input type="number" id="hvhs-tempo" inputmode="decimal" placeholder="Ex: 24" min="1" max="24" step="any" value="24">
+    <label for="hvhs-tempo"
+      >Tempo de infusão <span class="unidade-label">(horas)</span></label
+    >
+    <input
+      type="number"
+      id="hvhs-tempo"
+      inputmode="decimal"
+      placeholder="Ex: 24"
+      min="1"
+      max="24"
+      step="any"
+      value="24"
+    />
   </div>
 
   <!-- TIG opcional -->
   <div class="calc-campo">
     <label class="label-toggle">
-      <input type="checkbox" id="check-tig" onchange="toggleTIG()">
-      Definir TIG <span class="unidade-label">— Taxa de Infusão de Glicose</span>
+      <input type="checkbox" id="check-tig" onchange="toggleTIG()" />
+      Definir TIG
+      <span class="unidade-label">— Taxa de Infusão de Glicose</span>
     </label>
     <div id="campo-tig" class="eletrolito-campos escondido">
-      <input type="number" id="hvhs-tig" inputmode="decimal" placeholder="mg/kg/min — Ex: 4" min="0" step="any">
+      <input
+        type="number"
+        id="hvhs-tig"
+        inputmode="decimal"
+        placeholder="mg/kg/min — Ex: 4"
+        min="0"
+        step="any"
+      />
     </div>
   </div>
 
@@ -34,60 +61,107 @@
   <div class="calc-campo" id="campo-sf-escolha">
     <label>Completar volume restante com (se necessário):</label>
     <div class="radio-group">
-      <label><input type="radio" name="tipo-sf" value="0.154" checked> <span>SF 0,9% (154 mEq/L)</span></label>
-      <label><input type="radio" name="tipo-sf" value="0.077"> <span>SF 0,45% (77 mEq/L)</span></label>
+      <label
+        ><input type="radio" name="tipo-sf" value="0.154" checked />
+        <span>SF 0,9% (154 mEq/L)</span></label
+      >
+      <label
+        ><input type="radio" name="tipo-sf" value="0.077" />
+        <span>SF 0,45% (77 mEq/L)</span></label
+      >
     </div>
   </div>
 
   <!-- Sódio -->
   <div class="calc-campo">
     <label class="label-toggle">
-      <input type="checkbox" id="check-na" onchange="toggleEletrolito('na')">
+      <input type="checkbox" id="check-na" onchange="toggleEletrolito('na')" />
       Adicionar Sódio <span class="unidade-label">— NaCl 20% (3,4 mEq/mL)</span>
     </label>
     <div id="campo-na" class="eletrolito-campos escondido">
-      <input type="number" id="hvhs-na" inputmode="decimal" placeholder="mEq/kg/dia — Ex: 3" min="0" step="any">
+      <input
+        type="number"
+        id="hvhs-na"
+        inputmode="decimal"
+        placeholder="mEq/kg/dia — Ex: 3"
+        min="0"
+        step="any"
+      />
     </div>
   </div>
 
   <!-- Potássio -->
   <div class="calc-campo">
     <label class="label-toggle">
-      <input type="checkbox" id="check-k" onchange="toggleEletrolito('k')">
+      <input type="checkbox" id="check-k" onchange="toggleEletrolito('k')" />
       Adicionar Potássio (KCl)
     </label>
     <div id="campo-k" class="eletrolito-campos escondido">
-      <div class="radio-group" style="margin-bottom:8px">
-        <label><input type="radio" name="conc-k" value="1.34" checked> <span>KCl 10% (1,34 mEq/mL)</span></label>
-        <label><input type="radio" name="conc-k" value="2.56"> <span>KCl 19,1% (2,56 mEq/mL)</span></label>
+      <div class="radio-group" style="margin-bottom: 8px">
+        <label
+          ><input type="radio" name="conc-k" value="1.34" checked />
+          <span>KCl 10% (1,34 mEq/mL)</span></label
+        >
+        <label
+          ><input type="radio" name="conc-k" value="2.56" />
+          <span>KCl 19,1% (2,56 mEq/mL)</span></label
+        >
       </div>
-      <input type="number" id="hvhs-k" inputmode="decimal" placeholder="mEq/kg/dia — Ex: 2" min="0" step="any">
+      <input
+        type="number"
+        id="hvhs-k"
+        inputmode="decimal"
+        placeholder="mEq/kg/dia — Ex: 2"
+        min="0"
+        step="any"
+      />
     </div>
   </div>
 
   <!-- Cálcio -->
   <div class="calc-campo">
     <label class="label-toggle">
-      <input type="checkbox" id="check-ca" onchange="toggleEletrolito('ca')">
-      Adicionar Cálcio <span class="unidade-label">— Gluconato Ca 10% (0,46 mEq/mL)</span>
+      <input type="checkbox" id="check-ca" onchange="toggleEletrolito('ca')" />
+      Adicionar Cálcio
+      <span class="unidade-label">— Gluconato Ca 10% (0,46 mEq/mL)</span>
     </label>
     <div id="campo-ca" class="eletrolito-campos escondido">
-      <input type="number" id="hvhs-ca" inputmode="decimal" placeholder="mEq/kg/dia — Ex: 1" min="0" step="any">
+      <input
+        type="number"
+        id="hvhs-ca"
+        inputmode="decimal"
+        placeholder="mEq/kg/dia — Ex: 1"
+        min="0"
+        step="any"
+      />
     </div>
   </div>
 
   <!-- Magnésio -->
   <div class="calc-campo">
     <label class="label-toggle">
-      <input type="checkbox" id="check-mg" onchange="toggleEletrolito('mg')">
+      <input type="checkbox" id="check-mg" onchange="toggleEletrolito('mg')" />
       Adicionar Magnésio (MgSO₄)
     </label>
     <div id="campo-mg" class="eletrolito-campos escondido">
-      <div class="radio-group" style="margin-bottom:8px">
-        <label><input type="radio" name="conc-mg" value="0.81" checked> <span>MgSO₄ 10% (0,81 mEq/mL)</span></label>
-        <label><input type="radio" name="conc-mg" value="4.06"> <span>MgSO₄ 50% (4,06 mEq/mL)</span></label>
+      <div class="radio-group" style="margin-bottom: 8px">
+        <label
+          ><input type="radio" name="conc-mg" value="0.81" checked />
+          <span>MgSO₄ 10% (0,81 mEq/mL)</span></label
+        >
+        <label
+          ><input type="radio" name="conc-mg" value="4.06" />
+          <span>MgSO₄ 50% (4,06 mEq/mL)</span></label
+        >
       </div>
-      <input type="number" id="hvhs-mg" inputmode="decimal" placeholder="mEq/kg/dia — Ex: 0.5" min="0" step="any">
+      <input
+        type="number"
+        id="hvhs-mg"
+        inputmode="decimal"
+        placeholder="mEq/kg/dia — Ex: 0.5"
+        min="0"
+        step="any"
+      />
     </div>
   </div>
 
@@ -104,7 +178,10 @@
 </div>
 
 <style>
-  .calc-hvhs { max-width: 520px; margin: 0 auto; }
+  .calc-hvhs {
+    max-width: 520px;
+    margin: 0 auto;
+  }
 
   .calc-hvhs h2 {
     font-size: 1.3rem;
@@ -112,14 +189,20 @@
     color: var(--cor-grafite);
   }
 
-  .calc-campo { margin-bottom: 16px; }
+  .calc-campo {
+    margin-bottom: 16px;
+  }
 
   .eletrolito-campos {
     margin-top: 8px;
     border-radius: 8px;
   }
 
-  .radio-group { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+  .radio-group {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
 
   .radio-group label {
     display: flex;
@@ -140,7 +223,9 @@
     border: 1px solid #d0d5db;
     border-radius: 8px;
     background: #fff;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .calc-campo input[type="number"]:focus,
@@ -165,7 +250,9 @@
     transition: background-color 0.2s ease;
   }
 
-  .calc-btn:hover { background-color: var(--cor-grafite); }
+  .calc-btn:hover {
+    background-color: var(--cor-grafite);
+  }
 
   .calc-erro {
     color: #b42318;
@@ -181,7 +268,10 @@
     overflow: hidden;
   }
 
-  .hvhs-resultado-header { background: var(--cor-cyan); padding: 12px 18px; }
+  .hvhs-resultado-header {
+    background: var(--cor-cyan);
+    padding: 12px 18px;
+  }
 
   .hvhs-resultado-titulo {
     color: #ffffff;
@@ -208,253 +298,355 @@
     border-left: 3px solid var(--cor-cyan);
   }
 
-  .hvhs-linha-label { font-size: 0.88rem; color: var(--cor-texto-secundario); font-weight: 500; }
-  .hvhs-linha-valor { font-size: 1rem; font-weight: 700; color: var(--cor-texto); text-align: right; }
-  .hvhs-separador { height: 1px; background: #e5e7eb; margin: 4px 0; }
+  .hvhs-linha-label {
+    font-size: 0.88rem;
+    color: var(--cor-texto-secundario);
+    font-weight: 500;
+  }
+  .hvhs-linha-valor {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+    text-align: right;
+  }
+  .hvhs-separador {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 4px 0;
+  }
 
-  .hvhs-linha.destaque { background: var(--cor-olive-escuro); border-left-color: var(--cor-grafite); }
-  .hvhs-linha.destaque .hvhs-linha-valor { color: var(--cor-grafite); }
+  .hvhs-linha.destaque {
+    background: var(--cor-olive-escuro);
+    border-left-color: var(--cor-grafite);
+  }
+  .hvhs-linha.destaque .hvhs-linha-valor {
+    color: var(--cor-grafite);
+  }
 
-  .hvhs-linha.alerta { background: var(--cor-olive-escuro); border-left-color: #d97706; }
-  .hvhs-linha.alerta .hvhs-linha-valor { color: #d97706; }
+  .hvhs-linha.alerta {
+    background: var(--cor-olive-escuro);
+    border-left-color: #d97706;
+  }
+  .hvhs-linha.alerta .hvhs-linha-valor {
+    color: #d97706;
+  }
 
-  .hvhs-linha.info { background: var(--cor-olive-escuro); border-left-color: #a5f3fc; }
-  .hvhs-linha.info .hvhs-linha-valor { color: var(--cor-texto); font-size: 0.9rem; }
+  .hvhs-linha.info {
+    background: var(--cor-olive-escuro);
+    border-left-color: #a5f3fc;
+  }
+  .hvhs-linha.info .hvhs-linha-valor {
+    color: var(--cor-texto);
+    font-size: 0.9rem;
+  }
 </style>
 
 <script>
-(function () {
+  (function () {
+    const CONC = {
+      na: 3.4,
+      ca: 0.46,
+      SG5: 50,
+      SG50: 500,
+    };
 
-  const CONC = {
-    na:   3.4,
-    ca:   0.46,
-    SG5:  50,
-    SG50: 500
-  };
+    window.toggleTIG = function () {
+      const checked = document.getElementById("check-tig").checked;
+      document
+        .getElementById("campo-tig")
+        .classList.toggle("escondido", !checked);
+    };
 
-  window.toggleTIG = function() {
-    const checked = document.getElementById("check-tig").checked;
-    document.getElementById("campo-tig").classList.toggle("escondido", !checked);
-  };
+    window.toggleEletrolito = function (ion) {
+      const checked = document.getElementById(`check-${ion}`).checked;
+      document
+        .getElementById(`campo-${ion}`)
+        .classList.toggle("escondido", !checked);
+    };
 
-  window.toggleEletrolito = function(ion) {
-    const checked = document.getElementById(`check-${ion}`).checked;
-    document.getElementById(`campo-${ion}`).classList.toggle("escondido", !checked);
-  };
+    function hollidaySegar(peso) {
+      if (peso <= 10) return peso * 100;
+      if (peso <= 20) return 1000 + (peso - 10) * 50;
+      return 1500 + (peso - 20) * 20;
+    }
 
-  function hollidaySegar(peso) {
-    if (peso <= 10) return peso * 100;
-    if (peso <= 20) return 1000 + (peso - 10) * 50;
-    return 1500 + (peso - 20) * 20;
-  }
+    function mostrarErro(msg) {
+      const erroEl = document.getElementById("hvhs-erro");
+      erroEl.textContent = msg;
+      erroEl.classList.remove("escondido");
+      document.getElementById("hvhs-resultado").classList.add("escondido");
+    }
 
-  function mostrarErro(msg) {
-    const erroEl = document.getElementById("hvhs-erro");
-    erroEl.textContent = msg;
-    erroEl.classList.remove("escondido");
-    document.getElementById("hvhs-resultado").classList.add("escondido");
-  }
+    function valorValido(id) {
+      const v = parseFloat(document.getElementById(id).value);
+      return Number.isFinite(v) && v > 0;
+    }
 
-  function valorValido(id) {
-    const v = parseFloat(document.getElementById(id).value);
-    return Number.isFinite(v) && v > 0;
-  }
-
-  function linha(label, valor, classe = "") {
-    return `<div class="hvhs-linha${classe ? " " + classe : ""}">
+    function linha(label, valor, classe = "") {
+      return `<div class="hvhs-linha${classe ? " " + classe : ""}">
       <span class="hvhs-linha-label">${label}</span>
       <span class="hvhs-linha-valor">${valor}</span>
     </div>`;
-  }
-
-  function sep() { return `<div class="hvhs-separador"></div>`; }
-
-  function fmt(n, casas = 1) {
-    return Number(n.toFixed(casas)).toLocaleString("pt-BR");
-  }
-
-  window.calcularHVHS = function() {
-    const erroEl = document.getElementById("hvhs-erro");
-    const resEl  = document.getElementById("hvhs-resultado");
-    erroEl.classList.add("escondido");
-    resEl.classList.add("escondido");
-
-    if (!valorValido("hvhs-peso"))  return mostrarErro("Informe um peso válido.");
-    if (!valorValido("hvhs-tempo")) return mostrarErro("Informe um tempo válido.");
-
-    const usaTIG = document.getElementById("check-tig").checked;
-    if (usaTIG && !valorValido("hvhs-tig"))
-      return mostrarErro("Informe a TIG ou desmarque a opção.");
-
-    if (document.getElementById("check-na").checked && !valorValido("hvhs-na"))
-      return mostrarErro("Informe a dose de sódio ou desmarque a opção.");
-    if (document.getElementById("check-k").checked && !valorValido("hvhs-k"))
-      return mostrarErro("Informe a dose de potássio ou desmarque a opção.");
-    if (document.getElementById("check-ca").checked && !valorValido("hvhs-ca"))
-      return mostrarErro("Informe a dose de cálcio ou desmarque a opção.");
-    if (document.getElementById("check-mg").checked && !valorValido("hvhs-mg"))
-      return mostrarErro("Informe a dose de magnésio ou desmarque a opção.");
-
-    const peso  = parseFloat(document.getElementById("hvhs-peso").value);
-    const tempo = parseFloat(document.getElementById("hvhs-tempo").value);
-    const tig   = usaTIG ? parseFloat(document.getElementById("hvhs-tig").value) : 0;
-    const concSF = parseFloat(document.querySelector('input[name="tipo-sf"]:checked').value);
-    const labelSF = concSF === 0.154 ? "SF 0,9%" : "SF 0,45%";
-
-    const vol24h     = hollidaySegar(peso);
-    const volPeriodo = vol24h * (tempo / 24);
-    const vazao      = volPeriodo / tempo;
-
-    // Eletrólitos
-    let volEletrolitos   = 0;
-    let mEqNaNaCl        = 0;
-    let linhasEletrolitos = "";
-
-    if (document.getElementById("check-na").checked) {
-      const na    = parseFloat(document.getElementById("hvhs-na").value);
-      const mEqNa = na * peso * (tempo / 24);
-      const volNa = mEqNa / CONC.na;
-      volEletrolitos += volNa;
-      mEqNaNaCl      += mEqNa;
-      linhasEletrolitos += linha(`NaCl 20% (${fmt(mEqNa)} mEq Na)`, `${fmt(volNa)} mL`);
     }
 
-    if (document.getElementById("check-k").checked) {
-      const k     = parseFloat(document.getElementById("hvhs-k").value);
-      const concK = parseFloat(document.querySelector('input[name="conc-k"]:checked').value);
-      const mEqK  = k * peso * (tempo / 24);
-      const volK  = mEqK / concK;
-      volEletrolitos += volK;
-      const labelK = concK === 1.34 ? "KCl 10%" : "KCl 19,1%";
-      linhasEletrolitos += linha(`${labelK} (${fmt(mEqK)} mEq K)`, `${fmt(volK)} mL`);
+    function sep() {
+      return `<div class="hvhs-separador"></div>`;
     }
 
-    if (document.getElementById("check-ca").checked) {
-      const ca    = parseFloat(document.getElementById("hvhs-ca").value);
-      const mEqCa = ca * peso * (tempo / 24);
-      const volCa = mEqCa / CONC.ca;
-      volEletrolitos += volCa;
-      linhasEletrolitos += linha(`Gluconato Ca 10% (${fmt(mEqCa)} mEq Ca)`, `${fmt(volCa)} mL`);
+    function fmt(n, casas = 1) {
+      return Number(n.toFixed(casas)).toLocaleString("pt-BR");
     }
 
-    if (document.getElementById("check-mg").checked) {
-      const mg     = parseFloat(document.getElementById("hvhs-mg").value);
-      const concMg = parseFloat(document.querySelector('input[name="conc-mg"]:checked').value);
-      const mEqMg  = mg * peso * (tempo / 24);
-      const volMg  = mEqMg / concMg;
-      volEletrolitos += volMg;
-      const labelMg = concMg === 0.81 ? "MgSO₄ 10%" : "MgSO₄ 50%";
-      linhasEletrolitos += linha(`${labelMg} (${fmt(mEqMg)} mEq Mg)`, `${fmt(volMg)} mL`);
-    }
+    window.calcularHVHS = function () {
+      const erroEl = document.getElementById("hvhs-erro");
+      const resEl = document.getElementById("hvhs-resultado");
+      erroEl.classList.add("escondido");
+      resEl.classList.add("escondido");
 
-    if (volEletrolitos >= volPeriodo)
-      return mostrarErro("O volume dos eletrólitos excede o volume total disponível. Revise as doses.");
+      if (!valorValido("hvhs-peso"))
+        return mostrarErro("Informe um peso válido.");
+      if (!valorValido("hvhs-tempo"))
+        return mostrarErro("Informe um tempo válido.");
 
-    const volDisponivel = volPeriodo - volEletrolitos;
+      const usaTIG = document.getElementById("check-tig").checked;
+      if (usaTIG && !valorValido("hvhs-tig"))
+        return mostrarErro("Informe a TIG ou desmarque a opção.");
 
-    // Variáveis de resultado
-    let volSG5  = 0;
-    let volSG50 = 0;
-    let volSF   = 0;
-    let mEqNaSF = 0;
-    let tigResultante  = 0;
-    let glicoseG24h    = 0;
-    let linhasGlicose  = "";
-    let linhasSF       = "";
-    let linhasTIG      = "";
-    let linhasNaTotal  = "";
+      if (
+        document.getElementById("check-na").checked &&
+        !valorValido("hvhs-na")
+      )
+        return mostrarErro("Informe a dose de sódio ou desmarque a opção.");
+      if (document.getElementById("check-k").checked && !valorValido("hvhs-k"))
+        return mostrarErro("Informe a dose de potássio ou desmarque a opção.");
+      if (
+        document.getElementById("check-ca").checked &&
+        !valorValido("hvhs-ca")
+      )
+        return mostrarErro("Informe a dose de cálcio ou desmarque a opção.");
+      if (
+        document.getElementById("check-mg").checked &&
+        !valorValido("hvhs-mg")
+      )
+        return mostrarErro("Informe a dose de magnésio ou desmarque a opção.");
 
-    if (!usaTIG) {
-      // Sem TIG → tudo SF
-      volSF   = volDisponivel;
-      mEqNaSF = volSF * concSF;
-      linhasSF = linha(`${labelSF} (complemento)`, `${fmt(volSF)} mL`);
+      const peso = parseFloat(document.getElementById("hvhs-peso").value);
+      const tempo = parseFloat(document.getElementById("hvhs-tempo").value);
+      const tig = usaTIG
+        ? parseFloat(document.getElementById("hvhs-tig").value)
+        : 0;
+      const concSF = parseFloat(
+        document.querySelector('input[name="tipo-sf"]:checked').value,
+      );
+      const labelSF = concSF === 0.154 ? "SF 0,9%" : "SF 0,45%";
 
-    } else {
-      // Com TIG
-      const glicoseMg = tig * peso * tempo * 60;
-      const concGlicNecessaria = glicoseMg / volDisponivel / 10;
+      const vol24h = hollidaySegar(peso);
+      const volPeriodo = vol24h * (tempo / 24);
+      const vazao = volPeriodo / tempo;
 
-      if (concGlicNecessaria > 50)
-        return mostrarErro(`A TIG informada exige concentração de ${concGlicNecessaria.toFixed(1)}% — superior ao máximo possível com SG50%. Reduza a TIG ou aumente o volume.`);
+      // Eletrólitos
+      let volEletrolitos = 0;
+      let mEqNaNaCl = 0;
+      let linhasEletrolitos = "";
 
-      const glicoseMaxSG5 = volDisponivel * CONC.SG5;
+      if (document.getElementById("check-na").checked) {
+        const na = parseFloat(document.getElementById("hvhs-na").value);
+        const mEqNa = na * peso * (tempo / 24);
+        const volNa = mEqNa / CONC.na;
+        volEletrolitos += volNa;
+        mEqNaNaCl += mEqNa;
+        linhasEletrolitos += linha(
+          `NaCl 20% (${fmt(mEqNa)} mEq Na)`,
+          `${fmt(volNa)} mL`,
+        );
+      }
 
-      if (glicoseMg <= glicoseMaxSG5) {
-        // SG5% sozinho resolve — pode sobrar volume → completa com SF
-        volSG5 = glicoseMg / CONC.SG5;
-        volSF  = volDisponivel - volSG5;
+      if (document.getElementById("check-k").checked) {
+        const k = parseFloat(document.getElementById("hvhs-k").value);
+        const concK = parseFloat(
+          document.querySelector('input[name="conc-k"]:checked').value,
+        );
+        const mEqK = k * peso * (tempo / 24);
+        const volK = mEqK / concK;
+        volEletrolitos += volK;
+        const labelK = concK === 1.34 ? "KCl 10%" : "KCl 19,1%";
+        linhasEletrolitos += linha(
+          `${labelK} (${fmt(mEqK)} mEq K)`,
+          `${fmt(volK)} mL`,
+        );
+      }
+
+      if (document.getElementById("check-ca").checked) {
+        const ca = parseFloat(document.getElementById("hvhs-ca").value);
+        const mEqCa = ca * peso * (tempo / 24);
+        const volCa = mEqCa / CONC.ca;
+        volEletrolitos += volCa;
+        linhasEletrolitos += linha(
+          `Gluconato Ca 10% (${fmt(mEqCa)} mEq Ca)`,
+          `${fmt(volCa)} mL`,
+        );
+      }
+
+      if (document.getElementById("check-mg").checked) {
+        const mg = parseFloat(document.getElementById("hvhs-mg").value);
+        const concMg = parseFloat(
+          document.querySelector('input[name="conc-mg"]:checked').value,
+        );
+        const mEqMg = mg * peso * (tempo / 24);
+        const volMg = mEqMg / concMg;
+        volEletrolitos += volMg;
+        const labelMg = concMg === 0.81 ? "MgSO₄ 10%" : "MgSO₄ 50%";
+        linhasEletrolitos += linha(
+          `${labelMg} (${fmt(mEqMg)} mEq Mg)`,
+          `${fmt(volMg)} mL`,
+        );
+      }
+
+      if (volEletrolitos >= volPeriodo)
+        return mostrarErro(
+          "O volume dos eletrólitos excede o volume total disponível. Revise as doses.",
+        );
+
+      const volDisponivel = volPeriodo - volEletrolitos;
+
+      // Variáveis de resultado
+      let volSG5 = 0;
+      let volSG50 = 0;
+      let volSF = 0;
+      let mEqNaSF = 0;
+      let tigResultante = 0;
+      let glicoseG24h = 0;
+      let linhasGlicose = "";
+      let linhasSF = "";
+      let linhasTIG = "";
+      let linhasNaTotal = "";
+
+      if (!usaTIG) {
+        // Sem TIG → tudo SF
+        volSF = volDisponivel;
+        mEqNaSF = volSF * concSF;
+        linhasSF = linha(`${labelSF} (complemento)`, `${fmt(volSF)} mL`);
       } else {
-        // Precisa misturar SG5 + SG50
-        volSG50 = (glicoseMg - CONC.SG5 * volDisponivel) / (CONC.SG50 - CONC.SG5);
-        volSG5  = volDisponivel - volSG50;
-        volSF   = 0;
+        // Com TIG
+        const glicoseMg = tig * peso * tempo * 60;
+        const concGlicNecessaria = glicoseMg / volDisponivel / 10;
+
+        if (concGlicNecessaria > 50)
+          return mostrarErro(
+            `A TIG informada exige concentração de ${concGlicNecessaria.toFixed(1)}% — superior ao máximo possível com SG50%. Reduza a TIG ou aumente o volume.`,
+          );
+
+        const glicoseMaxSG5 = volDisponivel * CONC.SG5;
+
+        if (glicoseMg <= glicoseMaxSG5) {
+          // SG5% sozinho resolve — pode sobrar volume → completa com SF
+          volSG5 = glicoseMg / CONC.SG5;
+          volSF = volDisponivel - volSG5;
+        } else {
+          // Precisa misturar SG5 + SG50
+          volSG50 =
+            (glicoseMg - CONC.SG5 * volDisponivel) / (CONC.SG50 - CONC.SG5);
+          volSG5 = volDisponivel - volSG50;
+          volSF = 0;
+        }
+
+        // Sódio do SF complementar
+        if (volSF > 0.05) {
+          mEqNaSF = volSF * concSF;
+          linhasSF = linha(
+            `${labelSF} (complemento de volume)`,
+            `${fmt(volSF)} mL`,
+            "info",
+          );
+        }
+
+        // TIG resultante e glicose em gramas
+        const glicoseRealMg = volSG5 * CONC.SG5 + volSG50 * CONC.SG50;
+        tigResultante = glicoseRealMg / (peso * tempo * 60);
+        const glicoseGPeriodo = glicoseRealMg / 1000;
+        glicoseG24h = (glicoseRealMg / 1000) * (24 / tempo);
+
+        linhasTIG =
+          linha(
+            "TIG resultante",
+            `${tigResultante.toFixed(2)} mg/kg/min`,
+            "info",
+          ) +
+          linha(
+            `Glicose no período (${fmt(tempo, 0)}h)`,
+            `${fmt(glicoseGPeriodo, 1)} g`,
+            "info",
+          ) +
+          linha(
+            "Glicose total (equiv. 24h)",
+            `${fmt(glicoseG24h, 1)} g`,
+            "info",
+          );
+
+        if (concGlicNecessaria > 12.5)
+          linhasTIG += linha(
+            "⚠ Atenção",
+            "Concentração > 12,5% — considere acesso central",
+            "alerta",
+          );
       }
 
-      // Sódio do SF complementar
-      if (volSF > 0.05) {
-        mEqNaSF  = volSF * concSF;
-        linhasSF = linha(`${labelSF} (complemento de volume)`, `${fmt(volSF)} mL`, "info");
+      // Sódio total (NaCl20% + SF)
+      const mEqNaTotal = mEqNaNaCl + mEqNaSF;
+      const mEqNaKgDia = mEqNaTotal / peso / (tempo / 24);
+
+      if (mEqNaTotal > 0) {
+        linhasNaTotal =
+          sep() +
+          linha(
+            `Sódio total no período${mEqNaSF > 0 ? " (NaCl20% + " + labelSF + ")" : ""}`,
+            `${fmt(mEqNaTotal)} mEq`,
+            mEqNaSF > 0 ? "alerta" : "",
+          ) +
+          linha(
+            "Equivalência - Sódio",
+            `${fmt(mEqNaKgDia, 1)} mEq/kg/dia`,
+            mEqNaSF > 0 ? "alerta" : "",
+          );
       }
 
-      // TIG resultante e glicose em gramas
-      const glicoseRealMg = volSG5 * CONC.SG5 + volSG50 * CONC.SG50;
-      tigResultante = glicoseRealMg / (peso * tempo * 60);
-      const glicoseGPeriodo = glicoseRealMg / 1000;
-      glicoseG24h   = (glicoseRealMg / 1000) * (24 / tempo);
+      // Monta resultado
+      const linhasEl = document.getElementById("hvhs-linhas");
+      let html = "";
 
-      linhasTIG =
-        linha("TIG resultante", `${tigResultante.toFixed(2)} mg/kg/min`, "info") +
-        linha(`Glicose no período (${fmt(tempo, 0)}h)`, `${fmt(glicoseGPeriodo, 1)} g`, "info") +
-        linha("Glicose total (equiv. 24h)", `${fmt(glicoseG24h, 1)} g`, "info");
-
-      if (concGlicNecessaria > 12.5)
-        linhasTIG += linha("⚠ Atenção", "Concentração > 12,5% — considere acesso central", "alerta");
-    }
-
-    // Sódio total (NaCl20% + SF)
-    const mEqNaTotal   = mEqNaNaCl + mEqNaSF;
-    const mEqNaKgDia   = mEqNaTotal / peso / (tempo / 24);
-
-    if (mEqNaTotal > 0) {
-      linhasNaTotal =
-        sep() +
-        linha(
-          `Sódio total no período${mEqNaSF > 0 ? " (NaCl20% + " + labelSF + ")" : ""}`,
-          `${fmt(mEqNaTotal)} mEq`,
-          mEqNaSF > 0 ? "alerta" : ""
-        ) +
-        linha("Equivalência - Sódio", `${fmt(mEqNaKgDia, 1)} mEq/kg/dia`, mEqNaSF > 0 ? "alerta" : "");
-    }
-
-    // Monta resultado
-    const linhasEl = document.getElementById("hvhs-linhas");
-    let html = "";
-
-    html += linha("Volume total no período", `${fmt(volPeriodo)} mL`, "destaque");
-    html += linha("Vazão", `${fmt(vazao, 2)} mL/h`, "destaque");
-    html += sep();
-
-    if (volSG5 > 0.05)  html += linha("SG 5%",  `${fmt(volSG5)} mL`);
-    if (volSG50 > 0.05) html += linha("SG 50%", `${fmt(volSG50)} mL`);
-    if (linhasSF)        html += linhasSF;
-    if (linhasTIG)     { html += sep(); html += linhasTIG; }
-
-    if (linhasEletrolitos) {
+      html += linha(
+        "Volume total no período",
+        `${fmt(volPeriodo)} mL`,
+        "destaque",
+      );
+      html += linha("Vazão", `${fmt(vazao, 2)} mL/h`, "destaque");
       html += sep();
-      html += linhasEletrolitos;
-    }
 
-    html += linhasNaTotal;
+      if (volSG5 > 0.05) html += linha("SG 5%", `${fmt(volSG5)} mL`);
+      if (volSG50 > 0.05) html += linha("SG 50%", `${fmt(volSG50)} mL`);
+      if (linhasSF) html += linhasSF;
+      if (linhasTIG) {
+        html += sep();
+        html += linhasTIG;
+      }
 
-    html += sep();
-    html += linha("Volume eletrólitos", `${fmt(volEletrolitos)} mL`);
-    html += linha("Volume glicose + SF", `${fmt(volSG5 + volSG50 + volSF)} mL`);
+      if (linhasEletrolitos) {
+        html += sep();
+        html += linhasEletrolitos;
+      }
 
-    linhasEl.innerHTML = html;
-    resEl.classList.remove("escondido");
-    resEl.scrollIntoView({ behavior: "smooth", block: "end" });
-  };
+      html += linhasNaTotal;
 
-})();
+      html += sep();
+      html += linha("Volume eletrólitos", `${fmt(volEletrolitos)} mL`);
+      html += linha(
+        "Volume glicose + SF",
+        `${fmt(volSG5 + volSG50 + volSF)} mL`,
+      );
+
+      linhasEl.innerHTML = html;
+      resEl.classList.remove("escondido");
+      resEl.scrollIntoView({ behavior: "smooth", block: "end" });
+    };
+  })();
 </script>

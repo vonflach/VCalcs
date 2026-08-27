@@ -5,24 +5,42 @@
 
   <p class="calc-resumo">
     Corrige os valores de reticulócitos conforme o grau da anemia do paciente.
-  </p> 
+  </p>
 
   <!-- Componente do Hemograma -->
   <div class="calc-campo">
     <label>Parâmetro analisado no Hemograma</label>
     <div class="radio-group">
-      <label><input type="radio" name="hemograma" value="ht" checked> <span>Hematócrito (%)</span></label>
-      <label><input type="radio" name="hemograma" value="hb"> <span>Hemoglobina (g/dL)</span></label>
+      <label
+        ><input type="radio" name="hemograma" value="ht" checked />
+        <span>Hematócrito (%)</span></label
+      >
+      <label
+        ><input type="radio" name="hemograma" value="hb" />
+        <span>Hemoglobina (g/dL)</span></label
+      >
     </div>
-    <input type="number" id="ret-hemograma" inputmode="decimal" placeholder="Ex: 45" min="0">
+    <input
+      type="number"
+      id="ret-hemograma"
+      inputmode="decimal"
+      placeholder="Ex: 45"
+      min="0"
+    />
   </div>
 
   <!-- Reticulócitos -->
   <div class="calc-campo">
     <label>Reticulócitos (%)</label>
-    <input type="number" id="ret-valor1" inputmode="decimal" placeholder="Ex: 3" min="0">
+    <input
+      type="number"
+      id="ret-valor1"
+      inputmode="decimal"
+      placeholder="Ex: 3"
+      min="0"
+    />
   </div>
-  
+
   <button id="ret-btn-calcular" class="calc-btn">Calcular</button>
 
   <div id="ret-resultado" class="calc-resultado escondido">
@@ -89,7 +107,9 @@
     font-size: 1rem;
     border: 1px solid #d0d5db;
     border-radius: 8px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .calc-campo input[type="number"]:focus {
@@ -133,76 +153,79 @@
   }
 
   .calc-resultado-tag {
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--cor-cyan);
-  margin-bottom: 4px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--cor-cyan);
+    margin-bottom: 4px;
   }
 
-.calc-resultado-valor {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--cor-cyan);
-  margin: 0 0 8px;
-  white-space: pre-line;
+  .calc-resultado-valor {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--cor-cyan);
+    margin: 0 0 8px;
+    white-space: pre-line;
   }
 
-.calc-resultado-interpretacao {
-  font-size: 0.88rem;
-  color: var(--cor-texto-secundario);
-  line-height: 1.5;
-  margin: 0;
+  .calc-resultado-interpretacao {
+    font-size: 0.88rem;
+    color: var(--cor-texto-secundario);
+    line-height: 1.5;
+    margin: 0;
   }
 </style>
 
 <script>
-(function () {
-  const inputHemograma  = document.getElementById("ret-hemograma");
-  const inputValor      = document.getElementById("ret-valor1");
-  const btnCalcular     = document.getElementById("ret-btn-calcular");
-  const resultadoEl     = document.getElementById("ret-resultado");
-  const valorEl         = document.getElementById("ret-valor");
-  const tagEl           = document.getElementById("ret-tag");
-  const interpretacaoEl = document.getElementById("ret-interpretacao");
-  const erroEl          = document.getElementById("ret-erro");
+  (function () {
+    const inputHemograma = document.getElementById("ret-hemograma");
+    const inputValor = document.getElementById("ret-valor1");
+    const btnCalcular = document.getElementById("ret-btn-calcular");
+    const resultadoEl = document.getElementById("ret-resultado");
+    const valorEl = document.getElementById("ret-valor");
+    const tagEl = document.getElementById("ret-tag");
+    const interpretacaoEl = document.getElementById("ret-interpretacao");
+    const erroEl = document.getElementById("ret-erro");
 
-// Chama na inicialização para já mostrar a correta  
-  function calcularRet() {
-    const hemo  = parseFloat(inputHemograma.value);
-    const valor = parseFloat(inputValor.value);
+    // Chama na inicialização para já mostrar a correta
+    function calcularRet() {
+      const hemo = parseFloat(inputHemograma.value);
+      const valor = parseFloat(inputValor.value);
 
-    if (isNaN(hemo) || isNaN(valor) || hemo < 0 || valor < 0) {
-      erroEl.classList.remove("escondido");
-      resultadoEl.classList.add("escondido");
-      return;
+      if (isNaN(hemo) || isNaN(valor) || hemo < 0 || valor < 0) {
+        erroEl.classList.remove("escondido");
+        resultadoEl.classList.add("escondido");
+        return;
+      }
+
+      erroEl.classList.add("escondido");
+
+      // Conversão do hemograma, se necessário
+      const hemogramaHt = document.querySelector(
+        'input[name="hemograma"]:checked',
+      ).value;
+      const hemogramaHb = hemogramaHt === "ht" ? hemo / 45 : hemo / 15;
+
+      // Reticulócitos corrigidos %
+      const ret = hemogramaHb * valor;
+      const retArredondada = Math.round(ret * 10) / 10;
+
+      valorEl.textContent = `Reticulócitos Corrigidos: ${retArredondada} %`;
+      interpretacaoEl.textContent =
+        "Avaliar o resultado em conjunto com demais parâmetros clínicos e laboratoriais do paciente.";
+
+      resultadoEl.className = "calc-resultado ";
+      resultadoEl.classList.remove("escondido");
+      resultadoEl.scrollIntoView({ behavior: "smooth", block: "end" });
     }
 
-    erroEl.classList.add("escondido");
+    btnCalcular.addEventListener("click", calcularRet);
 
-    // Conversão do hemograma, se necessário
-    const hemogramaHt  = document.querySelector('input[name="hemograma"]:checked').value;
-    const hemogramaHb = hemogramaHt === "ht" ? hemo / 45 : hemo / 15;;
-
-    // Reticulócitos corrigidos %
-    const ret             = hemogramaHb * valor;
-    const retArredondada  = Math.round(ret * 10) / 10;
-
-    valorEl.textContent       = `Reticulócitos Corrigidos: ${retArredondada} %`;
-    interpretacaoEl.textContent = "Avaliar o resultado em conjunto com demais parâmetros clínicos e laboratoriais do paciente.";
-
-    resultadoEl.className = "calc-resultado ";
-    resultadoEl.classList.remove("escondido");
-    resultadoEl.scrollIntoView({ behavior: "smooth", block: "end" });
-  }
-
-  btnCalcular.addEventListener("click", calcularRet);
-
-  [inputHemograma, inputValor].forEach(campo => {
-    campo.addEventListener("keydown", e => {
-      if (e.key === "Enter") calcularRet();
+    [inputHemograma, inputValor].forEach((campo) => {
+      campo.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") calcularRet();
+      });
     });
-  });
-})();
+  })();
 </script>

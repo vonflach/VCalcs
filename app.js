@@ -3,33 +3,32 @@
 // Depende de registro.js e registro-utilitarios.js (carregados antes no index.html)
 
 document.addEventListener("DOMContentLoaded", () => {
-
   // --- Elementos ---
-  const campoBusca       = document.getElementById("campo-busca-sidebar");
+  const campoBusca = document.getElementById("campo-busca-sidebar");
   const campoBuscaTopbar = document.getElementById("campo-busca-topbar");
-  const listaEl          = document.getElementById("lista-calculadoras");
-  const listaUtils       = document.getElementById("lista-utilitarios");
-  const areaCalculadora  = document.getElementById("area-calculadora");
-  const areaUtilitarios  = document.getElementById("area-utilitarios");
-  const areaInfo         = document.getElementById("area-info");
-  const homeEl           = document.getElementById("home");
-  const filtroTabs       = document.getElementById("filtro-tabs");
-  const secaoTitulo      = document.getElementById("secao-titulo");
-  const secaoSub         = document.getElementById("secao-sub");
-  const secaoSubUtils    = document.getElementById("secao-sub-utils");
+  const listaEl = document.getElementById("lista-calculadoras");
+  const listaUtils = document.getElementById("lista-utilitarios");
+  const areaCalculadora = document.getElementById("area-calculadora");
+  const areaUtilitarios = document.getElementById("area-utilitarios");
+  const areaInfo = document.getElementById("area-info");
+  const homeEl = document.getElementById("home");
+  const filtroTabs = document.getElementById("filtro-tabs");
+  const secaoTitulo = document.getElementById("secao-titulo");
+  const secaoSub = document.getElementById("secao-sub");
+  const secaoSubUtils = document.getElementById("secao-sub-utils");
   const filtroTabsUtils = document.getElementById("filtro-tabs-utils");
 
   // Estado atual
-  let secaoAtiva    = "calcs";   // "calcs" | "utils" | "info"
-  let filtroArea    = "todas";   // área selecionada nas tabs
+  let secaoAtiva = "calcs"; // "calcs" | "utils" | "info"
+  let filtroArea = "todas"; // área selecionada nas tabs
   let filtroAreaUtils = "todas"; // área selecionada nas tabs de utilitários
-  let termoBusca    = "";        // texto do campo de busca
+  let termoBusca = ""; // texto do campo de busca
 
   function renderizarFiltros(registro, container, callbackFiltro) {
     container.innerHTML = "";
-    const areas = [...new Set(registro.map(c => c.area).filter(Boolean))].sort((a, b) =>
-      a.localeCompare(b, "pt-BR", { sensitivity: "base" })
-    );
+    const areas = [
+      ...new Set(registro.map((c) => c.area).filter(Boolean)),
+    ].sort((a, b) => a.localeCompare(b, "pt-BR", { sensitivity: "base" }));
 
     // Só renderiza se houver mais de uma área
     if (areas.length <= 1) {
@@ -43,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnTodas.onclick = () => callbackFiltro(btnTodas, "todas");
     container.appendChild(btnTodas);
 
-    areas.forEach(area => {
+    areas.forEach((area) => {
       const btn = document.createElement("button");
       btn.className = "filtro-tab";
       btn.textContent = area;
@@ -55,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Ordenação ---
   function ordenarPorNome(lista) {
     return [...lista].sort((a, b) =>
-      a.nome.localeCompare(b.nome, "pt-BR", { sensitivity: "base" })
+      a.nome.localeCompare(b.nome, "pt-BR", { sensitivity: "base" }),
     );
   }
 
@@ -65,8 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
       renderMathInElement(elemento, {
         delimiters: [
           { left: "\\(", right: "\\)", display: false },
-          { left: "$$", right: "$$", display: true }
-        ]
+          { left: "$$", right: "$$", display: true },
+        ],
       });
     }
   }
@@ -81,16 +80,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // Filtro por busca
     if (termoBusca) {
       const t = termoBusca.toLowerCase();
-      lista = lista.filter(c =>
-        c.nome.toLowerCase().includes(t) ||
-        c.descricao.toLowerCase().includes(t) ||
-        c.tags.some(tag => tag.toLowerCase().includes(t))
+      lista = lista.filter(
+        (c) =>
+          c.nome.toLowerCase().includes(t) ||
+          c.descricao.toLowerCase().includes(t) ||
+          c.tags.some((tag) => tag.toLowerCase().includes(t)),
       );
     }
 
     // Filtro por área (ignora se busca ativa ou "todas")
     if (filtroArea !== "todas" && !termoBusca) {
-      lista = lista.filter(c => c.area === filtroArea);
+      lista = lista.filter((c) => c.area === filtroArea);
     }
 
     return ordenarPorNome(lista);
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    lista.forEach(calc => {
+    lista.forEach((calc) => {
       const card = document.createElement("div");
       card.className = "card-calculadora";
       card.innerHTML = `
@@ -123,12 +123,13 @@ document.addEventListener("DOMContentLoaded", () => {
   async function carregarCalculadora(calc) {
     try {
       const resposta = await fetch(calc.caminho);
-      if (!resposta.ok) throw new Error(`Não foi possível carregar ${calc.caminho}`);
+      if (!resposta.ok)
+        throw new Error(`Não foi possível carregar ${calc.caminho}`);
 
       const html = await resposta.text();
       areaCalculadora.innerHTML = html;
 
-      areaCalculadora.querySelectorAll("script").forEach(scriptAntigo => {
+      areaCalculadora.querySelectorAll("script").forEach((scriptAntigo) => {
         const scriptNovo = document.createElement("script");
         scriptNovo.textContent = scriptAntigo.textContent;
         scriptAntigo.replaceWith(scriptNovo);
@@ -138,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Atualiza header da seção
       secaoTitulo.textContent = calc.nome;
-      secaoSub.textContent    = calc.area;
+      secaoSub.textContent = calc.area;
 
       // Esconde home, mostra calc
       homeEl.classList.add("escondido");
@@ -147,17 +148,19 @@ document.addEventListener("DOMContentLoaded", () => {
       areaCalculadora.classList.remove("escondido");
 
       // Listener para Enter
-      areaCalculadora.querySelectorAll("input").forEach(input => {
-        input.addEventListener("keydown", e => {
+      areaCalculadora.querySelectorAll("input").forEach((input) => {
+        input.addEventListener("keydown", (e) => {
           if (e.key === "Enter") {
             const btn = areaCalculadora.querySelector(".calc-btn");
-            if (btn) { input.blur(); btn.click(); }
+            if (btn) {
+              input.blur();
+              btn.click();
+            }
           }
         });
       });
 
       window.scrollTo({ top: 0, behavior: "smooth" });
-
     } catch (erro) {
       areaCalculadora.innerHTML = `<p class="mensagem-erro">Erro ao carregar a calculadora. Tente novamente.</p>`;
       homeEl.classList.add("escondido");
@@ -173,15 +176,16 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderizarUtilitarios() {
     let lista = registroUtilitarios;
 
-  if (termoBusca) {
-    const t = termoBusca.toLowerCase();
-      lista = lista.filter(u =>
-        u.nome.toLowerCase().includes(t) ||
-        u.descricao.toLowerCase().includes(t) ||
-        (u.tags || []).some(tag => tag.toLowerCase().includes(t))
+    if (termoBusca) {
+      const t = termoBusca.toLowerCase();
+      lista = lista.filter(
+        (u) =>
+          u.nome.toLowerCase().includes(t) ||
+          u.descricao.toLowerCase().includes(t) ||
+          (u.tags || []).some((tag) => tag.toLowerCase().includes(t)),
       );
     } else if (filtroAreaUtils !== "todas") {
-      lista = lista.filter(u => u.area === filtroAreaUtils);
+      lista = lista.filter((u) => u.area === filtroAreaUtils);
     }
 
     lista = ordenarPorNome(lista);
@@ -194,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    lista.forEach(util => {
+    lista.forEach((util) => {
       const card = document.createElement("div");
       card.className = "card-calculadora";
       card.innerHTML = `
@@ -210,12 +214,13 @@ document.addEventListener("DOMContentLoaded", () => {
   async function carregarUtilitario(util) {
     try {
       const resposta = await fetch(util.caminho);
-      if (!resposta.ok) throw new Error(`Não foi possível carregar ${util.caminho}`);
+      if (!resposta.ok)
+        throw new Error(`Não foi possível carregar ${util.caminho}`);
 
       const html = await resposta.text();
       areaCalculadora.innerHTML = html;
 
-      areaCalculadora.querySelectorAll("script").forEach(scriptAntigo => {
+      areaCalculadora.querySelectorAll("script").forEach((scriptAntigo) => {
         const scriptNovo = document.createElement("script");
         scriptNovo.textContent = scriptAntigo.textContent;
         scriptAntigo.replaceWith(scriptNovo);
@@ -224,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderizarKatex(areaCalculadora);
 
       secaoTitulo.textContent = util.nome;
-      secaoSub.textContent    = util.area;
+      secaoSub.textContent = util.area;
 
       homeEl.classList.add("escondido");
       areaUtilitarios.classList.add("escondido");
@@ -232,7 +237,6 @@ document.addEventListener("DOMContentLoaded", () => {
       areaCalculadora.classList.remove("escondido");
 
       window.scrollTo({ top: 0, behavior: "smooth" });
-
     } catch (erro) {
       areaCalculadora.innerHTML = `<p class="mensagem-erro">Erro ao carregar o utilitário. Tente novamente.</p>`;
       areaCalculadora.classList.remove("escondido");
@@ -244,13 +248,19 @@ document.addEventListener("DOMContentLoaded", () => {
   //  NAVEGAÇÃO SIDEBAR
   // ═══════════════════════════════════════════
 
-  window.navegarPara = function(destino) {
+  window.navegarPara = function (destino) {
     secaoAtiva = destino;
 
     // Atualiza estado visual dos nav-items
-    document.getElementById("nav-calcs").classList.toggle("ativo", destino === "calcs");
-    document.getElementById("nav-utils").classList.toggle("ativo", destino === "utils");
-    document.getElementById("nav-info").classList.toggle("ativo", destino === "info");
+    document
+      .getElementById("nav-calcs")
+      .classList.toggle("ativo", destino === "calcs");
+    document
+      .getElementById("nav-utils")
+      .classList.toggle("ativo", destino === "utils");
+    document
+      .getElementById("nav-info")
+      .classList.toggle("ativo", destino === "info");
 
     // Limpa calc carregada
     areaCalculadora.classList.add("escondido");
@@ -270,16 +280,15 @@ document.addEventListener("DOMContentLoaded", () => {
       filtroArea = "todas";
       renderizarFiltros(registroCalculadoras, filtroTabs, filtrarArea);
       renderizarCalcs();
-
     } else if (destino === "utils") {
-      filtroAreaUtils = "todas";  // ← adiciona
+      filtroAreaUtils = "todas"; // ← adiciona
       areaUtilitarios.classList.remove("escondido");
       renderizarFiltros(registroUtilitarios, filtroTabsUtils, filtrarAreaUtils);
       renderizarUtilitarios();
     } else if (destino === "info") {
       areaInfo.classList.remove("escondido");
       secaoTitulo.textContent = "Sobre o VCalcs";
-      secaoSub.textContent    = "";
+      secaoSub.textContent = "";
     }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -289,18 +298,22 @@ document.addEventListener("DOMContentLoaded", () => {
   //  FILTRO POR ÁREA (tabs)
   // ═══════════════════════════════════════════
 
-  window.filtrarArea = function(el, area) {
+  window.filtrarArea = function (el, area) {
     filtroArea = area;
     aplicarBusca("");
-    document.querySelectorAll(".filtro-tab").forEach(t => t.classList.remove("ativo"));
+    document
+      .querySelectorAll(".filtro-tab")
+      .forEach((t) => t.classList.remove("ativo"));
     el.classList.add("ativo");
     renderizarCalcs();
   };
 
-  window.filtrarAreaUtils = function(el, area) {
+  window.filtrarAreaUtils = function (el, area) {
     filtroAreaUtils = area;
     aplicarBusca("");
-    document.querySelectorAll("#filtro-tabs-utils .filtro-tab").forEach(t => t.classList.remove("ativo"));
+    document
+      .querySelectorAll("#filtro-tabs-utils .filtro-tab")
+      .forEach((t) => t.classList.remove("ativo"));
     el.classList.add("ativo");
     renderizarUtilitarios();
   };
@@ -316,10 +329,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Reseta visual das tabs de filtro
     if (valor) {
-      document.querySelectorAll("#filtro-tabs .filtro-tab").forEach(t => t.classList.remove("ativo"));
-      document.querySelector("#filtro-tabs .filtro-tab")?.classList.add("ativo"); // marca "Todas"
-      document.querySelectorAll("#filtro-tabs-utils .filtro-tab").forEach(t => t.classList.remove("ativo"));
-      document.querySelector("#filtro-tabs-utils .filtro-tab")?.classList.add("ativo"); // marca "Todas"
+      document
+        .querySelectorAll("#filtro-tabs .filtro-tab")
+        .forEach((t) => t.classList.remove("ativo"));
+      document
+        .querySelector("#filtro-tabs .filtro-tab")
+        ?.classList.add("ativo"); // marca "Todas"
+      document
+        .querySelectorAll("#filtro-tabs-utils .filtro-tab")
+        .forEach((t) => t.classList.remove("ativo"));
+      document
+        .querySelector("#filtro-tabs-utils .filtro-tab")
+        ?.classList.add("ativo"); // marca "Todas"
     }
 
     if (secaoAtiva === "calcs") {
@@ -329,16 +350,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  campoBusca.addEventListener("input",       e => aplicarBusca(e.target.value.trim()));
-  campoBuscaTopbar.addEventListener("input", e => aplicarBusca(e.target.value.trim()));
+  campoBusca.addEventListener("input", (e) =>
+    aplicarBusca(e.target.value.trim()),
+  );
+  campoBuscaTopbar.addEventListener("input", (e) =>
+    aplicarBusca(e.target.value.trim()),
+  );
 
   // ═══════════════════════════════════════════
   //  LOGO → volta para home de calcs
   // ═══════════════════════════════════════════
 
   document.getElementById("logo").addEventListener("click", () => {
-  aplicarBusca("");
-  navegarPara("calcs");
+    aplicarBusca("");
+    navegarPara("calcs");
   });
 
   document.getElementById("logo-topbar").addEventListener("click", () => {
@@ -350,11 +375,15 @@ document.addEventListener("DOMContentLoaded", () => {
   //  Impedir scroll em campos number (evita scroll acidental)
   // ═══════════════════════════════════════════
 
-  document.addEventListener("wheel", e => {
-    if (document.activeElement.type === "number") {
-      document.activeElement.blur();
-    }
-  }, { passive: true });
+  document.addEventListener(
+    "wheel",
+    (e) => {
+      if (document.activeElement.type === "number") {
+        document.activeElement.blur();
+      }
+    },
+    { passive: true },
+  );
 
   // ═══════════════════════════════════════════
   //  INICIALIZAÇÃO
@@ -363,5 +392,4 @@ document.addEventListener("DOMContentLoaded", () => {
   filtroTabs.style.display = "flex";
   renderizarFiltros(registroCalculadoras, filtroTabs, filtrarArea);
   renderizarCalcs();
-
 });

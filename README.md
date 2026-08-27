@@ -59,7 +59,7 @@ vcalcs/
     ├── meq/
     │   └── index.html
     └── [outras]/
-        └── index.html       
+        └── index.html
 ```
 
 ---
@@ -137,11 +137,13 @@ O utilitário aparece automaticamente na aba **Utilitários**. Nenhum outro arqu
 ## Em desenvolvimento...
 
 **Calculadoras:**
+
 - Critérios de Wells para Tromboembolismo Pulmonar (TEP)
 - Dosagem de Fluidoterapia Intraoperatória
 - Escore de Pádua para Predição de Tromboembolismo Venoso (TEV)
 
 **Utilitários:**
+
 - Correção de Posologia Antimicrobiana pela Função Renal
 
 ---

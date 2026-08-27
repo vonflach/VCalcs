@@ -2,17 +2,30 @@
   <h2>Pressão Arterial Média (PAM)</h2>
 
   <p class="calc-resumo">
-    Calcula a pressão arterial média a partir da PAS e PAD, com interpretação de perfusão.
-  </p> 
+    Calcula a pressão arterial média a partir da PAS e PAD, com interpretação de
+    perfusão.
+  </p>
 
   <div class="calc-campo">
     <label for="pam-pas">Pressão Arterial Sistólica (PAS) &mdash; mmHg</label>
-    <input type="number" id="pam-pas" inputmode="decimal" placeholder="Ex: 120" min="0">
+    <input
+      type="number"
+      id="pam-pas"
+      inputmode="decimal"
+      placeholder="Ex: 120"
+      min="0"
+    />
   </div>
 
   <div class="calc-campo">
     <label for="pam-pad">Pressão Arterial Diastólica (PAD) &mdash; mmHg</label>
-    <input type="number" id="pam-pad" inputmode="decimal" placeholder="Ex: 80" min="0">
+    <input
+      type="number"
+      id="pam-pad"
+      inputmode="decimal"
+      placeholder="Ex: 80"
+      min="0"
+    />
   </div>
 
   <button id="pam-btn-calcular" class="calc-btn">Calcular</button>
@@ -65,7 +78,9 @@
     font-size: 1rem;
     border: 1px solid #d0d5db;
     border-radius: 8px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .calc-campo input:focus {
@@ -179,34 +194,39 @@
         return {
           classe: "risco-baixo",
           tag: "Risco — PAM baixa",
-          texto: "Risco de hipoperfusão de órgãos-alvo. Avaliar sinais de choque e necessidade de intervenção."
+          texto:
+            "Risco de hipoperfusão de órgãos-alvo. Avaliar sinais de choque e necessidade de intervenção.",
         };
       }
       if (pam < 70) {
         return {
           classe: "atencao",
           tag: "Atenção — limite inferior",
-          texto: "PAM próxima ao limite inferior de perfusão adequada. Monitorar tendência e contexto clínico."
+          texto:
+            "PAM próxima ao limite inferior de perfusão adequada. Monitorar tendência e contexto clínico.",
         };
       }
       if (pam <= 100) {
         return {
           classe: "adequada",
           tag: "Adequada",
-          texto: "PAM dentro da faixa considerada adequada para perfusão de órgãos-alvo na maioria dos contextos clínicos."
+          texto:
+            "PAM dentro da faixa considerada adequada para perfusão de órgãos-alvo na maioria dos contextos clínicos.",
         };
       }
       if (pam <= 110) {
         return {
           classe: "atencao",
           tag: "Atenção — PAM elevada",
-          texto: "PAM acima do intervalo habitual. Avaliar causa e risco de lesão de órgão-alvo conforme contexto."
+          texto:
+            "PAM acima do intervalo habitual. Avaliar causa e risco de lesão de órgão-alvo conforme contexto.",
         };
       }
       return {
         classe: "risco-alto",
         tag: "Risco — PAM elevada",
-        texto: "Risco elevado de lesão de órgão-alvo. Avaliar necessidade de conduta ativa conforme quadro clínico."
+        texto:
+          "Risco elevado de lesão de órgão-alvo. Avaliar necessidade de conduta ativa conforme quadro clínico.",
       };
     }
 
