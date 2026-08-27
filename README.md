@@ -130,7 +130,7 @@ O utilitário aparece automaticamente na aba **Utilitários**. Nenhum outro arqu
 ## Utilitários disponíveis
 
 - Faixas Terapêuticas de Sedativos e Hipnóticos
-- Eletrólitos — apresentações comerciais e equivalências em mEq/mL e mEq/ampola
+- Referências de Eletrólitos — Apresentações comerciais e equivalências em mEq/mL e mEq/ampola
 
 ---
 
