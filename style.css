@@ -15,9 +15,9 @@
 
 /* ---------- Variáveis ---------- */
 :root {
-  --cor-vermelho: #8c0007;
-  --cor-vermelho-hover: #a80009;
-  --cor-vermelho-suave: rgba(140, 0, 7, 0.1);
+  --cor-vermelho: #1960be;
+  --cor-vermelho-hover: #09397a;
+  --cor-vermelho-suave: #09387a57;
   --cor-olive-escuro: #1a1d13;
   --cor-olive: #25291c;
   --cor-olive-claro: #2e3323;
