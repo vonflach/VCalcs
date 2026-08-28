@@ -65,6 +65,8 @@
   <p id="osm-erro" class="calc-erro escondido">
     Preencha Sódio, Glicose e Escória Nitrogenada com valores numéricos válidos.
   </p>
+
+  <div id="osm-accordion-container"></div>
 </div>
 
 <style>
@@ -240,6 +242,81 @@
     const tagEl = document.getElementById("osm-tag");
     const interpretacaoEl = document.getElementById("osm-interpretacao");
     const erroEl = document.getElementById("osm-erro");
+
+    const container = document.getElementById("osm-accordion-container");
+
+    var refs = `
+  <ol class="info-list">
+    <li>Purssell RA, et al. Derivation and validation of a formula to calculate the contribution of ethanol to the osmolal gap.
+      <a href="https://doi.org/10.1067/mem.2001.119455" target="_blank">Ann Emerg Med., 2001.</a>
+    </li>
+    <li>Siervo M, et al. Accuracy of prediction equations for serum osmolarity in frail older people with and without diabetes.
+      <a href="https://doi.org/10.3945/ajcn.114.086769" target="_blank">Am J Clin Nutr., 2014.</a>
+    </li>
+  </ol>`;
+
+    var cuidados = `
+  <ul class="info-list">
+    <li>Utilize o Gap Osmolar com a Osmolaridade plasmática encontrada, quando esta estiver disponível.</li>
+  </ul>`;
+
+    function montarFormula() {
+      const tipo = document.querySelector(
+        'input[name="escoria-nitrogenada"]:checked',
+      ).value;
+
+      if (tipo === "ureia") {
+        return `
+      <p class="info-formula-label">Fórmula:</p>
+      <div class="info-formula-block">
+        \\( \\text{Osm} =
+        (2 \\times \\text{Na}) + (\\dfrac{\\text{Glicose}}{18}) +
+        (\\dfrac{\\text{Ureia}}{6}) \\)
+      </div>
+      <p class="info-formula-nota">
+    Sua validade isolada é limitada &mdash; Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.
+      </p>`;
+      }
+
+      return `
+    <p class="info-formula-label">Fórmula:</p>
+    <div class="info-formula-block">
+        \\( \\text{Osm} =
+        (2 \\times \\text{Na}) + (\\dfrac{\\text{Glicose}}{18}) +
+        (\\dfrac{\\text{BUN}}{2.8}) \\)
+      </div>
+    <p class="info-formula-nota">
+    Sua validade isolada é limitada &mdash; Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.
+    </p>`;
+    }
+
+    container.innerHTML = montarAccordion(
+      refs,
+      `<div id="osm-formula-conteudo">${montarFormula()}</div>`,
+      cuidados,
+    );
+
+    iniciarAccordion();
+
+    renderMathInElement(container, {
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+    });
+
+    document
+      .querySelectorAll('input[name="escoria-nitrogenada"]')
+      .forEach((radio) => {
+        radio.addEventListener("change", () => {
+          const formulaEl = document.getElementById("osm-formula-conteudo");
+
+          if (!formulaEl) return;
+
+          formulaEl.innerHTML = montarFormula();
+
+          renderMathInElement(formulaEl, {
+            delimiters: [{ left: "\\(", right: "\\)", display: false }],
+          });
+        });
+      });
 
     // Chama na inicialização para já mostrar a correta
     function classificarOsm(osm) {

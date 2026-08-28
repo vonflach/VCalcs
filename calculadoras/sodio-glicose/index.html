@@ -42,6 +42,8 @@
   <p id="sg-erro" class="calc-erro escondido">
     Preencha Sódio e Glicose com valores numéricos válidos.
   </p>
+
+  <div id="sg-accordion-container"></div>
 </div>
 
 <style>
@@ -191,6 +193,42 @@
     const tagEl = document.getElementById("sg-tag");
     const interpretacaoEl = document.getElementById("sg-interpretacao");
     const erroEl = document.getElementById("sg-erro");
+
+    const container = document.getElementById("sg-accordion-container");
+
+    var refs = `
+  <ol class="info-list">
+    <li>Hillier TA, Abbott RD, Barrett EJ. Hyponatremia: evaluating the correction factor for hyperglycemia.
+      <a href="https://doi.org/10.1016/s0002-9343(99)00055-8" target="_blank">Am J Med., 1999.</a>
+    </li>
+  </ol>`;
+
+    var formula = `
+  <p class="info-formula-label">Fórmula de Hillier:</p>
+  <div class="info-formula-block">
+    \\( \\text{Na}_{\\text{Corrigido}} = [0.024 \\times (\\text{Glicose}_{\\text{Sérica}} - 100)] + \\text{Na}_{\\text{Sérico}} \\)
+  </div>
+  <p class="info-formula-nota">
+    Sua validade isolada é limitada &mdash; Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.
+  </p>`;
+
+    var cuidados = `
+  <ul class="info-list">
+    <li>Baseie a conduta no nível de sódio corrigido;</li>
+<li>Trate a causa subjacente da hiperglicemia/descompensação glicêmica;</li>
+<li>Realize exames laboratoriais de acompanhamento frequentemente.</li>
+
+  </ul>`;
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+    renderMathInElement(container, {
+      // linha nova
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+    });
 
     function classificarSg(sg) {
       if (sg < 135)

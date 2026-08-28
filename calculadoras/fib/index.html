@@ -66,6 +66,8 @@
   <p id="fib-erro" class="calc-erro escondido">
     Preencha todos os campos com valores numéricos válidos.
   </p>
+
+  <div id="fib-accordion-container"></div>
 </div>
 
 <style>
@@ -187,6 +189,43 @@
     const tagEl = document.getElementById("fib-tag");
     const interpretacaoEl = document.getElementById("fib-interpretacao");
     const erroEl = document.getElementById("fib-erro");
+
+    const container = document.getElementById("fib-accordion-container");
+
+    var refs = `
+  <ol class="info-list">
+    <li>Sterling RK et. al. Development of a simple noninvasive index to predict significant fibrosis in patients with HIV/HCV coinfection.
+      <a href="https://doi.org/10.1002/hep.21178" target="_blank">Hepatology, 2006.</a>
+    </li>
+    <li>Kim BK et. al. Validation of FIB-4 and comparison with other simple noninvasive indices for predicting liver fibrosis and cirrhosis in hepatitis B virus-infected patients.
+      <a href="https://doi.org/10.1111/j.1478-3231.2009.02192.x" target="_blank">Epub, 2010.</a>
+    </li>
+  </ol>`;
+
+    var formula = `
+  <p class="info-formula-label">Fórmula:</p>
+  <div class="info-formula-block">
+  \\( \\text{FIB-4} = \\dfrac{\\text{Idade} \\times \\text{AST}}{\\text{Plaquetas} \\times \\sqrt{\\text{ALT}}} \\)
+  </div>
+  <p class="info-formula-nota">
+    Sua validade isolada é limitada &mdash; Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.
+  </p>`;
+
+    var cuidados = `
+    <ul class="info-list">
+    <li>Evite utilizar em extremos etários.</li>
+    <li>Apresenta alto valor preditivo negativo.</li>
+    </ul>`;
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+    renderMathInElement(container, {
+      // linha nova
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+    });
 
     function classificarFib(fib) {
       if (fib < 1.3) {

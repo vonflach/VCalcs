@@ -55,6 +55,8 @@
   <p id="ldl-erro" class="calc-erro escondido">
     Preencha todos os campos com valores numéricos válidos.
   </p>
+
+  <div id="ldl-accordion-container"></div>
 </div>
 
 <style>
@@ -214,6 +216,40 @@
     const tagEl = document.getElementById("ldl-tag");
     const interpretacaoEl = document.getElementById("ldl-interpretacao");
     const erroEl = document.getElementById("ldl-erro");
+
+    const container = document.getElementById("ldl-accordion-container");
+
+    var refs = `
+  <ol class="info-list">
+    <li>Friedewald WT, Levy RI, Fredrickson DS. Estimation of the concentration of low-density lipoprotein cholesterol in plasma, without use of the preparative ultracentrifuge.
+      <a href="https://doi.org/10.1093/clinchem/18.6.499" target="_blank">Clin Chem, 1972.</a>
+    </li>
+  </ol>`;
+
+    var formula = `
+  <p class="info-formula-label">Fórmula de Friedewald:</p>
+  <div class="info-formula-block">
+    \\( \\text{LDL} = \\text{Colesterol Total} - [\\text{HDL} + (\\dfrac{\\text{Triglicerídeos}}{5})] \\)
+  </div>
+  <p class="info-formula-nota">
+    Sua validade isolada é limitada &mdash; Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.
+  </p>`;
+
+    var cuidados = `
+  <ul class="info-list">
+    <li>Utilize calculadoras para estimar o risco cardiovascular e, posteriormente, sua meta de LDL-c.</li>
+    <li>A presente fórmula pode tornar-se imprecisa ao apresentar valores elevados de Triglicerídeos, principalmente com valores superiores a 400 mg/dL.</li>
+  </ul>`;
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+    renderMathInElement(container, {
+      // linha nova
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+    });
 
     function classificarLdl(ldl) {
       if (ldl < 40)

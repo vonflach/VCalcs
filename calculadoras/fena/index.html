@@ -66,9 +66,17 @@
   <p id="fena-erro" class="calc-erro escondido">
     Preencha todos os campos com valores numéricos válidos.
   </p>
+
+  <div id="fena-accordion-container"></div>
 </div>
 
 <style>
+  .info-formula-label-1 {
+    margin: 24px 0 8px;
+    color: var(--cor-texto-mudo);
+    font-size: 0.8rem;
+  }
+
   .calc-fena {
     max-width: 480px;
     margin: 0 auto;
@@ -219,6 +227,52 @@
     const tagEl = document.getElementById("fena-tag");
     const interpretacaoEl = document.getElementById("fena-interpretacao");
     const erroEl = document.getElementById("fena-erro");
+
+    const container = document.getElementById("fena-accordion-container");
+
+    var refs = `
+  <ol class="info-list">
+    <li>Espinel CH. The FENa test. Use in the differential diagnosis of acute renal failure.
+      <a href="https://doi.org/10.1001/jama.236.6.579" target="_blank">JAMA, 1976.</a>
+    </li>
+    <li>Miller TR, et al. Urinary diagnostic indices in acute renal failure: a prospective study.
+      <a href="https://doi.org/10.7326/0003-4819-89-1-47" target="_blank">Ann Intern Med, 1978.</a>
+    </li>
+  </ol>`;
+
+    var formula = `
+  <p class="info-formula-label">Fórmula:</p>
+  <div class="info-formula-block">
+    \\( \\text{FENa}\\% = (\\dfrac{\\text{Na}_{\\text{Urinário}} \\times \\text{Creatinina}_{\\text{Sérica}}}{\\text{Na}_{\\text{Sérico}} \\times \\text{Creatinina}_{\\text{Urinária}}}) \\times 100\\% \\)
+  </div>
+  <p class="info-formula-nota">
+    Sua validade isolada é limitada &mdash; Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.
+  </p>`;
+
+    var cuidados = `
+  <ul class="info-list">
+    <li>Evite utilizar em paciente em uso de diuréticos, DRC ou obstrução do trato urinário</li>
+    <p class="info-formula-label-1">Etiologia Pré-Renal:</p>
+    <li>Hipovolemia;</li>
+    <li>Insuficiência cardíaca;</li>
+    <li>Estenose da artéria renal;</li>
+    <li>Sepse;</li>
+    <li>Nefropatia Induzida por Contraste.</li>
+    <p class="info-formula-label-1">Etiologia Renal:</p>
+    <li>Necrose Tubular Aguda (NTA);</li>
+    <li>Nefrite Intersticial Aguda (NIA);</li>
+    <li>Glomerulonefrites.</li>
+  </ul>`;
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+    renderMathInElement(container, {
+      // linha nova
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+    });
 
     function classificarFena(fena) {
       if (fena < 1)

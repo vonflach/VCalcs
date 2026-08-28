@@ -84,6 +84,8 @@
   </div>
 
   <p id="dpp-erro" class="calc-erro escondido"></p>
+
+  <div id="dpp-accordion-container"></div>
 </div>
 
 <style>
@@ -297,6 +299,40 @@
 
 <script>
   (function () {
+    const container = document.getElementById("dpp-accordion-container");
+
+    var refs = `
+  <ol class="info-list">
+    <li>ACOG. Committee Opinion No 700: Methods for Estimating the Due Date.
+      <a href="https://doi.org/10.1097/AOG.0000000000002046" target="_blank">Obstetrics & Gynecology, 2017.</a>
+    </li>
+  </ol>`;
+
+    var formula = `
+  <p class="info-formula-label">Regra de Naegele:</p>
+  <div class="info-formula-block">
+    \\( \\text{DPP} = \\text{DUM} + {280}_{\\text{Dias}} \\)
+  </div>
+  <p class="info-formula-nota">
+    Sua validade isolada é limitada &mdash; Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.
+  </p>`;
+
+    var cuidados = `
+  <ul class="info-list">
+    <li>A calculadora em questão revela uma estimativa.</li>
+    <li>Necessário adaptação para anos bissextos (Reduzir 1 dia do valor encontrado).</li>
+  </ul>`;
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+    renderMathInElement(container, {
+      // linha nova
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+    });
+
     let metodoAtual = "dum";
 
     window.selecionarMetodo = function (metodo) {

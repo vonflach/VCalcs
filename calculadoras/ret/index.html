@@ -52,6 +52,8 @@
   <p id="ret-erro" class="calc-erro escondido">
     Preencha todos os campos com valores numéricos válidos.
   </p>
+
+  <div id="ret-accordion-container"></div>
 </div>
 
 <style>
@@ -175,6 +177,12 @@
     line-height: 1.5;
     margin: 0;
   }
+
+  .info-formula-label-1 {
+    margin: 24px 0 8px;
+    color: var(--cor-texto-mudo);
+    font-size: 0.8rem;
+  }
 </style>
 
 <script>
@@ -187,6 +195,90 @@
     const tagEl = document.getElementById("ret-tag");
     const interpretacaoEl = document.getElementById("ret-interpretacao");
     const erroEl = document.getElementById("ret-erro");
+
+    const container = document.getElementById("ret-accordion-container");
+
+    var refs = `
+  <ol class="info-list">
+    <li>Priya P P, A.R. S. Role of Absolute Reticulocyte Count in Evaluation of Pancytopenia-A Hospital Based Study.
+      <a href="https://doi.org/10.7860/JCDR/2014/8949.4704" target="_blank">J Clin Diagn Res., 2014.</a>
+    </li>
+    <li>Furman E, et. al. A retrospective study of 1,098 blood samples with anemia from adult cats: frequency, classification, and association with serum creatinine concentration.
+      <a href="https://doi.org/10.1111/jvim.12422" target="_blank">J Vet Intern Med., 2014.</a>
+    </li>
+  </ol>`;
+
+    var cuidados = `
+  <ul class="info-list">
+    <p class="info-formula-label">Etiologias comuns de elevação de Reticulócitos:</p>
+    <li>Sangramento recente;</li>
+<li>Hemólise;</li>
+<li>Resposta ao tratamento da anemia;</li>
+<li>Recuperação da medula óssea (e.g. após quimioterapia/transplante).</li>
+
+
+    <p class="info-formula-label-1">Etiologias comuns de redução de Reticulócitos:</p>
+    <li>Deficiências nutricionais;</li>
+<li>Redução da produção de eritropoietina;</li>
+<li>Síndromes de falência da medula óssea (e.g anemia aplástica);</li>
+<li>Condições malignas (e.g. linfoma ou leucemia).</li>
+  </ul>`;
+
+    function montarFormula() {
+      const tipo = document.querySelector(
+        'input[name="hemograma"]:checked',
+      ).value;
+
+      if (tipo === "ht") {
+        return `
+      <p class="info-formula-label">Fórmula:</p>
+      <div class="info-formula-block">
+        \\( \\text{Reticulócitos}_{\\text{Corrigido}} =
+        \\text{Reticulócitos}_{\\text{Paciente}} \\times
+        \\dfrac{\\text{Ht}_{\\text{Paciente}}}{45} \\)
+      </div>
+      <p class="info-formula-nota">
+        O valor de 45% corresponde ao hematócrito de referência utilizado no cálculo.
+      </p>`;
+      }
+
+      return `
+    <p class="info-formula-label">Fórmula:</p>
+    <div class="info-formula-block">
+      \\( \\text{Reticulócitos}_{\\text{Corrigido}} =
+      \\text{Reticulócitos}_{\\text{Paciente}} \\times
+      \\dfrac{\\text{Hb}_{\\text{Paciente}}}{15} \\)
+    </div>
+    <p class="info-formula-nota">
+      O valor de 15 g/dL corresponde à hemoglobina de referência utilizado no cálculo.
+    </p>`;
+    }
+
+    container.innerHTML = montarAccordion(
+      refs,
+      `<div id="ret-formula-conteudo">${montarFormula()}</div>`,
+      cuidados,
+    );
+
+    iniciarAccordion();
+
+    renderMathInElement(container, {
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+    });
+
+    document.querySelectorAll('input[name="hemograma"]').forEach((radio) => {
+      radio.addEventListener("change", () => {
+        const formulaEl = document.getElementById("ret-formula-conteudo");
+
+        if (!formulaEl) return;
+
+        formulaEl.innerHTML = montarFormula();
+
+        renderMathInElement(formulaEl, {
+          delimiters: [{ left: "\\(", right: "\\)", display: false }],
+        });
+      });
+    });
 
     // Chama na inicialização para já mostrar a correta
     function calcularRet() {
