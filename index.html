@@ -219,6 +219,20 @@
         </p>
         <div class="info-versao">Versão 2.0.0</div>
         <p class="autor-p">Gabriel von Flach Sarmento &mdash; 2026</p>
+        <div class="feedback-wrap">
+          <button class="btn-feedback" onclick="abrirFeedback()">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Enviar Feedback
+          </button>
+        </div>
       </div>
 
       <!-- CALCULADORA / UTILITÁRIO CARREGADO -->
@@ -227,10 +241,67 @@
       </div>
     </main>
 
+    <!-- ══ MODAL FEEDBACK ══ -->
+    <div
+      id="modal-feedback"
+      class="modal-overlay escondido"
+      onclick="fecharFeedbackOverlay(event)"
+    >
+      <div class="modal-feedback-box">
+        <div class="modal-feedback-header">
+          <h3>Enviar Feedback</h3>
+          <button
+            class="modal-fechar"
+            onclick="fecharFeedback()"
+            aria-label="Fechar"
+          >
+            &times;
+          </button>
+        </div>
+
+        <div class="modal-feedback-body">
+          <label for="fb-tipo">Tipo</label>
+          <select id="fb-tipo">
+            <option value="Sugestão">Sugestão</option>
+            <option value="Erro">Erro</option>
+            <option value="Elogio">Elogio</option>
+            <option value="Outro">Outro</option>
+          </select>
+
+          <label for="fb-calc"
+            >Calculadora relacionada
+            <span style="font-weight: 400; opacity: 0.6"
+              >(opcional)</span
+            ></label
+          >
+          <input
+            type="text"
+            id="fb-calc"
+            placeholder="Ex: CKD-EPI, Holliday-Segar..."
+          />
+
+          <label for="fb-mensagem">Mensagem</label>
+          <textarea
+            id="fb-mensagem"
+            rows="5"
+            placeholder="Descreva seu feedback..."
+          ></textarea>
+        </div>
+
+        <div class="modal-feedback-footer">
+          <span id="fb-status" class="fb-status"></span>
+          <button class="btn-enviar-feedback" onclick="enviarFeedback()">
+            Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Ordem importa! -->
     <script src="registro.js"></script>
     <script src="registro-utilitarios.js"></script>
     <script src="accordion.js"></script>
     <script src="app.js"></script>
+    <script src="feedback.js"></script>
   </body>
 </html>
