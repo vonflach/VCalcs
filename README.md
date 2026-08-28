@@ -45,6 +45,7 @@ vcalcs/
 ├── registro.js                 # Catálogo de calculadoras
 ├── registro-utilitarios.js     # Catálogo de utilitários
 ├── accordion.js                # Componente global do bloco de Referências / Fórmula / Cuidados
+├── feedback.js                 # Sistema de Feedback
 │
 ├── assets/
 │   ├── img/                    # Logo e imagens
@@ -157,7 +158,10 @@ As calculadoras e utilitários disponibilizados neste aplicativo são ferramenta
 
 ## Feedback e Sugestões
 
-Apesar de estar em desenvolvimento, o presente projeto está em aprimoramento contínuo. Na presença de uma sugestão, feedback ou bug, abra uma [Issue aqui](https://github.com/vonflach/VCalcs/issues/new), descrevendo o conteúdo da mensagem.
+O presente projeto está em aprimoramento contínuo! Na presença de uma sugestão, erro, elogio ou demais comentários, entre em contato com uma das seguintes maneiras:
+
+- Na aplicação, vá em "Sobre o App" e clique em "Enviar Feedback", preenchendo os campos necessários;
+- Abra uma [Issue aqui](https://github.com/vonflach/VCalcs/issues/new), descrevendo o conteúdo da mensagem.
 
 Toda contribuição é bem-vinda!
 
