@@ -226,47 +226,46 @@
     const container = document.getElementById("albca-accordion-container");
 
     var refs = `
-  <ol class="info-list">
-    <li>Payne RB, et al. Interpretation of Serum Calcium in Patients with Abnormal Serum Proteins.
-      <a href="https://doi.org/10.1136/bmj.4.5893.643" target="_blank">Br Med J., 1973.</a>
-    </li>
-    <li>Parent X, et al. "Corrected" calcium: calcium status underestimation in non-hypoalbuminemic patients and in hypercalcemic patients.
-      <a href="https://doi.org/10.1684/abc.2009.0348" target="_blank">Ann Biol Clin (Paris), 2009.</a>
-    </li>
-  </ol>`;
+      <ol class="info-list">
+        <li>Payne RB, et al. Interpretation of Serum Calcium in Patients with Abnormal Serum Proteins.
+          <a href="https://doi.org/10.1136/bmj.4.5893.643" target="_blank">Br Med J., 1973.</a>
+        </li>
+        <li>Parent X, et al. "Corrected" calcium: calcium status underestimation in non-hypoalbuminemic patients and in hypercalcemic patients.
+          <a href="https://doi.org/10.1684/abc.2009.0348" target="_blank">Ann Biol Clin (Paris), 2009.</a>
+        </li>
+      </ol>`;
 
     var formula = `
-  <p class="info-formula-label">Fórmula:</p>
-  <div class="info-formula-block">
-    \\( \\text{Ca}_{\\text{Corrigido}} = [0.8 \\times (\\text{Alb}_{\\text{Normal}} - \\text{Alb}_{\\text{Paciente}})] + \\text{Ca}_{\\text{Paciente}} \\)
-  </div>
-  <p class="info-formula-nota">
-    Sua validade isolada é limitada &mdash; Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.
-  </p>`;
+      <p class="info-formula-label">Fórmula:</p>
+        <div class="info-formula-block">
+          \\( \\text{Ca}_{\\text{Corrigido}} = [0.8 \\times (\\text{Alb}_{\\text{Normal}} - \\text{Alb}_{\\text{Paciente}})] + \\text{Ca}_{\\text{Paciente}} \\)
+        </div>
+      <p class="info-formula-nota">
+        Sua validade isolada é limitada &mdash; Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.
+      </p>`;
 
     var cuidados = `
-  <ul class="info-list">
-    <p class="info-formula-label">Etiologias comuns de Hipocalcemia:</p>
-    <li>Insuficiência ou resistência à vitamina D;</li>
-<li>Hipoparatireoidismo;</li>
-<li>Doença renal ou doença hepática em estágio avançado, causando insuficiência de vitamina D;</li>
-<li>Má absorção (malabsorção);</li>
-<li>Após cirurgia de bypass gástrico;</li>
-<li>Uso de medicamentos e ingestão de substâncias tóxicas;</li>
-<li>Hipomagnesemia.</li>
+      <ul class="info-list">
+        <p class="info-formula-label">Etiologias comuns de Hipocalcemia:</p>
+          <li>Insuficiência ou resistência à vitamina D;</li>
+          <li>Hipoparatireoidismo;</li>
+          <li>Doença renal ou doença hepática em estágio avançado, causando insuficiência de vitamina D;</li>
+          <li>Má absorção (malabsorção);</li>
+          <li>Após cirurgia de bypass gástrico;</li>
+          <li>Uso de medicamentos e ingestão de substâncias tóxicas;</li>
+          <li>Hipomagnesemia.</li>
 
-    <p class="info-formula-label-1">Etiologias comuns de Hipercalcemia:</p>
-    <li>Hiperparatireoidismo primário;</li>
-<li>Toxicidade por vitamina D;</li>
-<li>Toxicidade por vitamina A;</li>
-<li>Câncer;</li>
-<li>Sarcoidose;</li>
-<li>Medicamentos (e.g. lítio e diuréticos tiazídicos);</li>
-<li>Desidratação ou redução do volume de líquidos;</li>
-<li>Condições genéticas (e.g. hipercalcemia hipocalciúrica familiar);</li>
-<li>Pouco ou nenhum movimento.</li>
-
-  </ul>`;
+        <p class="info-formula-label-1">Etiologias comuns de Hipercalcemia:</p>
+          <li>Hiperparatireoidismo primário;</li>
+          <li>Toxicidade por vitamina D;</li>
+          <li>Toxicidade por vitamina A;</li>
+          <li>Câncer;</li>
+          <li>Sarcoidose;</li>
+          <li>Medicamentos (e.g. lítio e diuréticos tiazídicos);</li>
+          <li>Desidratação ou redução do volume de líquidos;</li>
+          <li>Condições genéticas (e.g. hipercalcemia hipocalciúrica familiar);</li>
+          <li>Pouco ou nenhum movimento.</li>
+      </ul>`;
 
     container.innerHTML = montarAccordion(refs, formula, cuidados);
     iniciarAccordion();
