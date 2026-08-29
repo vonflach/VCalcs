@@ -303,5 +303,68 @@
     <script src="accordion.js"></script>
     <script src="app.js"></script>
     <script src="feedback.js"></script>
+
+    <!-- PWA -->
+    <link rel="manifest" href="/VCalcs/manifest.json" />
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/VCalcs/service-worker.js")
+          .then((reg) => {
+            reg.addEventListener("updatefound", () => {
+              const novo = reg.installing;
+              novo.addEventListener("statechange", () => {
+                if (
+                  novo.state === "installed" &&
+                  navigator.serviceWorker.controller
+                ) {
+                  const banner = document.getElementById("banner-atualizar");
+                  if (banner) banner.classList.remove("escondido");
+                }
+              });
+            });
+          });
+      }
+    </script>
   </body>
+
+  <div
+    id="banner-atualizar"
+    class="escondido"
+    style="
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0e7490;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 9999;
+      white-space: nowrap;
+    "
+  >
+    Nova versão disponível
+    <button
+      onclick="window.location.reload()"
+      style="
+        background: #fff;
+        color: #0e7490;
+        border: none;
+        border-radius: 6px;
+        padding: 6px 12px;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 0.85rem;
+      "
+    >
+      Atualizar agora
+    </button>
+  </div>
 </html>
