@@ -252,6 +252,8 @@
   <p id="inf-erro" class="calc-erro escondido">
     Preencha todos os campos com valores válidos.
   </p>
+
+  <div id="inf-accordion-container"></div>
 </div>
 
 <style>
@@ -439,6 +441,67 @@
 <script>
   (function () {
     let objetivoAtual = "dose";
+
+    const container = document.getElementById("inf-accordion-container");
+
+    var refs = `
+  <ol class="info-list">
+    <li>Referências não se aplicam &mdash; Esta calculadora realiza conversões matemáticas de unidades.</li>
+  </ol>`;
+
+    var cuidados = `
+  <ul class="info-list">
+    <li>Preste atenção no padrão da solução de sua instituição &mdash; Sempre confirme a quantidade de solvente e soluto.</li>
+    <li>Lembre de utilizar o peso do paciente, quando este for necessário.</li>
+  </ul>`;
+
+    function montarFormula() {
+      if (objetivoAtual === "dose") {
+        return `
+      <p class="info-formula-label">Fórmula:</p>
+      <div class="info-formula-block">
+        \\( \\text{Dose} = \\dfrac{\\text{Concentração} \\times \\text{Vazão}}{\\text{Peso}} \\)
+      </div>
+      <p class="info-formula-nota">Peso apenas quando selecionado. Concentração = Fármaco / Volume.</p>`;
+      }
+
+      return `
+    <p class="info-formula-label">Fórmula:</p>
+    <div class="info-formula-block">
+      \\( \\text{Vazão} = \\dfrac{\\text{Dose} \\times \\text{Peso}}{\\text{Concentração}} \\)
+    </div>
+    <p class="info-formula-nota">Peso apenas quando selecionado. Concentração = Fármaco / Volume.</p>`;
+    }
+
+    container.innerHTML = montarAccordion(
+      refs,
+      `<div id="inf-formula-conteudo">${montarFormula()}</div>`,
+      cuidados,
+    );
+
+    iniciarAccordion();
+
+    renderMathInElement(container, {
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+    });
+
+    document.getElementById("btn-dose").addEventListener("click", () => {
+      const formulaEl = document.getElementById("inf-formula-conteudo");
+      if (!formulaEl) return;
+      formulaEl.innerHTML = montarFormula();
+      renderMathInElement(formulaEl, {
+        delimiters: [{ left: "\\(", right: "\\)", display: false }],
+      });
+    });
+
+    document.getElementById("btn-vazao").addEventListener("click", () => {
+      const formulaEl = document.getElementById("inf-formula-conteudo");
+      if (!formulaEl) return;
+      formulaEl.innerHTML = montarFormula();
+      renderMathInElement(formulaEl, {
+        delimiters: [{ left: "\\(", right: "\\)", display: false }],
+      });
+    });
 
     // --- Alterna objetivo ---
     window.selecionarObjetivo = function (objetivo) {

@@ -155,7 +155,7 @@
       >
       <label
         ><input type="radio" name="tvp-alt-diag" value="sim" />
-        <span>Sim (−2)</span></label
+        <span>Sim</span></label
       >
     </div>
   </div>
@@ -167,9 +167,23 @@
     <p class="calc-resultado-tag" id="tvp-tag"></p>
     <p class="calc-resultado-interpretacao" id="tvp-interpretacao"></p>
   </div>
+
+  <div id="tvp-accordion-container"></div>
 </div>
 
 <style>
+  .info-formula-block-tvp {
+    background: var(--cor-olive);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--cor-texto);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
   .calc-tvp {
     max-width: 480px;
     margin: 0 auto;
@@ -280,6 +294,45 @@
     "tvp-colaterais",
     "tvp-previa",
   ];
+
+  const container = document.getElementById("tvp-accordion-container");
+
+  var refs = `
+  <ol class="info-list">
+    <li>Wells PS, et al. Accuracy of clinical assessment of deep-vein thrombosis.
+      <a href="https://doi.org/10.1016/s0140-6736(95)92535-x" target="_blank">Lancet, 1995.</a>
+    </li>
+    <li>Wells Ps, et al. Value of assessment of pretest probability of deep-vein thrombosis in clinical management.
+      <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(97)08140-3/abstract" target="_blank">Lancet, 1997.</a>
+    </li>
+    <li>Wells Ps, et al. Evaluation of D-dimer in the diagnosis of suspected deep-vein thrombosis.
+      <a href="https://doi.org/10.1056/nejmoa023153" target="_blank">N Engl J Med., 2003.</a>
+    </li>
+  </ol>`;
+
+  var formula = `
+  <p class="info-formula-label">Fórmula:</p>
+  <div class="info-formula-block-tvp">
+\\( \\begin{gathered} \\text{Score Wells} = \\sum_{i} w_i, \\quad w_i \\in \\{-2\\,+1\\} \\\\ w_i = -2 \\text{ se Ddx alternativo mais provável que TVP} \\end{gathered} \\)
+  </div>
+  <p class="info-formula-nota">
+    Sua validade isolada é limitada &mdash; Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.
+  </p>`;
+
+  var cuidados = `
+  <ul class="info-list">
+    <li>Deve-se aplicar o score diante da suspeita de TVP, e não o contrário!</li>
+  </ul>`;
+
+  container.innerHTML = montarAccordion(refs, formula, cuidados);
+  iniciarAccordion();
+
+  container.innerHTML = montarAccordion(refs, formula, cuidados);
+  iniciarAccordion();
+  renderMathInElement(container, {
+    // linha nova
+    delimiters: [{ left: "\\(", right: "\\)", display: false }],
+  });
 
   document.getElementById("tvp-btn-calcular").addEventListener("click", () => {
     const scoreCampos = TVP_CAMPOS_POSITIVOS.reduce((total, nome) => {

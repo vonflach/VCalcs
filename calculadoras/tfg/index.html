@@ -99,6 +99,8 @@
   <p id="tfg-erro" class="calc-erro escondido">
     Preencha todos os campos com valores válidos.
   </p>
+
+  <div id="tfg-accordion-container"></div>
 </div>
 
 <style>
@@ -325,6 +327,12 @@
   .calc-resultado.g5 .calc-resultado-tag {
     color: #7f1d1d;
   }
+
+  .info-formula-label-1 {
+    margin: 24px 0 8px;
+    color: var(--cor-texto-mudo);
+    font-size: 0.8rem;
+  }
 </style>
 
 <script>
@@ -352,6 +360,14 @@
       // Limpa resultado ao trocar fórmula
       resultadoEl.className = "calc-resultado escondido";
       erroEl.classList.add("escondido");
+
+      const formulaEl = document.getElementById("tfg-formula-conteudo");
+      if (formulaEl) {
+        formulaEl.innerHTML = montarFormulaTFG();
+        renderMathInElement(formulaEl, {
+          delimiters: [{ left: "\\(", right: "\\)", display: false }],
+        });
+      }
     }
 
     // --- Classificação KDIGO ---
@@ -481,6 +497,72 @@
         campo.addEventListener("keydown", (e) => {
           if (e.key === "Enter") calcular();
         });
+    });
+
+    // Inicialização
+    // --- Accordion ---
+    const formulasKatex = {
+      cg: `\\( \\text{TFGe} = \\dfrac{(140 - \\text{Idade}) \\times \\text{Peso}}{72 \\times \\text{Cr}} \\times 0{,}85 \\text{ (se Feminino)} \\)`,
+      mdrd: `\\( \\text{TFGe} = 175 \\times \\text{Cr}^{-1{,}154} \\times \\text{Idade}^{-0{,}203} \\times 0{,}742 \\text{ (se Fem.)} \\times 1{,}212 \\text{ (se Afrodesc.)} \\)`,
+      ckdepi: `\\( \\text{TFGe} = 142 \\times \\left(\\dfrac{\\text{Cr}}{k}\\right)^\\alpha \\times 0{,}9938^{\\text{Idade}} \\times 1{,}012 \\text{ (se Fem.)} \\)`,
+    };
+
+    const formulaLabels = {
+      cg: "Cockcroft-Gault",
+      mdrd: "MDRD",
+      ckdepi: "CKD-EPI 2021",
+    };
+
+    function montarFormulaTFG() {
+      const formula = document.getElementById("formula-tfg-select").value;
+      return `
+        <p class="info-formula-label">Fórmula ${formulaLabels[formula]}:</p>
+        <div class="info-formula-block">
+          ${formulasKatex[formula]}
+        </div>
+        <p class="info-formula-nota">Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.</p>`;
+    }
+
+    var refs = `
+      <ol class="info-list">
+        <p class="info-formula-label">Referências Cockcroft-Gault:</p>
+          <li>Cockcroft DW, Gault M. Prediction of creatinine clearance from serum creatinine.
+          <a href="https://doi.org/10.1159/000180580" target="_blank">Nephron, 1976.</a>
+          </li>
+      </ol>
+      <ol class="info-list">
+        <p class="info-formula-label-1">Referências MDRD:</p>
+          <li>Levey AS, et al. A more accurate method to estimate glomerular filtration rate from serum creatinine: a new prediction equation. Modification of Diet in Renal Disease Study Group.
+          <a href="https://doi.org/10.7326/0003-4819-130-6-199903160-00002" target="_blank">Ann Intern Med, 1999.</a>
+          </li>
+          <li>Rule AD, et al. Using Serum Creatinine To Estimate Glomerular Filtration Rate: Accuracy in Good Health and in Chronic Kidney Disease.
+          <a href="https://doi.org/10.7326/0003-4819-141-12-200412210-00009" target="_blank">Ann Intern Med, 2004.</a>
+          </li>
+      </ol>
+      <ol class="info-list">
+        <p class="info-formula-label-1">Referências CKD-EPI 2021:</p>
+          <li>Levey AS, et al. A new equation to estimate glomerular filtration rate.
+          <a href="https://doi.org/10.7326/0003-4819-150-9-200905050-00006" target="_blank">Ann Intern Med, 2009.</a>
+          </li>
+          <li>Inker La, et al. New Creatinine- and Cystatin C-Based Equations to Estimate GFR without Race.
+          <a href="https://doi.org/10.1056/nejmoa2102953" target="_blank">N Engl J Med, 2021.</a>
+          </li>
+      </ol>`;
+    var cuidados = `
+      <ul class="info-list">
+        <li>Sempre faça uma avaliação clínica individualizada, além de checar medicamentos potencialmente nefrotóxicos em uso.</li>
+        <li>Classifique, sempre que possível, o paciente conforme sua função renal, seguindo as diretrizes mais atualizadas para tomar as melhores condutas.</li>
+      </ul>`;
+
+    const containerTFG = document.getElementById("tfg-accordion-container");
+    containerTFG.innerHTML = montarAccordion(
+      refs,
+      `<div id="tfg-formula-conteudo">${montarFormulaTFG()}</div>`,
+      cuidados,
+    );
+    iniciarAccordion();
+    renderMathInElement(containerTFG, {
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
     });
 
     // Inicialização

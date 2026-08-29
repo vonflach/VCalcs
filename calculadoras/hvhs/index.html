@@ -175,6 +175,8 @@
   </div>
 
   <p id="hvhs-erro" class="calc-erro escondido"></p>
+
+  <div id="hvhs-accordion-container"></div>
 </div>
 
 <style>
@@ -190,7 +192,15 @@
   }
 
   .calc-campo {
-    margin-bottom: 16px;
+    margin-bottom: 18px;
+  }
+
+  .calc-campo > label:not(.label-toggle) {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--cor-texto);
+    margin-bottom: 6px;
+    font-weight: 600;
   }
 
   .eletrolito-campos {
@@ -202,6 +212,7 @@
     display: flex;
     gap: 1.2rem;
     flex-wrap: wrap;
+    align-items: center;
   }
 
   .radio-group label {
@@ -212,6 +223,7 @@
     font-weight: 400;
     color: #374151;
     cursor: pointer;
+    margin-bottom: 0;
   }
 
   .calc-campo input[type="number"],
@@ -343,6 +355,45 @@
 
 <script>
   (function () {
+    const container = document.getElementById("hvhs-accordion-container");
+
+    var refs = `
+      <ol class="info-list">
+        <li>Holliday MA, Segar WE. THE MAINTENANCE NEED FOR WATER IN PARENTERAL FLUID THERAPY.
+          <a href="https://doi.org/10.1542/peds.19.5.823" target="_blank">Pediatrics, 1957.</a>
+        </li>
+      </ol>`;
+
+    var formula = `
+      <p class="info-formula-label">Fórmula — Holliday-Segar:</p>
+        <div class="info-formula-block">
+          \\( \\text{Vol}_{24h} = \\begin{cases}
+            100 \\times P & \\text{se } P \\leq 10\\text{ kg} \\\\
+            1000 + 50 \\times (P - 10) & \\text{se } 10 < P \\leq 20\\text{ kg} \\\\
+            1500 + 20 \\times (P - 20) & \\text{se } P > 20\\text{ kg}
+          \\end{cases} \\)
+        </div>
+      <p class="info-formula-nota">
+        Sua validade isolada é limitada &mdash; Sempre utilize em conjunto com o quadro clínico e demais avaliações laboratoriais.
+      </p>`;
+
+    var cuidados = `
+      <ul class="info-list">
+        <li>Ajuste conforme estado clínico, patologia de base e balanço hídrico;</li>
+        <li>Priorize a via mais fisiológica;</li>
+        <li>Atente para os níveis de eletrólitos do paciente.</li>
+      </ul>`;
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+
+    container.innerHTML = montarAccordion(refs, formula, cuidados);
+    iniciarAccordion();
+    renderMathInElement(container, {
+      // linha nova
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+    });
+
     const CONC = {
       na: 3.4,
       ca: 0.46,
