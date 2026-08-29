@@ -6,6 +6,7 @@
     <title>VCalcs</title>
     <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="/VCalcs/manifest.json" />
     <!-- KaTeX -->
     <link
       rel="stylesheet"
@@ -29,6 +30,45 @@
     ></script>
   </head>
   <body>
+    <div
+      id="banner-atualizar"
+      class="escondido"
+      style="
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #0e7490;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+        white-space: nowrap;
+      "
+    >
+      Nova versão disponível
+      <button
+        onclick="window.location.reload()"
+        style="
+          background: #fff;
+          color: #0e7490;
+          border: none;
+          border-radius: 6px;
+          padding: 6px 12px;
+          font-weight: 700;
+          cursor: pointer;
+          font-size: 0.85rem;
+        "
+      >
+        Atualizar agora
+      </button>
+    </div>
     <!-- ══ TOP BAR — apenas mobile ══ -->
     <div class="mobile-topbar">
       <div class="topbar-logo" id="logo-topbar">
@@ -305,7 +345,6 @@
     <script src="feedback.js"></script>
 
     <!-- PWA -->
-    <link rel="manifest" href="/VCalcs/manifest.json" />
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
@@ -327,44 +366,4 @@
       }
     </script>
   </body>
-
-  <div
-    id="banner-atualizar"
-    class="escondido"
-    style="
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #0e7490;
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      z-index: 9999;
-      white-space: nowrap;
-    "
-  >
-    Nova versão disponível
-    <button
-      onclick="window.location.reload()"
-      style="
-        background: #fff;
-        color: #0e7490;
-        border: none;
-        border-radius: 6px;
-        padding: 6px 12px;
-        font-weight: 700;
-        cursor: pointer;
-        font-size: 0.85rem;
-      "
-    >
-      Atualizar agora
-    </button>
-  </div>
 </html>
