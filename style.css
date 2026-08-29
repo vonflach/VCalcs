@@ -459,7 +459,7 @@ body::-webkit-scrollbar {
 .area-calculadora-wrap input[type="text"]:focus,
 .area-calculadora-wrap select:focus {
   border-color: var(--cor-vermelho) !important;
-  box-shadow: 0 0 0 3px rgba(140, 0, 7, 0.15) !important;
+  box-shadow: 0 0 0 3px #09387a57(140, 0, 7, 0.15) !important;
 }
 
 /* Fundo de cada calc interna */
