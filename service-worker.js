@@ -1,4 +1,4 @@
-const CACHE_NAME = "vcalcs-v2.0.1"; // Lembre-se de incrementar quando fizer alterações grandes
+const CACHE_NAME = "vcalcs-v2.0.2"; // Lembre-se de incrementar quando fizer alterações grandes
 
 const ARQUIVOS = [
   "/VCalcs/",
