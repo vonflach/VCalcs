@@ -2,22 +2,25 @@
   "name": "VCalcs",
   "short_name": "VCalcs",
   "description": "Calculadoras clínicas para médicos",
+  "id": "/VCalcs/",
   "start_url": "/VCalcs/",
   "scope": "/VCalcs/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#0e7490",
   "icons": [
     {
       "src": "/VCalcs/assets/img/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/VCalcs/assets/img/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ]
 }

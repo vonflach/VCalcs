@@ -2,12 +2,28 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Ajustado com viewport-fit=cover para telas com cutout/notch (iPhones) -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+
+    <!-- Meta tags para PWA no iOS (Safari) -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="VCalcs" />
+    <link rel="apple-touch-icon" href="/VCalcs/assets/img/icon-192.png" />
+    <meta name="theme-color" content="#0e7490" />
+
     <title>VCalcs</title>
     <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="/VCalcs/manifest.json" />
-    <!-- KaTeX -->
+
+    <!-- KaTeX CDN -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"

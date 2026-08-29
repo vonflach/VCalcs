@@ -1,4 +1,4 @@
-const CACHE_NAME = "vcalcs-v1";
+const CACHE_NAME = "vcalcs-v2"; // Lembre-se de incrementar quando fizer alterações grandes
 
 const ARQUIVOS = [
   "/VCalcs/",
@@ -33,15 +33,23 @@ const ARQUIVOS = [
   "/VCalcs/utilitarios/meq/index.html",
 ];
 
-// Instalação — cacheia todos os arquivos
+// Instalação resiliente (não quebra se 1 arquivo falhar)
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ARQUIVOS)),
+    caches.open(CACHE_NAME).then((cache) => {
+      return Promise.allSettled(
+        ARQUIVOS.map((url) =>
+          cache
+            .add(url)
+            .catch((err) => console.warn(`Falha ao cachear: ${url}`, err)),
+        ),
+      );
+    }),
   );
   self.skipWaiting();
 });
 
-// Ativação — remove caches antigos
+// Ativação — limpa caches antigos
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
@@ -57,11 +65,25 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Fetch — serve do cache, tenta rede se não tiver
+// Fetch — Stale-While-Revalidate para garantir atualizações
 self.addEventListener("fetch", (event) => {
+  // Ignora requisições de extensões ou KaTeX CDN para não poluir o cache local
+  if (!event.request.url.startsWith(self.location.origin)) return;
+
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      return cached || fetch(event.request);
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.match(event.request).then((cachedResponse) => {
+        const fetchPromise = fetch(event.request)
+          .then((networkResponse) => {
+            if (networkResponse.status === 200) {
+              cache.put(event.request, networkResponse.clone());
+            }
+            return networkResponse;
+          })
+          .catch(() => cachedResponse);
+
+        return cachedResponse || fetchPromise;
+      });
     }),
   );
 });
