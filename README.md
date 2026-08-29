@@ -34,6 +34,33 @@ O projeto é construído com **HTML, CSS e JavaScript puros** (sem frameworks ou
 
 ---
 
+## PWA — Instalação Offline
+
+O VCalcs é uma Progressive Web App (PWA) e pode ser instalado diretamente no celular, funcionando offline após a primeira visita.
+
+### Como instalar
+
+**Android (Chrome):**
+
+1. Acesse [vonflach.github.io/VCalcs](https://vonflach.github.io/VCalcs/)
+2. Toque nos 3 pontinhos (⋮) → "Instalar app"
+
+**iPhone (Safari):**
+
+1. Acesse o link acima no Safari
+2. Toque em Compartilhar (□↑) → "Adicionar à Tela de Início"
+
+### Atualizações
+
+Quando uma nova versão for publicada, o app exibe automaticamente um banner "Nova versão disponível" para os usuários que já o instalaram.
+
+### Ao adicionar novas calculadoras
+
+1. Adicione o caminho do novo arquivo em `ARQUIVOS` no `service-worker.js`
+2. Incremente a versão no `version.js`
+
+---
+
 ## Estrutura do projeto
 
 ```
@@ -46,6 +73,9 @@ vcalcs/
 ├── registro-utilitarios.js     # Catálogo de utilitários
 ├── accordion.js                # Componente global do bloco de Referências / Fórmula / Cuidados
 ├── feedback.js                 # Sistema de Feedback
+├── service-worker.js           # Cache offline e atualização automática (PWA)
+├── version.js                  # Versão do app — atualizar a cada release
+├── manifest.json               # Metadados do PWA (nome, ícone, cor, modo standalone)
 │
 ├── assets/
 │   ├── img/                    # Logo e imagens
