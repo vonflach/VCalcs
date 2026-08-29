@@ -275,7 +275,7 @@
             <img src="assets/icons/github-142-svgrepo-com.svg" alt="GitHub" />
           </a>
         </p>
-        <div class="info-versao">Versão 2.0.0</div>
+        <div class="info-versao" id="info-versao"></div>
         <p class="autor-p">Gabriel von Flach Sarmento &mdash; 2026</p>
         <div class="feedback-wrap">
           <button class="btn-feedback" onclick="abrirFeedback()">
@@ -356,6 +356,7 @@
     </div>
 
     <!-- Ordem importa! -->
+    <script src="version.js"></script>
     <script src="registro.js"></script>
     <script src="registro-utilitarios.js"></script>
     <script src="accordion.js"></script>
@@ -368,6 +369,9 @@
         navigator.serviceWorker
           .register("/VCalcs/service-worker.js")
           .then((reg) => {
+            document.getElementById("info-versao").textContent =
+              "Versão " + APP_VERSION;
+
             reg.addEventListener("updatefound", () => {
               const novo = reg.installing;
               novo.addEventListener("statechange", () => {

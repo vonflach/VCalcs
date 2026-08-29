@@ -1,4 +1,5 @@
-const CACHE_NAME = "vcalcs-v2.0.2"; // Lembre-se de incrementar quando fizer alterações grandes
+importScripts("/VCalcs/version.js");
+const CACHE_NAME = "vcalcs-" + APP_VERSION;
 
 const ARQUIVOS = [
   "/VCalcs/",
