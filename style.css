@@ -1203,3 +1203,13 @@ input[type="number"] {
 .btn-enviar-feedback:hover {
   opacity: 0.85;
 }
+
+.util-tabela-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+}
+
+.util-tabela {
+  min-width: 480px;
+}
