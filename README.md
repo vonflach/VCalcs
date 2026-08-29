@@ -43,7 +43,7 @@ O VCalcs é uma Progressive Web App (PWA) e pode ser instalado diretamente no ce
 **Android (Chrome):**
 
 1. Acesse [vonflach.github.io/VCalcs](https://vonflach.github.io/VCalcs/)
-2. Toque nos 3 pontinhos (⋮) → "Instalar app"
+2. Toque nos 3 pontinhos (⋮) → "Instalar e Criar Atalho" → "Instalar"
 
 **iPhone (Safari):**
 
