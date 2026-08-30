@@ -11,7 +11,16 @@ VCalcs é um web app de calculadoras médicas, criado para uso rápido no dia a 
 
 O projeto é construído com **HTML, CSS e JavaScript puros** (sem frameworks ou ferramentas de build), com uma arquitetura modular pensada para facilitar a adição de novas calculadoras e utilitários ao longo do tempo.
 
-> ⚠️ **Aviso de transparência:** o código deste aplicativo foi desenvolvido com apoio de ferramentas de inteligência artificial. As fórmulas e faixas de interpretação clínica foram definidas e revisadas pelo autor.
+> ⚠️ **Aviso de transparência:** O presente app foi desenvolvido com apoio de ferramentas de IA para o código. Todas as fórmulas, critérios clínicos e faixas de interpretação foram definidos e revisados pelo autor.
+
+---
+
+## Screenshots
+
+![Home](assets/img/screenshots/home.png)
+![Calculadora](assets/img/screenshots/calculadora.png)
+![Utilitário](assets/img/screenshots/utilitario.png)
+![Sobre](assets/img/screenshots/sobre.png)
 
 ---
 
