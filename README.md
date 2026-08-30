@@ -1,5 +1,10 @@
 # VCalcs
 
+![GitHub Pages](https://img.shields.io/badge/deploy-GitHub%20Pages-brightgreen)
+![Licença](https://img.shields.io/badge/licença-MIT-blue)
+![Versão](https://img.shields.io/badge/versão-2.0.4-orange)
+![Feito com IA](https://img.shields.io/badge/desenvolvido%20com-IA-purple)
+
 VCalcs é um web app de calculadoras médicas, criado para uso rápido no dia a dia clínico — direto no navegador, sem necessidade de instalação, login ou conta de usuário.
 
 🔗 **Acesse o app:** [vonflach.github.io/VCalcs](https://vonflach.github.io/VCalcs)
