@@ -226,6 +226,10 @@ document.addEventListener("DOMContentLoaded", () => {
         scriptAntigo.replaceWith(scriptNovo);
       });
 
+      if (util.id === "ajuste_med" && typeof iniciarAjusteMed === "function") {
+        iniciarAjusteMed();
+      }
+
       renderizarKatex(areaCalculadora);
 
       secaoTitulo.textContent = util.nome;

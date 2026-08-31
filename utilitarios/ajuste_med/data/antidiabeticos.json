@@ -1,0 +1,39 @@
+{
+  "classe": "Antidiabéticos",
+  "farmacos": [
+    {
+      "farmaco": "Metformina",
+      "classe": "Biguanida",
+      "via_eliminacao": "Renal (~90%)",
+      "ajustes": [
+        {
+          "faixa": "≥60",
+          "recomendacao": "Pode manter dose habitual (Máximo de 2g /dia)"
+        },
+        {
+          "faixa": "45–59",
+          "recomendacao": "Usar com cautela &mdash; Acompanhar função renal"
+        },
+        {
+          "faixa": "30–44",
+          "recomendacao": "Dose máxima de 1g/dia &mdash; Monitorização frequente"
+        },
+        {
+          "faixa": "<30",
+          "recomendacao": "Contraindicada &mdash; Riscos superam benefícios"
+        }
+      ],
+      "cuidados_e_riscos": "Atentar para risco de acidose lática por acúmulo, especialmente com TFGe < 30 mL/min/1,73m². Considerar suspensão temporária em cenários de risco de injúria renal aguda (desidratação, uso de contraste iodado, cirurgias de grande porte, etc...)."
+    }
+  ],
+  "referencias": [
+    {
+      "id": "kdigo2022",
+      "texto": "KDIGO 2022 Clinical Practice Guideline for Diabetes Management in Chronic Kidney Disease. Kidney Int. 2022;102(5S):S1–S127."
+    },
+    {
+      "id": "sbd2024",
+      "texto": "Sociedade Brasileira de Diabetes. Diretrizes da Sociedade Brasileira de Diabetes 2024."
+    }
+  ]
+}

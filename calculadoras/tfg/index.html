@@ -480,6 +480,7 @@
       resultadoEl.className = "calc-resultado " + classificacao.classe;
       resultadoEl.classList.remove("escondido");
       resultadoEl.scrollIntoView({ behavior: "smooth", block: "end" });
+      sessionStorage.setItem("vcalcs_tfge", tfgArredondada);
     }
 
     // --- Eventos ---

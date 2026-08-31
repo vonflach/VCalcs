@@ -46,4 +46,23 @@ const registroUtilitarios = [
     ],
     caminho: "utilitarios/hip/index.html",
   },
+  {
+    id: "ajuste_med",
+    nome: "Ajuste de Posologia pela Função Renal",
+    descricao:
+      "Recomendações de ajuste de dose por classe medicamentosa conforme a TFGe do paciente.",
+    area: "Nefrologia",
+    tags: [
+      "ajuste de dose",
+      "função renal",
+      "tfge",
+      "ckd",
+      "nefro",
+      "metformina",
+      "antidiabéticos",
+      "insuficiência renal",
+      "posologia",
+    ],
+    caminho: "utilitarios/ajuste_med/index.html",
+  },
 ];

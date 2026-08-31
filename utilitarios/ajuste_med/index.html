@@ -1,0 +1,138 @@
+<div class="ajuste-med"></div>
+
+<style>
+  /* Variáveis de cor assumidas do seu projeto */
+  .ajuste-med-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+  }
+  .ajuste-med-card {
+    cursor: pointer;
+    border-left: 4px solid var(--cor-vermelho);
+    padding: 15px;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+  }
+  .ajuste-med-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .ajuste-med-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  .btn-voltar {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-weight: bold;
+    color: var(--cor-texto);
+    font-size: 1rem;
+    padding: 0;
+  }
+  .btn-voltar:hover {
+    text-decoration: underline;
+  }
+  .tfge-container {
+    margin-bottom: 25px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: var(--cor-card);
+  }
+  .tfge-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .tfge-input-group input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 120px;
+  }
+  .badge-tfge {
+    font-size: 0.8rem;
+    background-color: var(--cor-olive-escuro, #556b2f);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
+  /* Accordion Styles */
+  .am-accordion-item {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background: white;
+    overflow: hidden;
+  }
+  .am-accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    cursor: pointer;
+    background-color: #fbfbfb;
+    user-select: none;
+    color: black;
+  }
+  .am-accordion-header:hover {
+    background-color: #f1f1f1;
+  }
+  .am-accordion-title-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+  }
+  .am-chevron {
+    transition: transform 0.2s ease;
+    font-size: 1.2rem;
+    color: var(--cor-grafite, #4a4a4a);
+  }
+  .am-chevron.open {
+    transform: rotate(90deg);
+  }
+  .am-accordion-body {
+    padding: 0 15px;
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      max-height 0.3s ease,
+      padding 0.3s ease;
+    border-top: 1px solid transparent;
+    color: black;
+  }
+  .am-accordion-body.open {
+    padding: 15px;
+    max-height: 1000px; /* Valor alto para animação funcionar */
+    border-top-color: rgb(0, 0, 0);
+  }
+
+  /* Badges de Recomendação */
+  .badge-rec {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  .rec-normal {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  .rec-cautela {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  .rec-contraindicado {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+</style>
