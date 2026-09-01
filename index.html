@@ -364,15 +364,17 @@
     <script src="app.js"></script>
     <script src="feedback.js"></script>
 
+    <script>
+      document.getElementById("info-versao").textContent =
+        "Versão " + APP_VERSION;
+    </script>
+
     <!-- PWA -->
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
           .register("/VCalcs/service-worker.js")
           .then((reg) => {
-            document.getElementById("info-versao").textContent =
-              "Versão " + APP_VERSION;
-
             reg.addEventListener("updatefound", () => {
               const novo = reg.installing;
               novo.addEventListener("statechange", () => {
