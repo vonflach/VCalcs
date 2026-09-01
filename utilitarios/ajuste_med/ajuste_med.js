@@ -117,7 +117,10 @@
     `;
 
     // Renderiza a estrutura do accordion
-    classeAtualDados.farmacos.forEach((farmaco, index) => {
+    const farmacosOrdenados = [...classeAtualDados.farmacos].sort((a, b) =>
+      a.farmaco.localeCompare(b.farmaco, "pt-BR", { sensitivity: "base" }),
+    );
+    farmacosOrdenados.forEach((farmaco, index) => {
       html += `
         <div class="am-accordion-item">
           <div class="am-accordion-header" onclick="window.toggleFarmaco(${index})">
@@ -180,7 +183,10 @@
     }
 
     // Avalia cada fármaco e injeta o texto diretamente nos nós específicos
-    classeAtualDados.farmacos.forEach((farmaco, index) => {
+    const farmacosOrdenados = [...classeAtualDados.farmacos].sort((a, b) =>
+      a.farmaco.localeCompare(b.farmaco, "pt-BR", { sensitivity: "base" }),
+    );
+    farmacosOrdenados.forEach((farmaco, index) => {
       const badgeDOM = document.getElementById(`am-badge-rec-${index}`);
       const textoRecDOM = document.getElementById(`am-rec-texto-${index}`);
 
