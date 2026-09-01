@@ -2,13 +2,29 @@
   "classe": "Antidiabéticos",
   "farmacos": [
     {
-      "farmaco": "Metformina",
-      "classe": "Biguanida",
-      "via_eliminacao": "Renal (~90%)",
+      "farmaco": "Insulina NE",
+      "classe": "Insulinas",
+      "via_eliminacao": "Predominantemente Hepática e Renal",
       "ajustes": [
         {
           "faixa": "≥60",
-          "recomendacao": "Pode manter dose habitual (Máximo de 2g /dia)"
+          "recomendacao": "Pode-se manter dose habitual"
+        },
+        {
+          "faixa": "<60",
+          "recomendacao": "Usar com cautela &mdash; Reduzir dose em 25%"
+        }
+      ],
+      "cuidados_e_riscos": "Atentar para risco de hipoglicemia."
+    },
+    {
+      "farmaco": "Metformina",
+      "classe": "Biguanida",
+      "via_eliminacao": "Majoritariamente Renal",
+      "ajustes": [
+        {
+          "faixa": "≥60",
+          "recomendacao": "Pode-se manter dose habitual (Máximo de 2g /dia)"
         },
         {
           "faixa": "45–59",
@@ -24,6 +40,74 @@
         }
       ],
       "cuidados_e_riscos": "Atentar para risco de acidose lática por acúmulo, especialmente com TFGe < 30 mL/min/1,73m². Considerar suspensão temporária em cenários de risco de injúria renal aguda (desidratação, uso de contraste iodado, cirurgias de grande porte, etc...)."
+    },
+    {
+      "farmaco": "Gliclazida",
+      "classe": "Sulfonilureias",
+      "via_eliminacao": "Majoritariamente Hepática",
+      "ajustes": [
+        {
+          "faixa": "≥30",
+          "recomendacao": "Pode-se manter dose habitual (Máximo de 120g /dia)"
+        },
+        {
+          "faixa": "<30",
+          "recomendacao": "Sem evidências robustas &mdash; Pode ser considerado para melhorar controle glicêmico com cautela"
+        }
+      ],
+      "cuidados_e_riscos": "Atentar para risco de hipoglicemia, principalmente no paciente com DRC. Considerar utilizar doses reduzidas."
+    },
+    {
+      "farmaco": "Glibenclamida",
+      "classe": "Sulfonilureias",
+      "via_eliminacao": "Majoritariamente Renal",
+      "ajustes": [
+        {
+          "faixa": "≥90",
+          "recomendacao": "Pode-se manter dose habitual (Máximo de 20g /dia)"
+        },
+        {
+          "faixa": "60-89",
+          "recomendacao": "Reduzir dose conforme necessário"
+        },
+        {
+          "faixa": "<60",
+          "recomendacao": "Contraindicada &mdash; Riscos superam benefícios"
+        }
+      ],
+      "cuidados_e_riscos": "Atentar para risco de hipoglicemia, Especialmente se TFG < 90 mL/min/1,73m²."
+    },
+    {
+      "farmaco": "Dapagliflozina",
+      "classe": "Inibidor de SGLT2",
+      "via_eliminacao": "Majoritariamente Renal",
+      "ajustes": [
+        {
+          "faixa": "≥25",
+          "recomendacao": "Pode-se manter dose habitual (Máximo de 10g /dia)"
+        },
+        {
+          "faixa": "<25",
+          "recomendacao": "Contraindicada &mdash; Riscos superam benefícios"
+        }
+      ],
+      "cuidados_e_riscos": "Atentar para a possibilidade de cetoacidose euglicêmica."
+    },
+    {
+      "farmaco": "Empagliflozina",
+      "classe": "Inibidor de SGLT2",
+      "via_eliminacao": "Principalmente Renal e Fecal",
+      "ajustes": [
+        {
+          "faixa": "≥20",
+          "recomendacao": "Pode-se manter dose habitual (Máximo de 25g /dia)"
+        },
+        {
+          "faixa": "<20",
+          "recomendacao": "Contraindicada &mdash; Riscos superam benefícios"
+        }
+      ],
+      "cuidados_e_riscos": "Atentar para a possibilidade de cetoacidose euglicêmica."
     }
   ],
   "referencias": [
@@ -33,7 +117,7 @@
     },
     {
       "id": "sbd2024",
-      "texto": "Sociedade Brasileira de Diabetes. Diretrizes da Sociedade Brasileira de Diabetes 2024."
+      "texto": "Sociedade Brasileira de Diabetes. Diretriz da Sociedade Brasileira de Diabetes 2026: Doença Renal do Diabetes. Disponível em: <a href=\"https://diretriz.diabetes.org.br/doenca-renal-do-diabetes/\">https://diretriz.diabetes.org.br/doenca-renal-do-diabetes/</a>."
     }
   ]
 }
