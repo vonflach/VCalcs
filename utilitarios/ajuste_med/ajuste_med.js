@@ -38,6 +38,10 @@
     }
   };
 
+  window.onChangeIndicacao = function (index) {
+    atualizarRecomendacoesDinamicamente();
+  };
+
   // Helper para sempre buscar o container fresco no DOM
   function getContainer() {
     return document.querySelector(".ajuste-med");
@@ -135,7 +139,25 @@
             <p><strong>Classe:</strong> ${farmaco.classe}</p>
             <p style="margin-top:10px;"><strong>Via de Eliminação:</strong> ${farmaco.via_eliminacao}</p>
             <!-- Container dinâmico para a recomendação -->
-            <div id="am-rec-texto-${index}"></div>
+            ${
+              farmaco.indicacoes
+                ? `
+              <div class="am-indicacao-selector" style="margin-top:10px;">
+                <label for="am-select-indicacao-${index}"><strong>Indicação:</strong></label>
+                <select id="am-select-indicacao-${index}" 
+                        onchange="window.onChangeIndicacao(${index})"
+                        style="margin-left:8px; padding:4px 8px; border-radius:6px;">
+                  ${farmaco.indicacoes
+                    .map(
+                      (ind) => `<option value="${ind.id}">${ind.nome}</option>`,
+                    )
+                    .join("")}
+                </select>
+              </div>
+            `
+                : ""
+            }
+<div id="am-rec-texto-${index}"></div>
             <p style="margin-top:10px;"><strong>Cuidados e Riscos:</strong> ${farmaco.cuidados_e_riscos}</p>
           </div>
         </div>
@@ -197,8 +219,16 @@
         return;
       }
 
-      const recEncontrada = interpretarFaixa(tfge, farmaco.ajustes);
+      let ajustesAtivos = farmaco.ajustes;
+      if (farmaco.indicacoes) {
+        const sel = document.getElementById(`am-select-indicacao-${index}`);
+        const indicacaoAtiva =
+          farmaco.indicacoes.find((ind) => ind.id === sel?.value) ??
+          farmaco.indicacoes[0];
+        ajustesAtivos = indicacaoAtiva.ajustes;
+      }
 
+      const recEncontrada = interpretarFaixa(tfge, ajustesAtivos);
       if (recEncontrada) {
         const categoriaCss = definirCorBadge(recEncontrada.recomendacao);
         const textoBadge = resumirBadge(recEncontrada.recomendacao);
