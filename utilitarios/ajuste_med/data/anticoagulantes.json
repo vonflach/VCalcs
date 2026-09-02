@@ -1,39 +1,110 @@
 {
-  "classe": "Antidiabéticos",
+  "classe": "Anticoagulantes",
   "farmacos": [
     {
-      "farmaco": "Metformina",
-      "classe": "Biguanida",
-      "via_eliminacao": "Renal (~90%)",
-      "ajustes": [
+      "farmaco": "Enoxaparina",
+      "classe": "Heparina de Baixo Peso Molecular",
+      "via_eliminacao": "Majoritariamente Renal",
+      "indicacoes": [
         {
-          "faixa": "≥60",
-          "recomendacao": "Pode manter dose habitual (Máximo de 2g /dia)"
+          "id": "profilaxia",
+          "nome": "Dose Profilática",
+          "ajustes": [
+            {
+              "faixa": "≥30",
+              "recomendacao": "Dose habitual: 40 mg, 1x/dia, via SC."
+            },
+            {
+              "faixa": "<30",
+              "recomendacao": "Reduzir para 20 mg, 1x/dia, via SC. Dar preferência para outra medicação!"
+            }
+          ]
         },
         {
-          "faixa": "45–59",
-          "recomendacao": "Usar com cautela &mdash; Acompanhar função renal"
-        },
-        {
-          "faixa": "30–44",
-          "recomendacao": "Dose máxima de 1g/dia &mdash; Monitorização frequente"
-        },
-        {
-          "faixa": "<30",
-          "recomendacao": "Contraindicada &mdash; Riscos superam benefícios"
+          "id": "terapeutica",
+          "nome": "Dose Plena",
+          "ajustes": [
+            {
+              "faixa": "≥30",
+              "recomendacao": "Dose habitual: 1 mg/kg/dose, 12/12h, via SC."
+            },
+            {
+              "faixa": "<30",
+              "recomendacao": "Reduzir para 1 mg/kg/dia, 1x/dia, via SC &mdash; Dar preferência para outra medicação!"
+            }
+          ]
         }
       ],
-      "cuidados_e_riscos": "Atentar para risco de acidose lática por acúmulo, especialmente com TFGe < 30 mL/min/1,73m². Considerar suspensão temporária em cenários de risco de injúria renal aguda (desidratação, uso de contraste iodado, cirurgias de grande porte, etc...)."
+      "cuidados_e_riscos": "Atentar para o peso do paciente &mdash; Considerar aumentar/diminuir dose, conforme necessário, individualizando o cuidado do paciente.",
+      "ajustes": []
+    },
+    {
+      "farmaco": "Heparina Não Fracionada (Subcutâneo)",
+      "classe": "Heparina Não Fracionada",
+      "via_eliminacao": "Majoritariamente Hepática",
+      "indicacoes": [
+        {
+          "id": "profilaxia",
+          "nome": "Dose Profilática",
+          "ajustes": [
+            {
+              "faixa": "≥0",
+              "recomendacao": "Dose habitual: 5000-7500 UI, 8/8h ou 12/12h, via SC."
+            }
+          ]
+        },
+        {
+          "id": "terapeutica",
+          "nome": "Dose Plena",
+          "ajustes": [
+            {
+              "faixa": "≥0",
+              "recomendacao": "Dose habitual: 1ª dose 333 UI/kg, após, 250 UI/kg 12/12h, via SC."
+            }
+          ]
+        }
+      ],
+      "cuidados_e_riscos": "Atentar para o peso do paciente &mdash; Considerar aumentar/diminuir dose, conforme necessário, individualizando o cuidado do paciente.",
+      "ajustes": []
+    },
+    {
+      "farmaco": "Heparina Não Fracionada (Venosa)",
+      "classe": "Heparina Não Fracionada",
+      "via_eliminacao": "Majoritariamente Hepática",
+      "indicacoes": [
+        {
+          "id": "profilaxia",
+          "nome": "Dose Profilática",
+          "ajustes": [
+            {
+              "faixa": "≥0",
+              "recomendacao": "Dose habitual: Não se aplica."
+            }
+          ]
+        },
+        {
+          "id": "terapeutica",
+          "nome": "Dose Plena",
+          "ajustes": [
+            {
+              "faixa": "≥0",
+              "recomendacao": "Dose habitual: Bolus EV 80 UI/kg ou 5000 UI, seguida de infusão contínua de 18 UI/kg/h ou 1300 UI/h."
+            }
+          ]
+        }
+      ],
+      "cuidados_e_riscos": "Atentar para o peso do paciente &mdash; Considerar aumentar/diminuir dose, conforme necessário, individualizando o cuidado do paciente.",
+      "ajustes": []
     }
   ],
   "referencias": [
     {
-      "id": "kdigo2022",
-      "texto": "KDIGO 2022 Clinical Practice Guideline for Diabetes Management in Chronic Kidney Disease. Kidney Int. 2022;102(5S):S1–S127."
+      "id": "sbacvsp2019",
+      "texto": "SOCIEDADE BRASILEIRA DE ANGIOLOGIA E DE CIRURGIA VASCULAR – SÃO PAULO (SBACV-SP). Consenso e atualização na profilaxia e no tratamento do tromboembolismo venoso. São Paulo: SBACV-SP, 2019. Disponível em: <a href=\"https://sbacvsp.com.br/consenso-e-atualizacao-na-profilaxia-e-no-tratamento-do-tromboembolismo-venoso/\">https://sbacvsp.com.br/consenso-e-atualizacao-na-profilaxia-e-no-tratamento-do-tromboembolismo-venoso/</a>. Acesso em: 1 set. 2026"
     },
     {
-      "id": "sbd2024",
-      "texto": "Sociedade Brasileira de Diabetes. Diretrizes da Sociedade Brasileira de Diabetes 2024."
+      "id": "tvp2024",
+      "texto": "SOBREIRA, Marcone Lima et al. Diretrizes sobre trombose venosa profunda da Sociedade Brasileira de Angiologia e Cirurgia Vascular. Jornal Vascular Brasileiro, v. 23, e20230107, 2024. Disponível em: <a href=\"https://doi.org/10.1590/1677-5449.202301071\">https://doi.org/10.1590/1677-5449.202301071</a>. Acesso em: 1 set. 2026"
     }
   ]
 }
